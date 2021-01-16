@@ -1,0 +1,4102 @@
+
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>San Vooperisco Community Server - levels</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width">
+
+    <style>
+        /* General */
+
+@font-face {
+    font-family: Whitney;
+    src: url(https://cdn.jsdelivr.net/gh/Tyrrrz/DiscordFonts@master/whitney-300.woff);
+    font-weight: 300;
+}
+
+@font-face {
+    font-family: Whitney;
+    src: url(https://cdn.jsdelivr.net/gh/Tyrrrz/DiscordFonts@master/whitney-400.woff);
+    font-weight: 400;
+}
+
+@font-face {
+    font-family: Whitney;
+    src: url(https://cdn.jsdelivr.net/gh/Tyrrrz/DiscordFonts@master/whitney-500.woff);
+    font-weight: 500;
+}
+
+@font-face {
+    font-family: Whitney;
+    src: url(https://cdn.jsdelivr.net/gh/Tyrrrz/DiscordFonts@master/whitney-600.woff);
+    font-weight: 600;
+}
+
+@font-face {
+    font-family: Whitney;
+    src: url(https://cdn.jsdelivr.net/gh/Tyrrrz/DiscordFonts@master/whitney-700.woff);
+    font-weight: 700;
+}
+
+body {
+    font-family: "Whitney", "Helvetica Neue", Helvetica, Arial, sans-serif;
+    font-size: 17px;
+}
+
+a {
+    text-decoration: none;
+}
+
+a:hover {
+    text-decoration: underline;
+}
+
+img {
+    object-fit: contain;
+}
+
+.markdown {
+    max-width: 100%;
+    line-height: 1.3;
+    overflow-wrap: break-word;
+}
+
+.preserve-whitespace {
+    white-space: pre-wrap;
+}
+
+.spoiler {
+    /* width: fit-content; */
+    display: inline-block;
+    /* This is more consistent across browsers, the old attribute worked well under Chrome but not FireFox. */
+}
+
+.spoiler--hidden {
+    cursor: pointer;
+}
+
+.spoiler-text {
+    border-radius: 3px;
+}
+
+.spoiler--hidden .spoiler-text {
+    color: rgba(0, 0, 0, 0);
+}
+
+.spoiler--hidden .spoiler-text::selection {
+    color: rgba(0, 0, 0, 0);
+}
+
+.spoiler-image {
+    position: relative;
+    overflow: hidden;
+    border-radius: 3px;
+}
+
+.spoiler--hidden .spoiler-image {
+    box-shadow: 0 0 1px 1px rgba(0, 0, 0, 0.1);
+}
+
+.spoiler--hidden .spoiler-image * {
+    filter: blur(44px);
+}
+
+.spoiler--hidden .spoiler-image:after {
+    content: "SPOILER";
+    color: #dcddde;
+    background-color: rgba(0, 0, 0, 0.6);
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    font-weight: 600;
+    padding: 100%;
+    border-radius: 20px;
+    letter-spacing: 0.05em;
+    font-size: 0.9em;
+}
+
+.spoiler--hidden:hover .spoiler-image:after {
+    color: #fff;
+    background-color: rgba(0, 0, 0, 0.9);
+}
+
+.quote {
+    margin: 0.1em 0;
+    padding-left: 0.6em;
+    border-left: 4px solid;
+    border-radius: 3px;
+}
+
+.pre {
+    font-family: "Consolas", "Courier New", Courier, monospace;
+}
+
+.pre--multiline {
+    margin-top: 0.25em;
+    padding: 0.5em;
+    border: 2px solid;
+    border-radius: 5px;
+}
+
+.pre--inline {
+    padding: 2px;
+    border-radius: 3px;
+    font-size: 0.85em;
+}
+
+.mention {
+    border-radius: 3px;
+    padding: 0 2px;
+    color: #7289da;
+    background: rgba(114, 137, 218, .1);
+    font-weight: 500;
+}
+
+.emoji {
+    width: 1.25em;
+    height: 1.25em;
+    margin: 0 0.06em;
+    vertical-align: -0.4em;
+}
+
+.emoji--small {
+    width: 1em;
+    height: 1em;
+}
+
+.emoji--large {
+    width: 2.8em;
+    height: 2.8em;
+}
+
+/* Preamble */
+
+.preamble {
+    display: grid;
+    margin: 0 0.3em 0.6em 0.3em;
+    max-width: 100%;
+    grid-template-columns: auto 1fr;
+}
+
+.preamble__guild-icon-container {
+    grid-column: 1;
+}
+
+.preamble__guild-icon {
+    max-width: 88px;
+    max-height: 88px;
+}
+
+.preamble__entries-container {
+    grid-column: 2;
+    margin-left: 0.6em;
+}
+
+.preamble__entry {
+    font-size: 1.4em;
+}
+
+.preamble__entry--small {
+    font-size: 1em;
+}
+
+/* Chatlog */
+
+.chatlog {
+    max-width: 100%;
+}
+
+.chatlog__message-group {
+    display: grid;
+    margin: 0 0.6em;
+    padding: 0.9em 0;
+    border-top: 1px solid;
+    grid-template-columns: auto 1fr;
+}
+
+.chatlog__reference-symbol {
+    grid-column: 1;
+    border-style: solid;
+    border-width: 2px 0 0 2px;
+    border-radius: 8px 0 0 0;
+    margin-left: 16px;
+    margin-top: 8px;
+}
+
+.chatlog__reference {
+    display: flex;
+    grid-column: 2;
+    margin-left: 1.2em;
+    margin-bottom: 0.25em;
+    font-size: 0.875em;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    align-items: center;
+}
+
+.chatlog__reference-avatar {
+    border-radius: 50%;
+    height: 16px;
+    width: 16px;
+    margin-right: 0.25em;
+}
+
+.chatlog__reference-name {
+    margin-right: 0.25em;
+    font-weight: 600;
+}
+
+.chatlog__reference-link {
+    flex-grow: 1;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.chatlog__reference-link:hover {
+    text-decoration: none;
+}
+
+.chatlog__reference-content > * {
+    display: inline;
+}
+
+.chatlog__reference-edited-timestamp {
+    margin-left: 0.25em;
+    font-size: 0.8em;
+}
+
+.chatlog__author-avatar-container {
+    grid-column: 1;
+    width: 40px;
+    height: 40px;
+}
+
+.chatlog__author-avatar {
+    border-radius: 50%;
+    height: 40px;
+    width: 40px;
+}
+
+.chatlog__messages {
+    grid-column: 2;
+    margin-left: 1.2em;
+    min-width: 50%;
+}
+
+.chatlog__author-name {
+    font-weight: 500;
+}
+
+.chatlog__timestamp {
+    margin-left: 0.3em;
+    font-size: 0.75em;
+}
+
+.chatlog__message {
+    padding: 0.1em 0.3em;
+    margin: 0 -0.3em;
+    background-color: transparent;
+    transition: background-color 1s ease;
+}
+
+.chatlog__content {
+    font-size: 0.95em;
+    word-wrap: break-word;
+}
+
+.chatlog__edited-timestamp {
+    margin-left: 0.15em;
+    font-size: 0.8em;
+}
+
+.chatlog__attachment {
+    margin-top: 0.3em;
+}
+
+.chatlog__attachment-thumbnail {
+    vertical-align: top;
+    max-width: 45vw;
+    max-height: 500px;
+    border-radius: 3px;
+}
+
+.chatlog__attachment-container {
+    height: 40px;
+    width: 100%;
+    max-width: 520px;
+    padding: 10px;
+    border: 1px solid;
+    border-radius: 3px;
+    overflow: hidden;
+}
+
+.chatlog__attachment-icon {
+    float: left;
+    height: 100%;
+    margin-right: 10px;
+}
+
+.chatlog__attachment-icon > .a {
+    fill: #f4f5fb;
+    d: path("M50,935a25,25,0,0,1-25-25V50A25,25,0,0,1,50,25H519.6L695,201.32V910a25,25,0,0,1-25,25Z");
+}
+
+.chatlog__attachment-icon > .b {
+    fill: #7789c4;
+    d: path("M509.21,50,670,211.63V910H50V50H509.21M530,0H50A50,50,0,0,0,0,50V910a50,50,0,0,0,50,50H670a50,50,0,0,0,50-50h0V191Z");
+}
+
+.chatlog__attachment-icon > .c {
+    fill: #f4f5fb;
+    d: path("M530,215a25,25,0,0,1-25-25V50a25,25,0,0,1,16.23-23.41L693.41,198.77A25,25,0,0,1,670,215Z");
+}
+
+.chatlog__attachment-icon > .d {
+    fill: #7789c4;
+    d: path("M530,70.71,649.29,190H530V70.71M530,0a50,50,0,0,0-50,50V190a50,50,0,0,0,50,50H670a50,50,0,0,0,50-50Z");
+}
+
+.chatlog__attachment-filesize {
+    color: #72767d;
+    font-size: 12px;
+}
+
+.chatlog__attachment-filename {
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+
+.chatlog__embed {
+    display: flex;
+    margin-top: 0.3em;
+    max-width: 520px;
+}
+
+.chatlog__embed-color-pill {
+    flex-shrink: 0;
+    width: 0.25em;
+    border-top-left-radius: 3px;
+    border-bottom-left-radius: 3px;
+}
+
+.chatlog__embed-content-container {
+    display: flex;
+    flex-direction: column;
+    padding: 0.5em 0.6em;
+    border: 1px solid;
+    border-top-right-radius: 3px;
+    border-bottom-right-radius: 3px;
+}
+
+.chatlog__embed-content {
+    display: flex;
+    width: 100%;
+}
+
+.chatlog__embed-text {
+    flex: 1;
+}
+
+.chatlog__embed-author {
+    display: flex;
+    margin-bottom: 0.3em;
+    align-items: center;
+}
+
+.chatlog__embed-author-icon {
+    margin-right: 0.5em;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+}
+
+.chatlog__embed-author-name {
+    font-size: 0.875em;
+    font-weight: 600;
+}
+
+.chatlog__embed-title {
+    margin-bottom: 0.2em;
+    font-size: 0.875em;
+    font-weight: 600;
+}
+
+.chatlog__embed-description {
+    font-weight: 500;
+    font-size: 0.85em;
+}
+
+.chatlog__embed-fields {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.chatlog__embed-field {
+    flex: 0;
+    min-width: 100%;
+    max-width: 506px;
+    padding-top: 0.6em;
+    font-size: 0.875em;
+}
+
+.chatlog__embed-field--inline {
+    flex: 1;
+    flex-basis: auto;
+    min-width: 150px;
+}
+
+.chatlog__embed-field-name {
+    margin-bottom: 0.2em;
+    font-weight: 600;
+}
+
+.chatlog__embed-field-value {
+    font-weight: 500;
+}
+
+.chatlog__embed-thumbnail {
+    flex: 0;
+    margin-left: 1.2em;
+    max-width: 80px;
+    max-height: 80px;
+    border-radius: 3px;
+}
+
+.chatlog__embed-image-container {
+    margin-top: 0.6em;
+}
+
+.chatlog__embed-image {
+    max-width: 500px;
+    max-height: 400px;
+    border-radius: 3px;
+}
+
+.chatlog__embed-footer {
+    margin-top: 0.6em;
+}
+
+.chatlog__embed-footer-icon {
+    margin-right: 0.2em;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    vertical-align: middle;
+}
+
+.chatlog__embed-footer-text {
+    font-size: 0.75em;
+    font-weight: 500;
+}
+
+.chatlog__reactions {
+    display: flex;
+}
+
+.chatlog__reaction {
+    display: flex;
+    align-items: center;
+    margin: 0.35em 0.1em 0.1em 0.1em;
+    padding: 0.2em 0.35em;
+    border-radius: 3px;
+}
+
+.chatlog__reaction-count {
+    min-width: 9px;
+    margin-left: 0.35em;
+    font-size: 0.875em;
+}
+
+.chatlog__bot-tag {
+    position: relative;
+    top: -.2em;
+    margin-left: 0.3em;
+    padding: 0.05em 0.3em;
+    border-radius: 3px;
+    vertical-align: middle;
+    line-height: 1.3;
+    background: #7289da;
+    color: #ffffff;
+    font-size: 0.625em;
+    font-weight: 500;
+}
+
+/* Postamble */
+
+.postamble {
+    margin: 1.4em 0.3em 0.6em 0.3em;
+    padding: 1em;
+    border-top: 1px solid;
+}
+    </style>
+    <style>
+        /* General */
+
+body {
+    background-color: #36393e;
+    color: #dcddde;
+}
+
+a {
+    color: #0096cf;
+}
+
+.spoiler-text {
+    background-color: rgba(255, 255, 255, 0.1);
+}
+
+.spoiler--hidden .spoiler-text {
+    background-color: #202225;
+}
+
+.spoiler--hidden:hover .spoiler-text {
+    background-color: rgba(32, 34, 37, 0.8);
+}
+
+.quote {
+    border-color: #4f545c;
+}
+
+.pre {
+    background-color: #2f3136 !important;
+}
+
+.pre--multiline {
+    border-color: #282b30 !important;
+    color: #b9bbbe !important;
+}
+
+/* === Preamble === */
+
+.preamble__entry {
+    color: #ffffff;
+}
+
+/* Chatlog */
+
+.chatlog__message-group {
+    border-color: rgba(255, 255, 255, 0.1);
+}
+
+.chatlog__reference-symbol {
+    border-color: #4f545c;
+}
+
+.chatlog__reference {
+    color: #b5b6b8;
+}
+
+.chatlog__reference-link {
+    color: #b5b6b8;
+}
+
+.chatlog__reference-link:hover {
+    color: #ffffff;
+}
+
+.chatlog__reference-edited-timestamp {
+    color: rgba(255, 255, 255, 0.2);
+}
+
+.chatlog__author-name {
+    color: #ffffff;
+}
+
+.chatlog__timestamp {
+    color: rgba(255, 255, 255, 0.2);
+}
+
+.chatlog__message--highlighted {
+    background-color: rgba(114, 137, 218, 0.2) !important;
+}
+
+.chatlog__message--pinned {
+    background-color: rgba(249, 168, 37, 0.05);
+}
+
+.chatlog__attachment-container {
+    background-color: #2f3136;
+    border-color: #292b2f;
+}
+
+.chatlog__edited-timestamp {
+    color: rgba(255, 255, 255, 0.2);
+}
+
+.chatlog__embed-color-pill--default {
+    background-color: rgba(79, 84, 92, 1);
+}
+
+.chatlog__embed-content-container {
+    background-color: rgba(46, 48, 54, 0.3);
+    border-color: rgba(46, 48, 54, 0.6);
+}
+
+.chatlog__embed-author-name {
+    color: #ffffff;
+}
+
+.chatlog__embed-author-name-link {
+    color: #ffffff;
+}
+
+.chatlog__embed-title {
+    color: #ffffff;
+}
+
+.chatlog__embed-description {
+    color: rgba(255, 255, 255, 0.6);
+}
+
+.chatlog__embed-field-name {
+    color: #ffffff;
+}
+
+.chatlog__embed-field-value {
+    color: rgba(255, 255, 255, 0.6);
+}
+
+.chatlog__embed-footer {
+    color: rgba(255, 255, 255, 0.6);
+}
+
+.chatlog__reaction {
+    background-color: rgba(255, 255, 255, 0.05);
+}
+
+.chatlog__reaction-count {
+    color: rgba(255, 255, 255, 0.3);
+}
+
+/* Postamble */
+
+.postamble {
+    border-color: rgba(255, 255, 255, 0.1);
+}
+
+.postamble__entry {
+    color: #ffffff;
+}
+    </style>
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.6/styles/solarized-dark.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.6/highlight.min.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            document.querySelectorAll('.pre--multiline').forEach(block => hljs.highlightBlock(block));
+        });
+    </script>
+
+    <script>
+        function scrollToMessage(event, id) {
+            var element = document.getElementById('message-' + id);
+
+            if (element) {
+                event.preventDefault();
+
+                element.classList.add('chatlog__message--highlighted');
+
+                window.scrollTo({
+                    top: element.getBoundingClientRect().top - document.body.getBoundingClientRect().top - (window.innerHeight / 2),
+                    behavior: 'smooth'
+                });
+
+                window.setTimeout(function() {
+                    element.classList.remove('chatlog__message--highlighted');
+                }, 2000);
+            }
+        }
+
+        function showSpoiler(event, element) {
+            if (element && element.classList.contains('spoiler--hidden')) {
+                event.preventDefault();
+                element.classList.remove('spoiler--hidden');
+            }
+        }
+    </script>
+</head>
+<body>
+
+<div class="preamble">
+    <div class="preamble__guild-icon-container">
+        <img class="preamble__guild-icon" src="San%20Vooperisco%20Community%20Server%20-%20Ping%20%F0%9F%94%94%20-%20levels%20%5B726836971313561680%5D.html_Files/c6fda7cc1a5415147ae5163060758deb-4751E.png" alt="Guild icon">
+    </div>
+    <div class="preamble__entries-container">
+        <div class="preamble__entry">San Vooperisco Community Server</div>
+        <div class="preamble__entry">Ping &#128276; / levels</div>
+
+
+    </div>
+</div>
+
+<div class="chatlog">
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="San%20Vooperisco%20Community%20Server%20-%20Ping%20%F0%9F%94%94%20-%20levels%20%5B726836971313561680%5D.html_Files/b50adff099924dd5e6b72d13f77eb9d7-A48AE.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="MEE6#4876" data-user-id="159985870458322944" style="color: rgb(0,255,144)">MEE6</span>
+
+            <span class="chatlog__bot-tag">BOT</span>
+
+        <span class="chatlog__timestamp">28-Jun-20 06:45 PM</span>
+
+            <div class="chatlog__message " data-message-id="726855838555308093" id="message-726855838555308093">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">Nice job <span class="mention" title="Pope Francis#0001">@Pope | #TheGoldenDistrict</span>, you just advanced to level 1!</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="San%20Vooperisco%20Community%20Server%20-%20Ping%20%F0%9F%94%94%20-%20levels%20%5B726836971313561680%5D.html_Files/765c3b1c668de93a71c2041966a338ac-F019B.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Pope Francis#0001" data-user-id="153555060926840833" style="color: rgb(255,112,0)">Pope | #TheGoldenDistrict</span>
+
+
+        <span class="chatlog__timestamp">28-Jun-20 06:45 PM</span>
+
+            <div class="chatlog__message " data-message-id="726855864425906278" id="message-726855864425906278">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">thanks</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="San%20Vooperisco%20Community%20Server%20-%20Ping%20%F0%9F%94%94%20-%20levels%20%5B726836971313561680%5D.html_Files/b50adff099924dd5e6b72d13f77eb9d7-A48AE.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="MEE6#4876" data-user-id="159985870458322944" style="color: rgb(0,255,144)">MEE6</span>
+
+            <span class="chatlog__bot-tag">BOT</span>
+
+        <span class="chatlog__timestamp">28-Jun-20 07:10 PM</span>
+
+            <div class="chatlog__message " data-message-id="726862193353687040" id="message-726862193353687040">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">Nice job <span class="mention" title="Pope Francis#0001">@Pope | #TheGoldenDistrict</span>, you just advanced to level 2!</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="San%20Vooperisco%20Community%20Server%20-%20Ping%20%F0%9F%94%94%20-%20levels%20%5B726836971313561680%5D.html_Files/b50adff099924dd5e6b72d13f77eb9d7-A48AE.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="MEE6#4876" data-user-id="159985870458322944" style="color: rgb(0,255,144)">MEE6</span>
+
+            <span class="chatlog__bot-tag">BOT</span>
+
+        <span class="chatlog__timestamp">28-Jun-20 07:28 PM</span>
+
+            <div class="chatlog__message " data-message-id="726866541928513605" id="message-726866541928513605">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">Nice job <span class="mention" title="Izukei#4451">@Izukei</span>, you just advanced to level 1!</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="726868225547305012" id="message-726868225547305012">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">Nice job <span class="mention" title="Pope Francis#0001">@Pope | #TheGoldenDistrict</span>, you just advanced to level 3!</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="San%20Vooperisco%20Community%20Server%20-%20Ping%20%F0%9F%94%94%20-%20levels%20%5B726836971313561680%5D.html_Files/b50adff099924dd5e6b72d13f77eb9d7-A48AE.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="MEE6#4876" data-user-id="159985870458322944" style="color: rgb(0,255,144)">MEE6</span>
+
+            <span class="chatlog__bot-tag">BOT</span>
+
+        <span class="chatlog__timestamp">28-Jun-20 08:01 PM</span>
+
+            <div class="chatlog__message " data-message-id="726874996026376292" id="message-726874996026376292">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">Nice job <span class="mention" title="PuffinGamer#0791">@Chief Judge Puffin</span>, you just advanced to level 1!</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="726875565797408769" id="message-726875565797408769">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">Nice job <span class="mention" title="Landon#2905">@Landon</span>, you just advanced to level 1!</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="San%20Vooperisco%20Community%20Server%20-%20Ping%20%F0%9F%94%94%20-%20levels%20%5B726836971313561680%5D.html_Files/b50adff099924dd5e6b72d13f77eb9d7-A48AE.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="MEE6#4876" data-user-id="159985870458322944" style="color: rgb(0,255,144)">MEE6</span>
+
+            <span class="chatlog__bot-tag">BOT</span>
+
+        <span class="chatlog__timestamp">28-Jun-20 08:26 PM</span>
+
+            <div class="chatlog__message " data-message-id="726881201973100585" id="message-726881201973100585">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">Nice job <span class="mention" title="sonania#8126">@sonania</span>, you just advanced to level 1!</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="San%20Vooperisco%20Community%20Server%20-%20Ping%20%F0%9F%94%94%20-%20levels%20%5B726836971313561680%5D.html_Files/d6a3fee00156b027689c9e7e7bb8d783-5070D.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="sonania#8126" data-user-id="609410342178521131" style="">sonania</span>
+
+
+        <span class="chatlog__timestamp">28-Jun-20 08:26 PM</span>
+
+            <div class="chatlog__message " data-message-id="726881253109923840" id="message-726881253109923840">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">thank you mee6</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="San%20Vooperisco%20Community%20Server%20-%20Ping%20%F0%9F%94%94%20-%20levels%20%5B726836971313561680%5D.html_Files/b50adff099924dd5e6b72d13f77eb9d7-A48AE.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="MEE6#4876" data-user-id="159985870458322944" style="color: rgb(0,255,144)">MEE6</span>
+
+            <span class="chatlog__bot-tag">BOT</span>
+
+        <span class="chatlog__timestamp">29-Jun-20 01:01 AM</span>
+
+            <div class="chatlog__message " data-message-id="726950453622997042" id="message-726950453622997042">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">Nice job <span class="mention" title="Pope Francis#0001">@Pope | #TheGoldenDistrict</span>, you just advanced to level 4!</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="San%20Vooperisco%20Community%20Server%20-%20Ping%20%F0%9F%94%94%20-%20levels%20%5B726836971313561680%5D.html_Files/b50adff099924dd5e6b72d13f77eb9d7-A48AE.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="MEE6#4876" data-user-id="159985870458322944" style="color: rgb(0,255,144)">MEE6</span>
+
+            <span class="chatlog__bot-tag">BOT</span>
+
+        <span class="chatlog__timestamp">29-Jun-20 01:30 AM</span>
+
+            <div class="chatlog__message " data-message-id="726957770926063676" id="message-726957770926063676">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">Nice job <span class="mention" title="Izukei#4451">@Izukei</span>, you just advanced to level 2!</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="San%20Vooperisco%20Community%20Server%20-%20Ping%20%F0%9F%94%94%20-%20levels%20%5B726836971313561680%5D.html_Files/b50adff099924dd5e6b72d13f77eb9d7-A48AE.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="MEE6#4876" data-user-id="159985870458322944" style="color: rgb(0,255,144)">MEE6</span>
+
+            <span class="chatlog__bot-tag">BOT</span>
+
+        <span class="chatlog__timestamp">29-Jun-20 04:07 AM</span>
+
+            <div class="chatlog__message " data-message-id="726997347661250631" id="message-726997347661250631">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">Nice job <span class="mention" title="superjacobl#8277">@superjacobl</span>, you just advanced to level 1!</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="San%20Vooperisco%20Community%20Server%20-%20Ping%20%F0%9F%94%94%20-%20levels%20%5B726836971313561680%5D.html_Files/b50adff099924dd5e6b72d13f77eb9d7-A48AE.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="MEE6#4876" data-user-id="159985870458322944" style="color: rgb(0,255,144)">MEE6</span>
+
+            <span class="chatlog__bot-tag">BOT</span>
+
+        <span class="chatlog__timestamp">18-Jul-20 12:02 AM</span>
+
+            <div class="chatlog__message " data-message-id="733821027066445925" id="message-733821027066445925">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">Nice job <span class="mention" title="Pope Francis#0001">@Pope | #TheGoldenDistrict</span>, you just advanced to level 5!</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="San%20Vooperisco%20Community%20Server%20-%20Ping%20%F0%9F%94%94%20-%20levels%20%5B726836971313561680%5D.html_Files/b50adff099924dd5e6b72d13f77eb9d7-A48AE.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="MEE6#4876" data-user-id="159985870458322944" style="color: rgb(0,255,144)">MEE6</span>
+
+            <span class="chatlog__bot-tag">BOT</span>
+
+        <span class="chatlog__timestamp">19-Jul-20 08:28 PM</span>
+
+            <div class="chatlog__message " data-message-id="734491959514890320" id="message-734491959514890320">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">Nice job <span class="mention" title="Izukei#4451">@Izukei</span>, you just advanced to level 3!</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="San%20Vooperisco%20Community%20Server%20-%20Ping%20%F0%9F%94%94%20-%20levels%20%5B726836971313561680%5D.html_Files/feae8d363d4fae3c192cd8283c5138ff-A3ED5.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Izukei#4451" data-user-id="333341406771019777" style="color: rgb(255,167,0)">Izukei</span>
+
+
+        <span class="chatlog__timestamp">19-Jul-20 08:29 PM</span>
+
+            <div class="chatlog__message " data-message-id="734492086174482516" id="message-734492086174482516">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><em>Mee6, please leave me alone. You lost the court case, theres no need to continue</em></span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="San%20Vooperisco%20Community%20Server%20-%20Ping%20%F0%9F%94%94%20-%20levels%20%5B726836971313561680%5D.html_Files/765c3b1c668de93a71c2041966a338ac-F019B.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Pope Francis#0001" data-user-id="153555060926840833" style="color: rgb(255,112,0)">Pope | #TheGoldenDistrict</span>
+
+
+        <span class="chatlog__timestamp">19-Jul-20 09:08 PM</span>
+
+            <div class="chatlog__message " data-message-id="734501946714488853" id="message-734501946714488853">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">Lol</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="San%20Vooperisco%20Community%20Server%20-%20Ping%20%F0%9F%94%94%20-%20levels%20%5B726836971313561680%5D.html_Files/b50adff099924dd5e6b72d13f77eb9d7-A48AE.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="MEE6#4876" data-user-id="159985870458322944" style="color: rgb(0,255,144)">MEE6</span>
+
+            <span class="chatlog__bot-tag">BOT</span>
+
+        <span class="chatlog__timestamp">20-Jul-20 07:09 AM</span>
+
+            <div class="chatlog__message " data-message-id="734653156327293008" id="message-734653156327293008">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">Nice job <span class="mention" title="gb#9316">@gb #popeforsv</span>, you just advanced to level 1!</span>
+
+                        </div>
+                    </div>
+
+
+
+                    <div class="chatlog__reactions">
+                            <div class="chatlog__reaction">
+                                <img class="emoji emoji--small" alt="&#128721;" title="&#128721;" src="San%20Vooperisco%20Community%20Server%20-%20Ping%20%F0%9F%94%94%20-%20levels%20%5B726836971313561680%5D.html_Files/1f6d1-F394B.png">
+                                <span class="chatlog__reaction-count">1</span>
+                            </div>
+                    </div>
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="San%20Vooperisco%20Community%20Server%20-%20Ping%20%F0%9F%94%94%20-%20levels%20%5B726836971313561680%5D.html_Files/b50adff099924dd5e6b72d13f77eb9d7-A48AE.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="MEE6#4876" data-user-id="159985870458322944" style="color: rgb(0,255,144)">MEE6</span>
+
+            <span class="chatlog__bot-tag">BOT</span>
+
+        <span class="chatlog__timestamp">25-Jul-20 02:39 AM</span>
+
+            <div class="chatlog__message " data-message-id="736397070675476571" id="message-736397070675476571">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">Nice job <span class="mention" title="gb#9316">@gb #popeforsv</span>, you just advanced to level 2!</span>
+
+                        </div>
+                    </div>
+
+
+
+                    <div class="chatlog__reactions">
+                            <div class="chatlog__reaction">
+                                <img class="emoji emoji--small" alt="&#128721;" title="&#128721;" src="San%20Vooperisco%20Community%20Server%20-%20Ping%20%F0%9F%94%94%20-%20levels%20%5B726836971313561680%5D.html_Files/1f6d1-F394B.png">
+                                <span class="chatlog__reaction-count">1</span>
+                            </div>
+                    </div>
+            </div>
+            <div class="chatlog__message " data-message-id="736397074047959060" id="message-736397074047959060">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">Nice job <span class="mention" title="Pope Francis#0001">@Pope | #TheGoldenDistrict</span>, you just advanced to level 6!</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="San%20Vooperisco%20Community%20Server%20-%20Ping%20%F0%9F%94%94%20-%20levels%20%5B726836971313561680%5D.html_Files/b50adff099924dd5e6b72d13f77eb9d7-A48AE.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="MEE6#4876" data-user-id="159985870458322944" style="color: rgb(0,255,144)">MEE6</span>
+
+            <span class="chatlog__bot-tag">BOT</span>
+
+        <span class="chatlog__timestamp">25-Jul-20 03:03 AM</span>
+
+            <div class="chatlog__message " data-message-id="736403135618351172" id="message-736403135618351172">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">Nice job <span class="mention" title="PuffinGamer#0791">@Chief Judge Puffin</span>, you just advanced to level 2!</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="San%20Vooperisco%20Community%20Server%20-%20Ping%20%F0%9F%94%94%20-%20levels%20%5B726836971313561680%5D.html_Files/b50adff099924dd5e6b72d13f77eb9d7-A48AE.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="MEE6#4876" data-user-id="159985870458322944" style="color: rgb(0,255,144)">MEE6</span>
+
+            <span class="chatlog__bot-tag">BOT</span>
+
+        <span class="chatlog__timestamp">25-Jul-20 06:44 AM</span>
+
+            <div class="chatlog__message " data-message-id="736458761534832681" id="message-736458761534832681">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">Nice job <span class="mention" title="Devin Last name not included#2688">@Rep. Devin</span>, you just advanced to level 1!</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="San%20Vooperisco%20Community%20Server%20-%20Ping%20%F0%9F%94%94%20-%20levels%20%5B726836971313561680%5D.html_Files/b50adff099924dd5e6b72d13f77eb9d7-A48AE.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="MEE6#4876" data-user-id="159985870458322944" style="color: rgb(0,255,144)">MEE6</span>
+
+            <span class="chatlog__bot-tag">BOT</span>
+
+        <span class="chatlog__timestamp">25-Jul-20 07:00 AM</span>
+
+            <div class="chatlog__message " data-message-id="736462883252338768" id="message-736462883252338768">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">Nice job <span class="mention" title="MinesomeMC#9053">@Rep. MinesomeMC (CAD - SV)</span>, you just advanced to level 1!</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="San%20Vooperisco%20Community%20Server%20-%20Ping%20%F0%9F%94%94%20-%20levels%20%5B726836971313561680%5D.html_Files/b50adff099924dd5e6b72d13f77eb9d7-A48AE.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="MEE6#4876" data-user-id="159985870458322944" style="color: rgb(0,255,144)">MEE6</span>
+
+            <span class="chatlog__bot-tag">BOT</span>
+
+        <span class="chatlog__timestamp">03-Aug-20 07:10 PM</span>
+
+            <div class="chatlog__message " data-message-id="739907963128381530" id="message-739907963128381530">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">Nice job <span class="mention" title="Devin Last name not included#2688">@Rep. Devin</span>, you just advanced to level 1!</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="San%20Vooperisco%20Community%20Server%20-%20Ping%20%F0%9F%94%94%20-%20levels%20%5B726836971313561680%5D.html_Files/b50adff099924dd5e6b72d13f77eb9d7-A48AE.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="MEE6#4876" data-user-id="159985870458322944" style="color: rgb(0,255,144)">MEE6</span>
+
+            <span class="chatlog__bot-tag">BOT</span>
+
+        <span class="chatlog__timestamp">09-Aug-20 04:27 AM</span>
+
+            <div class="chatlog__message " data-message-id="741860169377382410" id="message-741860169377382410">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">Nice job <span class="mention" title="gb#9316">@gb #popeforsv</span>, you just advanced to level 3!</span>
+
+                        </div>
+                    </div>
+
+
+
+                    <div class="chatlog__reactions">
+                            <div class="chatlog__reaction">
+                                <img class="emoji emoji--small" alt="&#128721;" title="&#128721;" src="San%20Vooperisco%20Community%20Server%20-%20Ping%20%F0%9F%94%94%20-%20levels%20%5B726836971313561680%5D.html_Files/1f6d1-F394B.png">
+                                <span class="chatlog__reaction-count">1</span>
+                            </div>
+                    </div>
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="San%20Vooperisco%20Community%20Server%20-%20Ping%20%F0%9F%94%94%20-%20levels%20%5B726836971313561680%5D.html_Files/b50adff099924dd5e6b72d13f77eb9d7-A48AE.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="MEE6#4876" data-user-id="159985870458322944" style="color: rgb(0,255,144)">MEE6</span>
+
+            <span class="chatlog__bot-tag">BOT</span>
+
+        <span class="chatlog__timestamp">03-Sep-20 03:58 PM</span>
+
+            <div class="chatlog__message " data-message-id="751093816114675803" id="message-751093816114675803">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">Nice job <span class="mention" title="Pope Francis#0001">@Pope | #TheGoldenDistrict</span>, you just advanced to level 7!</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="San%20Vooperisco%20Community%20Server%20-%20Ping%20%F0%9F%94%94%20-%20levels%20%5B726836971313561680%5D.html_Files/b50adff099924dd5e6b72d13f77eb9d7-A48AE.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="MEE6#4876" data-user-id="159985870458322944" style="color: rgb(0,255,144)">MEE6</span>
+
+            <span class="chatlog__bot-tag">BOT</span>
+
+        <span class="chatlog__timestamp">04-Sep-20 12:11 AM</span>
+
+            <div class="chatlog__message " data-message-id="751217816363073588" id="message-751217816363073588">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">Nice job <span class="mention" title="PuffinGamer#0791">@Chief Judge Puffin</span>, you just advanced to level 3!</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="San%20Vooperisco%20Community%20Server%20-%20Ping%20%F0%9F%94%94%20-%20levels%20%5B726836971313561680%5D.html_Files/b50adff099924dd5e6b72d13f77eb9d7-A48AE.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="MEE6#4876" data-user-id="159985870458322944" style="color: rgb(0,255,144)">MEE6</span>
+
+            <span class="chatlog__bot-tag">BOT</span>
+
+        <span class="chatlog__timestamp">04-Sep-20 12:47 AM</span>
+
+            <div class="chatlog__message " data-message-id="751226838407184447" id="message-751226838407184447">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">Nice job <span class="mention" title="Coca162#1419">@Coca162</span>, you just advanced to level 1!</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="San%20Vooperisco%20Community%20Server%20-%20Ping%20%F0%9F%94%94%20-%20levels%20%5B726836971313561680%5D.html_Files/b50adff099924dd5e6b72d13f77eb9d7-A48AE.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="MEE6#4876" data-user-id="159985870458322944" style="color: rgb(0,255,144)">MEE6</span>
+
+            <span class="chatlog__bot-tag">BOT</span>
+
+        <span class="chatlog__timestamp">04-Sep-20 02:53 AM</span>
+
+            <div class="chatlog__message " data-message-id="751258497735459032" id="message-751258497735459032">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">Nice job <span class="mention" title="Shadow1200#9974">@Attorney General Shadow</span>, you just advanced to level 1!</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="San%20Vooperisco%20Community%20Server%20-%20Ping%20%F0%9F%94%94%20-%20levels%20%5B726836971313561680%5D.html_Files/b50adff099924dd5e6b72d13f77eb9d7-A48AE.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="MEE6#4876" data-user-id="159985870458322944" style="color: rgb(0,255,144)">MEE6</span>
+
+            <span class="chatlog__bot-tag">BOT</span>
+
+        <span class="chatlog__timestamp">05-Sep-20 09:00 PM</span>
+
+            <div class="chatlog__message " data-message-id="751894631481999411" id="message-751894631481999411">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">Nice job <span class="mention" title="Niami#7504">@Niami</span>, you just advanced to level 1!</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="San%20Vooperisco%20Community%20Server%20-%20Ping%20%F0%9F%94%94%20-%20levels%20%5B726836971313561680%5D.html_Files/b50adff099924dd5e6b72d13f77eb9d7-A48AE.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="MEE6#4876" data-user-id="159985870458322944" style="color: rgb(0,255,144)">MEE6</span>
+
+            <span class="chatlog__bot-tag">BOT</span>
+
+        <span class="chatlog__timestamp">06-Sep-20 04:33 AM</span>
+
+            <div class="chatlog__message " data-message-id="752008561508483113" id="message-752008561508483113">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">Nice job <span class="mention" title="MinesomeMC#9053">@Rep. MinesomeMC (CAD - SV)</span>, you just advanced to level 1!</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="San%20Vooperisco%20Community%20Server%20-%20Ping%20%F0%9F%94%94%20-%20levels%20%5B726836971313561680%5D.html_Files/b50adff099924dd5e6b72d13f77eb9d7-A48AE.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="MEE6#4876" data-user-id="159985870458322944" style="color: rgb(0,255,144)">MEE6</span>
+
+            <span class="chatlog__bot-tag">BOT</span>
+
+        <span class="chatlog__timestamp">08-Sep-20 02:20 AM</span>
+
+            <div class="chatlog__message " data-message-id="752699858866929676" id="message-752699858866929676">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">Nice job <span class="mention" title="Izukei#4451">@Izukei</span>, you just advanced to level 4!</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="San%20Vooperisco%20Community%20Server%20-%20Ping%20%F0%9F%94%94%20-%20levels%20%5B726836971313561680%5D.html_Files/b50adff099924dd5e6b72d13f77eb9d7-A48AE.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="MEE6#4876" data-user-id="159985870458322944" style="color: rgb(0,255,144)">MEE6</span>
+
+            <span class="chatlog__bot-tag">BOT</span>
+
+        <span class="chatlog__timestamp">08-Sep-20 09:48 PM</span>
+
+            <div class="chatlog__message " data-message-id="752993828104831076" id="message-752993828104831076">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">Nice job <span class="mention" title="Pope Francis#0001">@Pope | #TheGoldenDistrict</span>, you just advanced to level 8!</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="San%20Vooperisco%20Community%20Server%20-%20Ping%20%F0%9F%94%94%20-%20levels%20%5B726836971313561680%5D.html_Files/b50adff099924dd5e6b72d13f77eb9d7-A48AE.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="MEE6#4876" data-user-id="159985870458322944" style="color: rgb(0,255,144)">MEE6</span>
+
+            <span class="chatlog__bot-tag">BOT</span>
+
+        <span class="chatlog__timestamp">09-Sep-20 10:02 AM</span>
+
+            <div class="chatlog__message " data-message-id="753178561833336892" id="message-753178561833336892">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">Nice job <span class="mention" title="MinesomeMC#9053">@Rep. MinesomeMC (CAD - SV)</span>, you just advanced to level 2!</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="San%20Vooperisco%20Community%20Server%20-%20Ping%20%F0%9F%94%94%20-%20levels%20%5B726836971313561680%5D.html_Files/b50adff099924dd5e6b72d13f77eb9d7-A48AE.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="MEE6#4876" data-user-id="159985870458322944" style="color: rgb(0,255,144)">MEE6</span>
+
+            <span class="chatlog__bot-tag">BOT</span>
+
+        <span class="chatlog__timestamp">11-Sep-20 02:17 PM</span>
+
+            <div class="chatlog__message " data-message-id="753967460780212234" id="message-753967460780212234">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">Nice job <span class="mention" title="PuffinGamer#0791">@Chief Judge Puffin</span>, you just advanced to level 4!</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="San%20Vooperisco%20Community%20Server%20-%20Ping%20%F0%9F%94%94%20-%20levels%20%5B726836971313561680%5D.html_Files/b50adff099924dd5e6b72d13f77eb9d7-A48AE.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="MEE6#4876" data-user-id="159985870458322944" style="color: rgb(0,255,144)">MEE6</span>
+
+            <span class="chatlog__bot-tag">BOT</span>
+
+        <span class="chatlog__timestamp">11-Sep-20 03:18 PM</span>
+
+            <div class="chatlog__message " data-message-id="753982864785408201" id="message-753982864785408201">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">Nice job <span class="mention" title="Bryan Miralda#8396">@Former Govenor Bryan</span>, you just advanced to level 1!</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="San%20Vooperisco%20Community%20Server%20-%20Ping%20%F0%9F%94%94%20-%20levels%20%5B726836971313561680%5D.html_Files/b50adff099924dd5e6b72d13f77eb9d7-A48AE.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="MEE6#4876" data-user-id="159985870458322944" style="color: rgb(0,255,144)">MEE6</span>
+
+            <span class="chatlog__bot-tag">BOT</span>
+
+        <span class="chatlog__timestamp">11-Sep-20 07:36 PM</span>
+
+            <div class="chatlog__message " data-message-id="754047696565829632" id="message-754047696565829632">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">Nice job <span class="mention" title="MinesomeMC#9053">@Rep. MinesomeMC (CAD - SV)</span>, you just advanced to level 3!</span>
+
+                        </div>
+                    </div>
+
+
+
+                    <div class="chatlog__reactions">
+                            <div class="chatlog__reaction">
+                                <img class="emoji emoji--small" alt="&#128077;" title="&#128077;" src="San%20Vooperisco%20Community%20Server%20-%20Ping%20%F0%9F%94%94%20-%20levels%20%5B726836971313561680%5D.html_Files/1f44d-1485B.png">
+                                <span class="chatlog__reaction-count">4</span>
+                            </div>
+                    </div>
+            </div>
+            <div class="chatlog__message " data-message-id="754047887268249690" id="message-754047887268249690">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">Nice job <span class="mention" title="Bryan Miralda#8396">@Former Govenor Bryan</span>, you just advanced to level 2!</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="San%20Vooperisco%20Community%20Server%20-%20Ping%20%F0%9F%94%94%20-%20levels%20%5B726836971313561680%5D.html_Files/b50adff099924dd5e6b72d13f77eb9d7-A48AE.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="MEE6#4876" data-user-id="159985870458322944" style="color: rgb(0,255,144)">MEE6</span>
+
+            <span class="chatlog__bot-tag">BOT</span>
+
+        <span class="chatlog__timestamp">13-Sep-20 02:50 PM</span>
+
+            <div class="chatlog__message " data-message-id="754700541250109470" id="message-754700541250109470">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">Nice job <span class="mention" title="bmkreher#2777">@bmkreher</span>, you just advanced to level 1!</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="San%20Vooperisco%20Community%20Server%20-%20Ping%20%F0%9F%94%94%20-%20levels%20%5B726836971313561680%5D.html_Files/b50adff099924dd5e6b72d13f77eb9d7-A48AE.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="MEE6#4876" data-user-id="159985870458322944" style="color: rgb(0,255,144)">MEE6</span>
+
+            <span class="chatlog__bot-tag">BOT</span>
+
+        <span class="chatlog__timestamp">13-Sep-20 03:05 PM</span>
+
+            <div class="chatlog__message " data-message-id="754704214222962768" id="message-754704214222962768">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">Nice job <span class="mention" title="Bryan Miralda#8396">@Former Govenor Bryan</span>, you just advanced to level 3!</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="San%20Vooperisco%20Community%20Server%20-%20Ping%20%F0%9F%94%94%20-%20levels%20%5B726836971313561680%5D.html_Files/b50adff099924dd5e6b72d13f77eb9d7-A48AE.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="MEE6#4876" data-user-id="159985870458322944" style="color: rgb(0,255,144)">MEE6</span>
+
+            <span class="chatlog__bot-tag">BOT</span>
+
+        <span class="chatlog__timestamp">13-Sep-20 09:01 PM</span>
+
+            <div class="chatlog__message " data-message-id="754793812269990061" id="message-754793812269990061">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">Nice job <span class="mention" title="Pope Francis#0001">@Pope | #TheGoldenDistrict</span>, you just advanced to level 9!</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="San%20Vooperisco%20Community%20Server%20-%20Ping%20%F0%9F%94%94%20-%20levels%20%5B726836971313561680%5D.html_Files/b50adff099924dd5e6b72d13f77eb9d7-A48AE.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="MEE6#4876" data-user-id="159985870458322944" style="color: rgb(0,255,144)">MEE6</span>
+
+            <span class="chatlog__bot-tag">BOT</span>
+
+        <span class="chatlog__timestamp">14-Sep-20 07:08 PM</span>
+
+            <div class="chatlog__message " data-message-id="755127810737307779" id="message-755127810737307779">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">Nice job <span class="mention" title="MinesomeMC#9053">@Rep. MinesomeMC (CAD - SV)</span>, you just advanced to level 4!</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="San%20Vooperisco%20Community%20Server%20-%20Ping%20%F0%9F%94%94%20-%20levels%20%5B726836971313561680%5D.html_Files/b50adff099924dd5e6b72d13f77eb9d7-A48AE.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="MEE6#4876" data-user-id="159985870458322944" style="color: rgb(0,255,144)">MEE6</span>
+
+            <span class="chatlog__bot-tag">BOT</span>
+
+        <span class="chatlog__timestamp">16-Sep-20 02:19 PM</span>
+
+            <div class="chatlog__message " data-message-id="755779817609363496" id="message-755779817609363496">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">Nice job <span class="mention" title="Devin Last name not included#2688">@Rep. Devin</span>, you just advanced to level 2!</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="San%20Vooperisco%20Community%20Server%20-%20Ping%20%F0%9F%94%94%20-%20levels%20%5B726836971313561680%5D.html_Files/b50adff099924dd5e6b72d13f77eb9d7-A48AE.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="MEE6#4876" data-user-id="159985870458322944" style="color: rgb(0,255,144)">MEE6</span>
+
+            <span class="chatlog__bot-tag">BOT</span>
+
+        <span class="chatlog__timestamp">16-Sep-20 05:13 PM</span>
+
+            <div class="chatlog__message " data-message-id="755823794198675618" id="message-755823794198675618">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">Nice job <span class="mention" title="Bryan Miralda#8396">@Former Govenor Bryan</span>, you just advanced to level 4!</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="San%20Vooperisco%20Community%20Server%20-%20Ping%20%F0%9F%94%94%20-%20levels%20%5B726836971313561680%5D.html_Files/b50adff099924dd5e6b72d13f77eb9d7-A48AE.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="MEE6#4876" data-user-id="159985870458322944" style="color: rgb(0,255,144)">MEE6</span>
+
+            <span class="chatlog__bot-tag">BOT</span>
+
+        <span class="chatlog__timestamp">18-Sep-20 01:35 AM</span>
+
+            <div class="chatlog__message " data-message-id="756312291422634004" id="message-756312291422634004">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">Nice job <span class="mention" title="Devin Last name not included#2688">@Rep. Devin</span>, you just advanced to level 3!</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="San%20Vooperisco%20Community%20Server%20-%20Ping%20%F0%9F%94%94%20-%20levels%20%5B726836971313561680%5D.html_Files/b50adff099924dd5e6b72d13f77eb9d7-A48AE.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="MEE6#4876" data-user-id="159985870458322944" style="color: rgb(0,255,144)">MEE6</span>
+
+            <span class="chatlog__bot-tag">BOT</span>
+
+        <span class="chatlog__timestamp">18-Sep-20 01:55 AM</span>
+
+            <div class="chatlog__message " data-message-id="756317551285370880" id="message-756317551285370880">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">Nice job <span class="mention" title="PuffinGamer#0791">@Chief Judge Puffin</span>, you just advanced to level 5!</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="San%20Vooperisco%20Community%20Server%20-%20Ping%20%F0%9F%94%94%20-%20levels%20%5B726836971313561680%5D.html_Files/8a33e4e25876728da335e1eaf5901235-BE127.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="PuffinGamer#0791" data-user-id="588897348252598292" style="color: rgb(255,139,0)">Chief Judge Puffin</span>
+
+
+        <span class="chatlog__timestamp">18-Sep-20 01:56 AM</span>
+
+            <div class="chatlog__message " data-message-id="756317587704381460" id="message-756317587704381460">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">Fun</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="San%20Vooperisco%20Community%20Server%20-%20Ping%20%F0%9F%94%94%20-%20levels%20%5B726836971313561680%5D.html_Files/b50adff099924dd5e6b72d13f77eb9d7-A48AE.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="MEE6#4876" data-user-id="159985870458322944" style="color: rgb(0,255,144)">MEE6</span>
+
+            <span class="chatlog__bot-tag">BOT</span>
+
+        <span class="chatlog__timestamp">18-Sep-20 02:49 AM</span>
+
+            <div class="chatlog__message " data-message-id="756330945686011945" id="message-756330945686011945">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">Nice job <span class="mention" title="Pope Francis#0001">@Pope | #TheGoldenDistrict</span>, you just advanced to level 10!</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="San%20Vooperisco%20Community%20Server%20-%20Ping%20%F0%9F%94%94%20-%20levels%20%5B726836971313561680%5D.html_Files/b50adff099924dd5e6b72d13f77eb9d7-A48AE.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="MEE6#4876" data-user-id="159985870458322944" style="color: rgb(0,255,144)">MEE6</span>
+
+            <span class="chatlog__bot-tag">BOT</span>
+
+        <span class="chatlog__timestamp">18-Sep-20 02:20 PM</span>
+
+            <div class="chatlog__message " data-message-id="756504921888653363" id="message-756504921888653363">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">Nice job <span class="mention" title="Izukei#4451">@Izukei</span>, you just advanced to level 5!</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="San%20Vooperisco%20Community%20Server%20-%20Ping%20%F0%9F%94%94%20-%20levels%20%5B726836971313561680%5D.html_Files/b50adff099924dd5e6b72d13f77eb9d7-A48AE.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="MEE6#4876" data-user-id="159985870458322944" style="color: rgb(0,255,144)">MEE6</span>
+
+            <span class="chatlog__bot-tag">BOT</span>
+
+        <span class="chatlog__timestamp">18-Sep-20 05:40 PM</span>
+
+            <div class="chatlog__message " data-message-id="756555354824900658" id="message-756555354824900658">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">Nice job <span class="mention" title="Shadow1200#9974">@Attorney General Shadow</span>, you just advanced to level 2!</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="756556485361926285" id="message-756556485361926285">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">Nice job <span class="mention" title="Unusederas#6442">@Former Rep. Unusederas</span>, you just advanced to level 1!</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="756557455776940073" id="message-756557455776940073">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">Nice job <span class="mention" title="Niami#7504">@Niami</span>, you just advanced to level 2!</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="756558200702238737" id="message-756558200702238737">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">Nice job <span class="mention" title="PuffinGamer#0791">@Chief Judge Puffin</span>, you just advanced to level 6!</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="756559729668391023" id="message-756559729668391023">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">Nice job <span class="mention" title="Unusederas#6442">@Former Rep. Unusederas</span>, you just advanced to level 2!</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="San%20Vooperisco%20Community%20Server%20-%20Ping%20%F0%9F%94%94%20-%20levels%20%5B726836971313561680%5D.html_Files/b50adff099924dd5e6b72d13f77eb9d7-A48AE.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="MEE6#4876" data-user-id="159985870458322944" style="color: rgb(0,255,144)">MEE6</span>
+
+            <span class="chatlog__bot-tag">BOT</span>
+
+        <span class="chatlog__timestamp">18-Sep-20 07:29 PM</span>
+
+            <div class="chatlog__message " data-message-id="756582760080081076" id="message-756582760080081076">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">Nice job <span class="mention" title="Shadow1200#9974">@Attorney General Shadow</span>, you just advanced to level 3!</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="San%20Vooperisco%20Community%20Server%20-%20Ping%20%F0%9F%94%94%20-%20levels%20%5B726836971313561680%5D.html_Files/b50adff099924dd5e6b72d13f77eb9d7-A48AE.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="MEE6#4876" data-user-id="159985870458322944" style="color: rgb(0,255,144)">MEE6</span>
+
+            <span class="chatlog__bot-tag">BOT</span>
+
+        <span class="chatlog__timestamp">18-Sep-20 10:57 PM</span>
+
+            <div class="chatlog__message " data-message-id="756634950991610146" id="message-756634950991610146">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">Nice job <span class="mention" title="Devin Last name not included#2688">@Rep. Devin</span>, you just advanced to level 4!</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="San%20Vooperisco%20Community%20Server%20-%20Ping%20%F0%9F%94%94%20-%20levels%20%5B726836971313561680%5D.html_Files/b50adff099924dd5e6b72d13f77eb9d7-A48AE.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="MEE6#4876" data-user-id="159985870458322944" style="color: rgb(0,255,144)">MEE6</span>
+
+            <span class="chatlog__bot-tag">BOT</span>
+
+        <span class="chatlog__timestamp">19-Sep-20 03:34 AM</span>
+
+            <div class="chatlog__message " data-message-id="756704684189941831" id="message-756704684189941831">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">Nice job <span class="mention" title="Pope Francis#0001">@Pope | #TheGoldenDistrict</span>, you just advanced to level 11!</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="756704865979465748" id="message-756704865979465748">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">Nice job <span class="mention" title="galactic gamer#9738">@Galactic Gamer</span>, you just advanced to level 1!</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="San%20Vooperisco%20Community%20Server%20-%20Ping%20%F0%9F%94%94%20-%20levels%20%5B726836971313561680%5D.html_Files/b50adff099924dd5e6b72d13f77eb9d7-A48AE.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="MEE6#4876" data-user-id="159985870458322944" style="color: rgb(0,255,144)">MEE6</span>
+
+            <span class="chatlog__bot-tag">BOT</span>
+
+        <span class="chatlog__timestamp">19-Sep-20 03:46 AM</span>
+
+            <div class="chatlog__message " data-message-id="756707822624047156" id="message-756707822624047156">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">Nice job <span class="mention" title="galactic gamer#9738">@Galactic Gamer</span>, you just advanced to level 2!</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="756708436112310323" id="message-756708436112310323">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">Nice job <span class="mention" title="Izukei#4451">@Izukei</span>, you just advanced to level 6!</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="San%20Vooperisco%20Community%20Server%20-%20Ping%20%F0%9F%94%94%20-%20levels%20%5B726836971313561680%5D.html_Files/b50adff099924dd5e6b72d13f77eb9d7-A48AE.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="MEE6#4876" data-user-id="159985870458322944" style="color: rgb(0,255,144)">MEE6</span>
+
+            <span class="chatlog__bot-tag">BOT</span>
+
+        <span class="chatlog__timestamp">19-Sep-20 04:11 AM</span>
+
+            <div class="chatlog__message " data-message-id="756714107335344195" id="message-756714107335344195">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">Nice job <span class="mention" title="galactic gamer#9738">@Galactic Gamer</span>, you just advanced to level 3!</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="San%20Vooperisco%20Community%20Server%20-%20Ping%20%F0%9F%94%94%20-%20levels%20%5B726836971313561680%5D.html_Files/b50adff099924dd5e6b72d13f77eb9d7-A48AE.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="MEE6#4876" data-user-id="159985870458322944" style="color: rgb(0,255,144)">MEE6</span>
+
+            <span class="chatlog__bot-tag">BOT</span>
+
+        <span class="chatlog__timestamp">19-Sep-20 04:24 AM</span>
+
+            <div class="chatlog__message " data-message-id="756717297929945179" id="message-756717297929945179">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">Nice job <span class="mention" title="MinesomeMC#9053">@Rep. MinesomeMC (CAD - SV)</span>, you just advanced to level 5!</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="756717642261200896" id="message-756717642261200896">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">Nice job <span class="mention" title="Izukei#4451">@Izukei</span>, you just advanced to level 7!</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="San%20Vooperisco%20Community%20Server%20-%20Ping%20%F0%9F%94%94%20-%20levels%20%5B726836971313561680%5D.html_Files/b50adff099924dd5e6b72d13f77eb9d7-A48AE.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="MEE6#4876" data-user-id="159985870458322944" style="color: rgb(0,255,144)">MEE6</span>
+
+            <span class="chatlog__bot-tag">BOT</span>
+
+        <span class="chatlog__timestamp">19-Sep-20 04:36 AM</span>
+
+            <div class="chatlog__message " data-message-id="756720433385963540" id="message-756720433385963540">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">Nice job <span class="mention" title="galactic gamer#9738">@Galactic Gamer</span>, you just advanced to level 4!</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="San%20Vooperisco%20Community%20Server%20-%20Ping%20%F0%9F%94%94%20-%20levels%20%5B726836971313561680%5D.html_Files/b50adff099924dd5e6b72d13f77eb9d7-A48AE.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="MEE6#4876" data-user-id="159985870458322944" style="color: rgb(0,255,144)">MEE6</span>
+
+            <span class="chatlog__bot-tag">BOT</span>
+
+        <span class="chatlog__timestamp">19-Sep-20 04:47 AM</span>
+
+            <div class="chatlog__message " data-message-id="756723220102774835" id="message-756723220102774835">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">Nice job <span class="mention" title="Bryan Miralda#8396">@Former Govenor Bryan</span>, you just advanced to level 5!</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="756723973533728852" id="message-756723973533728852">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">Nice job <span class="mention" title="Shadow1200#9974">@Attorney General Shadow</span>, you just advanced to level 4!</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="San%20Vooperisco%20Community%20Server%20-%20Ping%20%F0%9F%94%94%20-%20levels%20%5B726836971313561680%5D.html_Files/b50adff099924dd5e6b72d13f77eb9d7-A48AE.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="MEE6#4876" data-user-id="159985870458322944" style="color: rgb(0,255,144)">MEE6</span>
+
+            <span class="chatlog__bot-tag">BOT</span>
+
+        <span class="chatlog__timestamp">20-Sep-20 01:17 PM</span>
+
+            <div class="chatlog__message " data-message-id="757213790281662514" id="message-757213790281662514">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">Nice job <span class="mention" title="Niami#7504">@Niami</span>, you just advanced to level 3!</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="San%20Vooperisco%20Community%20Server%20-%20Ping%20%F0%9F%94%94%20-%20levels%20%5B726836971313561680%5D.html_Files/b50adff099924dd5e6b72d13f77eb9d7-A48AE.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="MEE6#4876" data-user-id="159985870458322944" style="color: rgb(0,255,144)">MEE6</span>
+
+            <span class="chatlog__bot-tag">BOT</span>
+
+        <span class="chatlog__timestamp">20-Sep-20 06:33 PM</span>
+
+            <div class="chatlog__message " data-message-id="757293276150890546" id="message-757293276150890546">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">Nice job <span class="mention" title="Unusederas#6442">@Former Rep. Unusederas</span>, you just advanced to level 3!</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="San%20Vooperisco%20Community%20Server%20-%20Ping%20%F0%9F%94%94%20-%20levels%20%5B726836971313561680%5D.html_Files/b50adff099924dd5e6b72d13f77eb9d7-A48AE.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="MEE6#4876" data-user-id="159985870458322944" style="color: rgb(0,255,144)">MEE6</span>
+
+            <span class="chatlog__bot-tag">BOT</span>
+
+        <span class="chatlog__timestamp">21-Sep-20 10:31 PM</span>
+
+            <div class="chatlog__message " data-message-id="757715598649065603" id="message-757715598649065603">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">Nice job <span class="mention" title="PuffinGamer#0791">@Chief Judge Puffin</span>, you just advanced to level 7!</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="San%20Vooperisco%20Community%20Server%20-%20Ping%20%F0%9F%94%94%20-%20levels%20%5B726836971313561680%5D.html_Files/b50adff099924dd5e6b72d13f77eb9d7-A48AE.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="MEE6#4876" data-user-id="159985870458322944" style="color: rgb(0,255,144)">MEE6</span>
+
+            <span class="chatlog__bot-tag">BOT</span>
+
+        <span class="chatlog__timestamp">23-Sep-20 12:34 AM</span>
+
+            <div class="chatlog__message " data-message-id="758108981381562419" id="message-758108981381562419">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">Nice job <span class="mention" title="Izukei#4451">@Izukei</span>, you just advanced to level 8!</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="758110140086878269" id="message-758110140086878269">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">Nice job <span class="mention" title="MinesomeMC#9053">@Rep. MinesomeMC (CAD - SV)</span>, you just advanced to level 6!</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="San%20Vooperisco%20Community%20Server%20-%20Ping%20%F0%9F%94%94%20-%20levels%20%5B726836971313561680%5D.html_Files/b50adff099924dd5e6b72d13f77eb9d7-A48AE.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="MEE6#4876" data-user-id="159985870458322944" style="color: rgb(0,255,144)">MEE6</span>
+
+            <span class="chatlog__bot-tag">BOT</span>
+
+        <span class="chatlog__timestamp">23-Sep-20 05:57 PM</span>
+
+            <div class="chatlog__message " data-message-id="758371518824185918" id="message-758371518824185918">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">Nice job <span class="mention" title="Pope Francis#0001">@Pope | #TheGoldenDistrict</span>, you just advanced to level 12!</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="San%20Vooperisco%20Community%20Server%20-%20Ping%20%F0%9F%94%94%20-%20levels%20%5B726836971313561680%5D.html_Files/b50adff099924dd5e6b72d13f77eb9d7-A48AE.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="MEE6#4876" data-user-id="159985870458322944" style="color: rgb(0,255,144)">MEE6</span>
+
+            <span class="chatlog__bot-tag">BOT</span>
+
+        <span class="chatlog__timestamp">23-Sep-20 06:43 PM</span>
+
+            <div class="chatlog__message " data-message-id="758383042485157958" id="message-758383042485157958">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">Nice job <span class="mention" title="PuffinGamer#0791">@Chief Judge Puffin</span>, you just advanced to level 8!</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="San%20Vooperisco%20Community%20Server%20-%20Ping%20%F0%9F%94%94%20-%20levels%20%5B726836971313561680%5D.html_Files/b50adff099924dd5e6b72d13f77eb9d7-A48AE.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="MEE6#4876" data-user-id="159985870458322944" style="color: rgb(0,255,144)">MEE6</span>
+
+            <span class="chatlog__bot-tag">BOT</span>
+
+        <span class="chatlog__timestamp">24-Sep-20 12:52 PM</span>
+
+            <div class="chatlog__message " data-message-id="758657058839986188" id="message-758657058839986188">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">Nice job <span class="mention" title="Bryan Miralda#8396">@Former Govenor Bryan</span>, you just advanced to level 6!</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="San%20Vooperisco%20Community%20Server%20-%20Ping%20%F0%9F%94%94%20-%20levels%20%5B726836971313561680%5D.html_Files/e1cd1f613f792719f98f555128d9daa6-F4821.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Bryan Miralda#8396" data-user-id="416708241582587904" style="color: rgb(255,216,0)">Former Govenor Bryan</span>
+
+
+        <span class="chatlog__timestamp">24-Sep-20 12:52 PM</span>
+
+            <div class="chatlog__message " data-message-id="758657118298439741" id="message-758657118298439741">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">!rank</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="San%20Vooperisco%20Community%20Server%20-%20Ping%20%F0%9F%94%94%20-%20levels%20%5B726836971313561680%5D.html_Files/b50adff099924dd5e6b72d13f77eb9d7-A48AE.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="MEE6#4876" data-user-id="159985870458322944" style="color: rgb(0,255,144)">MEE6</span>
+
+            <span class="chatlog__bot-tag">BOT</span>
+
+        <span class="chatlog__timestamp">24-Sep-20 12:52 PM</span>
+
+            <div class="chatlog__message " data-message-id="758657121880768523" id="message-758657121880768523">
+
+                    <div class="chatlog__attachment">
+                        <div class="" onclick="">
+                            <div class="">
+                                    <a href="San%20Vooperisco%20Community%20Server%20-%20Ping%20%F0%9F%94%94%20-%20levels%20%5B726836971313561680%5D.html_Files/card-F5220.png">
+                                        <img class="chatlog__attachment-thumbnail" src="San%20Vooperisco%20Community%20Server%20-%20Ping%20%F0%9F%94%94%20-%20levels%20%5B726836971313561680%5D.html_Files/card-F5220.png" alt="Image attachment" title="Image: card.png (52.01 KB)">
+                                    </a>
+                            </div>
+                        </div>
+                    </div>
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="San%20Vooperisco%20Community%20Server%20-%20Ping%20%F0%9F%94%94%20-%20levels%20%5B726836971313561680%5D.html_Files/765c3b1c668de93a71c2041966a338ac-F019B.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Pope Francis#0001" data-user-id="153555060926840833" style="color: rgb(255,112,0)">Pope | #TheGoldenDistrict</span>
+
+
+        <span class="chatlog__timestamp">24-Sep-20 01:35 PM</span>
+
+            <div class="chatlog__message " data-message-id="758667909056167957" id="message-758667909056167957">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><span class="mention" title="Bryan Miralda#8396">@Former Govenor Bryan</span> we have <span class="mention">#bot-spam</span> for a reason lmao</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="San%20Vooperisco%20Community%20Server%20-%20Ping%20%F0%9F%94%94%20-%20levels%20%5B726836971313561680%5D.html_Files/e1cd1f613f792719f98f555128d9daa6-F4821.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Bryan Miralda#8396" data-user-id="416708241582587904" style="color: rgb(255,216,0)">Former Govenor Bryan</span>
+
+
+        <span class="chatlog__timestamp">24-Sep-20 01:36 PM</span>
+
+            <div class="chatlog__message " data-message-id="758668088043896882" id="message-758668088043896882">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">I evade the rules like I evade my taxes</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="758668109317275658" id="message-758668109317275658">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><span class="mention" title="Pope Francis#0001">@Pope | #TheGoldenDistrict</span></span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="San%20Vooperisco%20Community%20Server%20-%20Ping%20%F0%9F%94%94%20-%20levels%20%5B726836971313561680%5D.html_Files/765c3b1c668de93a71c2041966a338ac-F019B.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Pope Francis#0001" data-user-id="153555060926840833" style="color: rgb(255,112,0)">Pope | #TheGoldenDistrict</span>
+
+
+        <span class="chatlog__timestamp">24-Sep-20 01:36 PM</span>
+
+            <div class="chatlog__message " data-message-id="758668152812339242" id="message-758668152812339242">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">m.</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="San%20Vooperisco%20Community%20Server%20-%20Ping%20%F0%9F%94%94%20-%20levels%20%5B726836971313561680%5D.html_Files/b50adff099924dd5e6b72d13f77eb9d7-A48AE.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="MEE6#4876" data-user-id="159985870458322944" style="color: rgb(0,255,144)">MEE6</span>
+
+            <span class="chatlog__bot-tag">BOT</span>
+
+        <span class="chatlog__timestamp">25-Sep-20 05:26 PM</span>
+
+            <div class="chatlog__message " data-message-id="759088547105079366" id="message-759088547105079366">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">Nice job <span class="mention" title="Devin Last name not included#2688">@Rep. Devin</span>, you just advanced to level 5!</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="San%20Vooperisco%20Community%20Server%20-%20Ping%20%F0%9F%94%94%20-%20levels%20%5B726836971313561680%5D.html_Files/b50adff099924dd5e6b72d13f77eb9d7-A48AE.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="MEE6#4876" data-user-id="159985870458322944" style="color: rgb(0,255,144)">MEE6</span>
+
+            <span class="chatlog__bot-tag">BOT</span>
+
+        <span class="chatlog__timestamp">28-Sep-20 03:55 AM</span>
+
+            <div class="chatlog__message " data-message-id="759971580335226930" id="message-759971580335226930">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">Nice job <span class="mention" title="Izukei#4451">@Izukei</span>, you just advanced to level 9!</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="San%20Vooperisco%20Community%20Server%20-%20Ping%20%F0%9F%94%94%20-%20levels%20%5B726836971313561680%5D.html_Files/b50adff099924dd5e6b72d13f77eb9d7-A48AE.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="MEE6#4876" data-user-id="159985870458322944" style="color: rgb(0,255,144)">MEE6</span>
+
+            <span class="chatlog__bot-tag">BOT</span>
+
+        <span class="chatlog__timestamp">29-Sep-20 01:32 AM</span>
+
+            <div class="chatlog__message " data-message-id="760297809898897438" id="message-760297809898897438">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">Nice job <span class="mention" title="PuffinGamer#0791">@Chief Judge Puffin</span>, you just advanced to level 9!</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="San%20Vooperisco%20Community%20Server%20-%20Ping%20%F0%9F%94%94%20-%20levels%20%5B726836971313561680%5D.html_Files/304d23a63315a9fb744b3e89cfa12c8c-D68C9.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Shadow1200#9974" data-user-id="587775033208733717" style="color: rgb(255,188,0)">Attorney General Shadow</span>
+
+
+        <span class="chatlog__timestamp">29-Sep-20 01:44 PM</span>
+
+            <div class="chatlog__message " data-message-id="760482110804066325" id="message-760482110804066325">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">mmh bot spam</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="San%20Vooperisco%20Community%20Server%20-%20Ping%20%F0%9F%94%94%20-%20levels%20%5B726836971313561680%5D.html_Files/b50adff099924dd5e6b72d13f77eb9d7-A48AE.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="MEE6#4876" data-user-id="159985870458322944" style="color: rgb(0,255,144)">MEE6</span>
+
+            <span class="chatlog__bot-tag">BOT</span>
+
+        <span class="chatlog__timestamp">29-Sep-20 02:08 PM</span>
+
+            <div class="chatlog__message " data-message-id="760488248169988107" id="message-760488248169988107">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">Nice job <span class="mention" title="Unusederas#6442">@Former Rep. Unusederas</span>, you just advanced to level 4!</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="San%20Vooperisco%20Community%20Server%20-%20Ping%20%F0%9F%94%94%20-%20levels%20%5B726836971313561680%5D.html_Files/b50adff099924dd5e6b72d13f77eb9d7-A48AE.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="MEE6#4876" data-user-id="159985870458322944" style="color: rgb(0,255,144)">MEE6</span>
+
+            <span class="chatlog__bot-tag">BOT</span>
+
+        <span class="chatlog__timestamp">29-Sep-20 06:58 PM</span>
+
+            <div class="chatlog__message " data-message-id="760561265122213928" id="message-760561265122213928">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">Nice job <span class="mention" title="Pope Francis#0001">@Pope | #TheGoldenDistrict</span>, you just advanced to level 13!</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="San%20Vooperisco%20Community%20Server%20-%20Ping%20%F0%9F%94%94%20-%20levels%20%5B726836971313561680%5D.html_Files/b50adff099924dd5e6b72d13f77eb9d7-A48AE.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="MEE6#4876" data-user-id="159985870458322944" style="color: rgb(0,255,144)">MEE6</span>
+
+            <span class="chatlog__bot-tag">BOT</span>
+
+        <span class="chatlog__timestamp">30-Sep-20 02:06 PM</span>
+
+            <div class="chatlog__message " data-message-id="760850061277790268" id="message-760850061277790268">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">Nice job <span class="mention" title="Shadow1200#9974">@Attorney General Shadow</span>, you just advanced to level 5!</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="San%20Vooperisco%20Community%20Server%20-%20Ping%20%F0%9F%94%94%20-%20levels%20%5B726836971313561680%5D.html_Files/b50adff099924dd5e6b72d13f77eb9d7-A48AE.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="MEE6#4876" data-user-id="159985870458322944" style="color: rgb(0,255,144)">MEE6</span>
+
+            <span class="chatlog__bot-tag">BOT</span>
+
+        <span class="chatlog__timestamp">30-Sep-20 04:08 PM</span>
+
+            <div class="chatlog__message " data-message-id="760880779965366355" id="message-760880779965366355">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">Nice job <span class="mention" title="galactic gamer#9738">@Galactic Gamer</span>, you just advanced to level 5!</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="San%20Vooperisco%20Community%20Server%20-%20Ping%20%F0%9F%94%94%20-%20levels%20%5B726836971313561680%5D.html_Files/b50adff099924dd5e6b72d13f77eb9d7-A48AE.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="MEE6#4876" data-user-id="159985870458322944" style="color: rgb(0,255,144)">MEE6</span>
+
+            <span class="chatlog__bot-tag">BOT</span>
+
+        <span class="chatlog__timestamp">01-Oct-20 05:31 AM</span>
+
+            <div class="chatlog__message " data-message-id="761082735741370408" id="message-761082735741370408">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">Nice job <span class="mention" title="superjacobl#8277">@superjacobl</span>, you just advanced to level 2!</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="San%20Vooperisco%20Community%20Server%20-%20Ping%20%F0%9F%94%94%20-%20levels%20%5B726836971313561680%5D.html_Files/b50adff099924dd5e6b72d13f77eb9d7-A48AE.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="MEE6#4876" data-user-id="159985870458322944" style="color: rgb(0,255,144)">MEE6</span>
+
+            <span class="chatlog__bot-tag">BOT</span>
+
+        <span class="chatlog__timestamp">01-Oct-20 05:22 PM</span>
+
+            <div class="chatlog__message " data-message-id="761261865853780068" id="message-761261865853780068">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">Nice job <span class="mention" title="Izukei#4451">@Izukei</span>, you just advanced to level 10!</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="San%20Vooperisco%20Community%20Server%20-%20Ping%20%F0%9F%94%94%20-%20levels%20%5B726836971313561680%5D.html_Files/b50adff099924dd5e6b72d13f77eb9d7-A48AE.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="MEE6#4876" data-user-id="159985870458322944" style="color: rgb(0,255,144)">MEE6</span>
+
+            <span class="chatlog__bot-tag">BOT</span>
+
+        <span class="chatlog__timestamp">02-Oct-20 04:17 AM</span>
+
+            <div class="chatlog__message " data-message-id="761426624737574912" id="message-761426624737574912">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">Nice job <span class="mention" title="Bryan Miralda#8396">@Former Govenor Bryan</span>, you just advanced to level 7!</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="San%20Vooperisco%20Community%20Server%20-%20Ping%20%F0%9F%94%94%20-%20levels%20%5B726836971313561680%5D.html_Files/b50adff099924dd5e6b72d13f77eb9d7-A48AE.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="MEE6#4876" data-user-id="159985870458322944" style="color: rgb(0,255,144)">MEE6</span>
+
+            <span class="chatlog__bot-tag">BOT</span>
+
+        <span class="chatlog__timestamp">05-Oct-20 04:26 PM</span>
+
+            <div class="chatlog__message " data-message-id="762697137002905600" id="message-762697137002905600">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">Nice job <span class="mention" title="Unusederas#6442">@Former Rep. Unusederas</span>, you just advanced to level 5!</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="San%20Vooperisco%20Community%20Server%20-%20Ping%20%F0%9F%94%94%20-%20levels%20%5B726836971313561680%5D.html_Files/b50adff099924dd5e6b72d13f77eb9d7-A48AE.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="MEE6#4876" data-user-id="159985870458322944" style="color: rgb(0,255,144)">MEE6</span>
+
+            <span class="chatlog__bot-tag">BOT</span>
+
+        <span class="chatlog__timestamp">09-Oct-20 02:02 PM</span>
+
+            <div class="chatlog__message " data-message-id="764110627705847820" id="message-764110627705847820">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">Nice job <span class="mention" title="Bryan Miralda#8396">@Former Govenor Bryan</span>, you just advanced to level 8!</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="San%20Vooperisco%20Community%20Server%20-%20Ping%20%F0%9F%94%94%20-%20levels%20%5B726836971313561680%5D.html_Files/b50adff099924dd5e6b72d13f77eb9d7-A48AE.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="MEE6#4876" data-user-id="159985870458322944" style="color: rgb(0,255,144)">MEE6</span>
+
+            <span class="chatlog__bot-tag">BOT</span>
+
+        <span class="chatlog__timestamp">09-Oct-20 09:57 PM</span>
+
+            <div class="chatlog__message " data-message-id="764230192155459614" id="message-764230192155459614">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">Nice job <span class="mention" title="Pope Francis#0001">@Pope | #TheGoldenDistrict</span>, you just advanced to level 14!</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="San%20Vooperisco%20Community%20Server%20-%20Ping%20%F0%9F%94%94%20-%20levels%20%5B726836971313561680%5D.html_Files/b50adff099924dd5e6b72d13f77eb9d7-A48AE.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="MEE6#4876" data-user-id="159985870458322944" style="color: rgb(0,255,144)">MEE6</span>
+
+            <span class="chatlog__bot-tag">BOT</span>
+
+        <span class="chatlog__timestamp">12-Oct-20 08:01 PM</span>
+
+            <div class="chatlog__message " data-message-id="765288142839480330" id="message-765288142839480330">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">Nice job <span class="mention" title="Shadow1200#9974">@Attorney General Shadow</span>, you just advanced to level 6!</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="San%20Vooperisco%20Community%20Server%20-%20Ping%20%F0%9F%94%94%20-%20levels%20%5B726836971313561680%5D.html_Files/b50adff099924dd5e6b72d13f77eb9d7-A48AE.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="MEE6#4876" data-user-id="159985870458322944" style="color: rgb(0,255,144)">MEE6</span>
+
+            <span class="chatlog__bot-tag">BOT</span>
+
+        <span class="chatlog__timestamp">14-Oct-20 04:16 PM</span>
+
+            <div class="chatlog__message " data-message-id="765956133126668349" id="message-765956133126668349">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">Nice job <span class="mention" title="Niami#7504">@Niami</span>, you just advanced to level 4!</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="San%20Vooperisco%20Community%20Server%20-%20Ping%20%F0%9F%94%94%20-%20levels%20%5B726836971313561680%5D.html_Files/b50adff099924dd5e6b72d13f77eb9d7-A48AE.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="MEE6#4876" data-user-id="159985870458322944" style="color: rgb(0,255,144)">MEE6</span>
+
+            <span class="chatlog__bot-tag">BOT</span>
+
+        <span class="chatlog__timestamp">21-Oct-20 08:21 PM</span>
+
+            <div class="chatlog__message " data-message-id="768554456585076796" id="message-768554456585076796">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">Nice job <span class="mention" title="Devin Last name not included#2688">@Rep. Devin</span>, you just advanced to level 6!</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="San%20Vooperisco%20Community%20Server%20-%20Ping%20%F0%9F%94%94%20-%20levels%20%5B726836971313561680%5D.html_Files/b50adff099924dd5e6b72d13f77eb9d7-A48AE.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="MEE6#4876" data-user-id="159985870458322944" style="color: rgb(0,255,144)">MEE6</span>
+
+            <span class="chatlog__bot-tag">BOT</span>
+
+        <span class="chatlog__timestamp">21-Oct-20 09:11 PM</span>
+
+            <div class="chatlog__message " data-message-id="768567131871641600" id="message-768567131871641600">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">Nice job <span class="mention" title="Izukei#4451">@Izukei</span>, you just advanced to level 11!</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="San%20Vooperisco%20Community%20Server%20-%20Ping%20%F0%9F%94%94%20-%20levels%20%5B726836971313561680%5D.html_Files/feae8d363d4fae3c192cd8283c5138ff-A3ED5.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Izukei#4451" data-user-id="333341406771019777" style="color: rgb(255,167,0)">Izukei</span>
+
+
+        <span class="chatlog__timestamp">21-Oct-20 09:11 PM</span>
+
+            <div class="chatlog__message " data-message-id="768567164038021182" id="message-768567164038021182">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">Stap!</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="San%20Vooperisco%20Community%20Server%20-%20Ping%20%F0%9F%94%94%20-%20levels%20%5B726836971313561680%5D.html_Files/b50adff099924dd5e6b72d13f77eb9d7-A48AE.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="MEE6#4876" data-user-id="159985870458322944" style="color: rgb(0,255,144)">MEE6</span>
+
+            <span class="chatlog__bot-tag">BOT</span>
+
+        <span class="chatlog__timestamp">22-Oct-20 05:58 AM</span>
+
+            <div class="chatlog__message " data-message-id="768699767760224266" id="message-768699767760224266">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">Nice job <span class="mention" title="bmkreher#2777">@bmkreher</span>, you just advanced to level 2!</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="San%20Vooperisco%20Community%20Server%20-%20Ping%20%F0%9F%94%94%20-%20levels%20%5B726836971313561680%5D.html_Files/b50adff099924dd5e6b72d13f77eb9d7-A48AE.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="MEE6#4876" data-user-id="159985870458322944" style="color: rgb(0,255,144)">MEE6</span>
+
+            <span class="chatlog__bot-tag">BOT</span>
+
+        <span class="chatlog__timestamp">25-Oct-20 11:23 PM</span>
+
+            <div class="chatlog__message " data-message-id="770065000416018454" id="message-770065000416018454">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">Nice job <span class="mention" title="Unusederas#6442">@Former Rep. Unusederas</span>, you just advanced to level 6!</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="San%20Vooperisco%20Community%20Server%20-%20Ping%20%F0%9F%94%94%20-%20levels%20%5B726836971313561680%5D.html_Files/b50adff099924dd5e6b72d13f77eb9d7-A48AE.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="MEE6#4876" data-user-id="159985870458322944" style="color: rgb(0,255,144)">MEE6</span>
+
+            <span class="chatlog__bot-tag">BOT</span>
+
+        <span class="chatlog__timestamp">29-Oct-20 03:39 AM</span>
+
+            <div class="chatlog__message " data-message-id="771216690511609877" id="message-771216690511609877">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">Nice job <span class="mention" title="LukaPlayz#5212">@LukaPlayz</span>, you just advanced to level 1!</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="San%20Vooperisco%20Community%20Server%20-%20Ping%20%F0%9F%94%94%20-%20levels%20%5B726836971313561680%5D.html_Files/b50adff099924dd5e6b72d13f77eb9d7-A48AE.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="MEE6#4876" data-user-id="159985870458322944" style="color: rgb(0,255,144)">MEE6</span>
+
+            <span class="chatlog__bot-tag">BOT</span>
+
+        <span class="chatlog__timestamp">30-Oct-20 10:42 PM</span>
+
+            <div class="chatlog__message " data-message-id="771866606636630026" id="message-771866606636630026">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">Nice job <span class="mention" title="Coca162#1419">@Coca162</span>, you just advanced to level 2!</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="San%20Vooperisco%20Community%20Server%20-%20Ping%20%F0%9F%94%94%20-%20levels%20%5B726836971313561680%5D.html_Files/b50adff099924dd5e6b72d13f77eb9d7-A48AE.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="MEE6#4876" data-user-id="159985870458322944" style="color: rgb(0,255,144)">MEE6</span>
+
+            <span class="chatlog__bot-tag">BOT</span>
+
+        <span class="chatlog__timestamp">31-Oct-20 12:22 AM</span>
+
+            <div class="chatlog__message " data-message-id="771891881448570901" id="message-771891881448570901">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">Nice job <span class="mention" title="Devin Last Name Not Included#0646">@Devin #popeisstilldope</span>, you just advanced to level 1!</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="San%20Vooperisco%20Community%20Server%20-%20Ping%20%F0%9F%94%94%20-%20levels%20%5B726836971313561680%5D.html_Files/b50adff099924dd5e6b72d13f77eb9d7-A48AE.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="MEE6#4876" data-user-id="159985870458322944" style="color: rgb(0,255,144)">MEE6</span>
+
+            <span class="chatlog__bot-tag">BOT</span>
+
+        <span class="chatlog__timestamp">10-Nov-20 02:44 PM</span>
+
+            <div class="chatlog__message " data-message-id="775732734349803550" id="message-775732734349803550">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">Nice job <span class="mention" title="Shadow1200#9974">@Attorney General Shadow</span>, you just advanced to level 7!</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="San%20Vooperisco%20Community%20Server%20-%20Ping%20%F0%9F%94%94%20-%20levels%20%5B726836971313561680%5D.html_Files/b50adff099924dd5e6b72d13f77eb9d7-A48AE.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="MEE6#4876" data-user-id="159985870458322944" style="color: rgb(0,255,144)">MEE6</span>
+
+            <span class="chatlog__bot-tag">BOT</span>
+
+        <span class="chatlog__timestamp">11-Nov-20 11:06 PM</span>
+
+            <div class="chatlog__message " data-message-id="776221227987370014" id="message-776221227987370014">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">Nice job <span class="mention" title="D.J.Z.#2016">@D.J.Z.</span>, you just advanced to level 1!</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="San%20Vooperisco%20Community%20Server%20-%20Ping%20%F0%9F%94%94%20-%20levels%20%5B726836971313561680%5D.html_Files/b50adff099924dd5e6b72d13f77eb9d7-A48AE.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="MEE6#4876" data-user-id="159985870458322944" style="color: rgb(0,255,144)">MEE6</span>
+
+            <span class="chatlog__bot-tag">BOT</span>
+
+        <span class="chatlog__timestamp">12-Nov-20 04:51 PM</span>
+
+            <div class="chatlog__message " data-message-id="776489479560888320" id="message-776489479560888320">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">Nice job <span class="mention" title="Pope Francis#0001">@Pope | #TheGoldenDistrict</span>, you just advanced to level 15!</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="San%20Vooperisco%20Community%20Server%20-%20Ping%20%F0%9F%94%94%20-%20levels%20%5B726836971313561680%5D.html_Files/b50adff099924dd5e6b72d13f77eb9d7-A48AE.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="MEE6#4876" data-user-id="159985870458322944" style="color: rgb(0,255,144)">MEE6</span>
+
+            <span class="chatlog__bot-tag">BOT</span>
+
+        <span class="chatlog__timestamp">12-Nov-20 07:56 PM</span>
+
+            <div class="chatlog__message " data-message-id="776535807665111101" id="message-776535807665111101">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">Nice job <span class="mention" title="Kaprilik Katothēmon Īmētstilikas#8063">@Kaprilik Katothēmon Īmētstilikas</span>, you just advanced to level 1!</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="San%20Vooperisco%20Community%20Server%20-%20Ping%20%F0%9F%94%94%20-%20levels%20%5B726836971313561680%5D.html_Files/b50adff099924dd5e6b72d13f77eb9d7-A48AE.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="MEE6#4876" data-user-id="159985870458322944" style="color: rgb(0,255,144)">MEE6</span>
+
+            <span class="chatlog__bot-tag">BOT</span>
+
+        <span class="chatlog__timestamp">12-Nov-20 08:50 PM</span>
+
+            <div class="chatlog__message " data-message-id="776549386448142337" id="message-776549386448142337">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">Nice job <span class="mention" title="Kaprilik Katothēmon Īmētstilikas#8063">@Kaprilik Katothēmon Īmētstilikas</span>, you just advanced to level 2!</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="San%20Vooperisco%20Community%20Server%20-%20Ping%20%F0%9F%94%94%20-%20levels%20%5B726836971313561680%5D.html_Files/b50adff099924dd5e6b72d13f77eb9d7-A48AE.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="MEE6#4876" data-user-id="159985870458322944" style="color: rgb(0,255,144)">MEE6</span>
+
+            <span class="chatlog__bot-tag">BOT</span>
+
+        <span class="chatlog__timestamp">12-Nov-20 09:11 PM</span>
+
+            <div class="chatlog__message " data-message-id="776554682436026419" id="message-776554682436026419">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">Nice job <span class="mention" title="Devin Last Name Not Included#0646">@Devin #popeisstilldope</span>, you just advanced to level 2!</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="San%20Vooperisco%20Community%20Server%20-%20Ping%20%F0%9F%94%94%20-%20levels%20%5B726836971313561680%5D.html_Files/b50adff099924dd5e6b72d13f77eb9d7-A48AE.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="MEE6#4876" data-user-id="159985870458322944" style="color: rgb(0,255,144)">MEE6</span>
+
+            <span class="chatlog__bot-tag">BOT</span>
+
+        <span class="chatlog__timestamp">14-Nov-20 02:55 AM</span>
+
+            <div class="chatlog__message " data-message-id="777003844705845248" id="message-777003844705845248">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">Nice job <span class="mention" title="TheScarlettMaid#0001">@TheScarlettMaid</span>, you just advanced to level 1!</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="San%20Vooperisco%20Community%20Server%20-%20Ping%20%F0%9F%94%94%20-%20levels%20%5B726836971313561680%5D.html_Files/b50adff099924dd5e6b72d13f77eb9d7-A48AE.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="MEE6#4876" data-user-id="159985870458322944" style="color: rgb(0,255,144)">MEE6</span>
+
+            <span class="chatlog__bot-tag">BOT</span>
+
+        <span class="chatlog__timestamp">15-Nov-20 02:40 AM</span>
+
+            <div class="chatlog__message " data-message-id="777362347378999346" id="message-777362347378999346">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">Nice job <span class="mention" title="TheScarlettMaid#0001">@TheScarlettMaid</span>, you just advanced to level 2!</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="San%20Vooperisco%20Community%20Server%20-%20Ping%20%F0%9F%94%94%20-%20levels%20%5B726836971313561680%5D.html_Files/b50adff099924dd5e6b72d13f77eb9d7-A48AE.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="MEE6#4876" data-user-id="159985870458322944" style="color: rgb(0,255,144)">MEE6</span>
+
+            <span class="chatlog__bot-tag">BOT</span>
+
+        <span class="chatlog__timestamp">21-Nov-20 06:43 PM</span>
+
+            <div class="chatlog__message " data-message-id="779779003410153492" id="message-779779003410153492">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">Nice job <span class="mention" title="Devin Last Name Not Included#0646">@Devin #popeisstilldope</span>, you just advanced to level 3!</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="San%20Vooperisco%20Community%20Server%20-%20Ping%20%F0%9F%94%94%20-%20levels%20%5B726836971313561680%5D.html_Files/b50adff099924dd5e6b72d13f77eb9d7-A48AE.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="MEE6#4876" data-user-id="159985870458322944" style="color: rgb(0,255,144)">MEE6</span>
+
+            <span class="chatlog__bot-tag">BOT</span>
+
+        <span class="chatlog__timestamp">21-Nov-20 11:21 PM</span>
+
+            <div class="chatlog__message " data-message-id="779849001246916628" id="message-779849001246916628">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">Nice job <span class="mention" title="Niami#7504">@Niami</span>, you just advanced to level 5!</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="San%20Vooperisco%20Community%20Server%20-%20Ping%20%F0%9F%94%94%20-%20levels%20%5B726836971313561680%5D.html_Files/b50adff099924dd5e6b72d13f77eb9d7-A48AE.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="MEE6#4876" data-user-id="159985870458322944" style="color: rgb(0,255,144)">MEE6</span>
+
+            <span class="chatlog__bot-tag">BOT</span>
+
+        <span class="chatlog__timestamp">21-Nov-20 11:33 PM</span>
+
+            <div class="chatlog__message " data-message-id="779851917530103818" id="message-779851917530103818">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">Nice job <span class="mention" title="TheScarlettMaid#0001">@TheScarlettMaid</span>, you just advanced to level 3!</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="San%20Vooperisco%20Community%20Server%20-%20Ping%20%F0%9F%94%94%20-%20levels%20%5B726836971313561680%5D.html_Files/b50adff099924dd5e6b72d13f77eb9d7-A48AE.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="MEE6#4876" data-user-id="159985870458322944" style="color: rgb(0,255,144)">MEE6</span>
+
+            <span class="chatlog__bot-tag">BOT</span>
+
+        <span class="chatlog__timestamp">22-Nov-20 01:46 AM</span>
+
+            <div class="chatlog__message " data-message-id="779885422876164097" id="message-779885422876164097">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">Nice job <span class="mention" title="Izukei#4451">@Izukei</span>, you just advanced to level 12!</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="San%20Vooperisco%20Community%20Server%20-%20Ping%20%F0%9F%94%94%20-%20levels%20%5B726836971313561680%5D.html_Files/b50adff099924dd5e6b72d13f77eb9d7-A48AE.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="MEE6#4876" data-user-id="159985870458322944" style="color: rgb(0,255,144)">MEE6</span>
+
+            <span class="chatlog__bot-tag">BOT</span>
+
+        <span class="chatlog__timestamp">22-Nov-20 02:20 AM</span>
+
+            <div class="chatlog__message " data-message-id="779893964534054952" id="message-779893964534054952">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">Nice job <span class="mention" title="Pope Francis#0001">@Pope | #TheGoldenDistrict</span>, you just advanced to level 16!</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="San%20Vooperisco%20Community%20Server%20-%20Ping%20%F0%9F%94%94%20-%20levels%20%5B726836971313561680%5D.html_Files/b50adff099924dd5e6b72d13f77eb9d7-A48AE.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="MEE6#4876" data-user-id="159985870458322944" style="color: rgb(0,255,144)">MEE6</span>
+
+            <span class="chatlog__bot-tag">BOT</span>
+
+        <span class="chatlog__timestamp">22-Nov-20 02:44 AM</span>
+
+            <div class="chatlog__message " data-message-id="779899993628082216" id="message-779899993628082216">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">Nice job <span class="mention" title="Devin Last Name Not Included#0646">@Devin #popeisstilldope</span>, you just advanced to level 4!</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="San%20Vooperisco%20Community%20Server%20-%20Ping%20%F0%9F%94%94%20-%20levels%20%5B726836971313561680%5D.html_Files/b50adff099924dd5e6b72d13f77eb9d7-A48AE.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="MEE6#4876" data-user-id="159985870458322944" style="color: rgb(0,255,144)">MEE6</span>
+
+            <span class="chatlog__bot-tag">BOT</span>
+
+        <span class="chatlog__timestamp">22-Nov-20 04:01 AM</span>
+
+            <div class="chatlog__message " data-message-id="779919583284428810" id="message-779919583284428810">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">Nice job <span class="mention" title="MinesomeMC#9053">@Rep. MinesomeMC (CAD - SV)</span>, you just advanced to level 7!</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="San%20Vooperisco%20Community%20Server%20-%20Ping%20%F0%9F%94%94%20-%20levels%20%5B726836971313561680%5D.html_Files/b50adff099924dd5e6b72d13f77eb9d7-A48AE.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="MEE6#4876" data-user-id="159985870458322944" style="color: rgb(0,255,144)">MEE6</span>
+
+            <span class="chatlog__bot-tag">BOT</span>
+
+        <span class="chatlog__timestamp">26-Nov-20 12:17 AM</span>
+
+            <div class="chatlog__message " data-message-id="781312612662116382" id="message-781312612662116382">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">Nice job <span class="mention" title="Devin Last Name Not Included#0646">@Devin #popeisstilldope</span>, you just advanced to level 5!</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="San%20Vooperisco%20Community%20Server%20-%20Ping%20%F0%9F%94%94%20-%20levels%20%5B726836971313561680%5D.html_Files/b50adff099924dd5e6b72d13f77eb9d7-A48AE.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="MEE6#4876" data-user-id="159985870458322944" style="color: rgb(0,255,144)">MEE6</span>
+
+            <span class="chatlog__bot-tag">BOT</span>
+
+        <span class="chatlog__timestamp">26-Nov-20 12:45 AM</span>
+
+            <div class="chatlog__message " data-message-id="781319607436705803" id="message-781319607436705803">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">Nice job <span class="mention" title="donia#9423">@donia</span>, you just advanced to level 1!</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="San%20Vooperisco%20Community%20Server%20-%20Ping%20%F0%9F%94%94%20-%20levels%20%5B726836971313561680%5D.html_Files/b50adff099924dd5e6b72d13f77eb9d7-A48AE.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="MEE6#4876" data-user-id="159985870458322944" style="color: rgb(0,255,144)">MEE6</span>
+
+            <span class="chatlog__bot-tag">BOT</span>
+
+        <span class="chatlog__timestamp">28-Nov-20 05:11 PM</span>
+
+            <div class="chatlog__message " data-message-id="782292600618745867" id="message-782292600618745867">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">Nice job <span class="mention" title="TheScarlettMaid#0001">@TheScarlettMaid</span>, you just advanced to level 4!</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="San%20Vooperisco%20Community%20Server%20-%20Ping%20%F0%9F%94%94%20-%20levels%20%5B726836971313561680%5D.html_Files/b50adff099924dd5e6b72d13f77eb9d7-A48AE.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="MEE6#4876" data-user-id="159985870458322944" style="color: rgb(0,255,144)">MEE6</span>
+
+            <span class="chatlog__bot-tag">BOT</span>
+
+        <span class="chatlog__timestamp">01-Dec-20 03:40 AM</span>
+
+            <div class="chatlog__message " data-message-id="783175737880346667" id="message-783175737880346667">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">Nice job <span class="mention" title="DexEpik#0011">@DexEpik</span>, you just advanced to level 1!</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="San%20Vooperisco%20Community%20Server%20-%20Ping%20%F0%9F%94%94%20-%20levels%20%5B726836971313561680%5D.html_Files/b50adff099924dd5e6b72d13f77eb9d7-A48AE.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="MEE6#4876" data-user-id="159985870458322944" style="color: rgb(0,255,144)">MEE6</span>
+
+            <span class="chatlog__bot-tag">BOT</span>
+
+        <span class="chatlog__timestamp">06-Dec-20 03:55 AM</span>
+
+            <div class="chatlog__message " data-message-id="784991338390093864" id="message-784991338390093864">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">Nice job <span class="mention" title="Allegate#2876">@Allegate</span>, you just advanced to level 1!</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="San%20Vooperisco%20Community%20Server%20-%20Ping%20%F0%9F%94%94%20-%20levels%20%5B726836971313561680%5D.html_Files/b50adff099924dd5e6b72d13f77eb9d7-A48AE.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="MEE6#4876" data-user-id="159985870458322944" style="color: rgb(0,255,144)">MEE6</span>
+
+            <span class="chatlog__bot-tag">BOT</span>
+
+        <span class="chatlog__timestamp">07-Dec-20 02:01 AM</span>
+
+            <div class="chatlog__message " data-message-id="785325123023405086" id="message-785325123023405086">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">Nice job <span class="mention" title="PuffinGamer#0791">@Chief Judge Puffin</span>, you just advanced to level 10!</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="San%20Vooperisco%20Community%20Server%20-%20Ping%20%F0%9F%94%94%20-%20levels%20%5B726836971313561680%5D.html_Files/b50adff099924dd5e6b72d13f77eb9d7-A48AE.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="MEE6#4876" data-user-id="159985870458322944" style="color: rgb(0,255,144)">MEE6</span>
+
+            <span class="chatlog__bot-tag">BOT</span>
+
+        <span class="chatlog__timestamp">07-Dec-20 03:30 AM</span>
+
+            <div class="chatlog__message " data-message-id="785347487404916736" id="message-785347487404916736">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">Nice job <span class="mention" title="hellodan#0001">@hellodan</span>, you just advanced to level 1!</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="San%20Vooperisco%20Community%20Server%20-%20Ping%20%F0%9F%94%94%20-%20levels%20%5B726836971313561680%5D.html_Files/b50adff099924dd5e6b72d13f77eb9d7-A48AE.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="MEE6#4876" data-user-id="159985870458322944" style="color: rgb(0,255,144)">MEE6</span>
+
+            <span class="chatlog__bot-tag">BOT</span>
+
+        <span class="chatlog__timestamp">07-Dec-20 05:00 AM</span>
+
+            <div class="chatlog__message " data-message-id="785370061979516988" id="message-785370061979516988">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">Nice job <span class="mention" title="Izukei#4451">@Izukei</span>, you just advanced to level 13!</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="San%20Vooperisco%20Community%20Server%20-%20Ping%20%F0%9F%94%94%20-%20levels%20%5B726836971313561680%5D.html_Files/b50adff099924dd5e6b72d13f77eb9d7-A48AE.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="MEE6#4876" data-user-id="159985870458322944" style="color: rgb(0,255,144)">MEE6</span>
+
+            <span class="chatlog__bot-tag">BOT</span>
+
+        <span class="chatlog__timestamp">07-Dec-20 05:25 AM</span>
+
+            <div class="chatlog__message " data-message-id="785376413430841365" id="message-785376413430841365">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">Nice job <span class="mention" title="Pope Francis#0001">@Pope | #TheGoldenDistrict</span>, you just advanced to level 17!</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="San%20Vooperisco%20Community%20Server%20-%20Ping%20%F0%9F%94%94%20-%20levels%20%5B726836971313561680%5D.html_Files/b50adff099924dd5e6b72d13f77eb9d7-A48AE.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="MEE6#4876" data-user-id="159985870458322944" style="color: rgb(0,255,144)">MEE6</span>
+
+            <span class="chatlog__bot-tag">BOT</span>
+
+        <span class="chatlog__timestamp">07-Dec-20 08:46 PM</span>
+
+            <div class="chatlog__message " data-message-id="785608288980435024" id="message-785608288980435024">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">Nice job <span class="mention" title="Shadow1200#9974">@Attorney General Shadow</span>, you just advanced to level 8!</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="San%20Vooperisco%20Community%20Server%20-%20Ping%20%F0%9F%94%94%20-%20levels%20%5B726836971313561680%5D.html_Files/b50adff099924dd5e6b72d13f77eb9d7-A48AE.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="MEE6#4876" data-user-id="159985870458322944" style="color: rgb(0,255,144)">MEE6</span>
+
+            <span class="chatlog__bot-tag">BOT</span>
+
+        <span class="chatlog__timestamp">08-Dec-20 01:48 AM</span>
+
+            <div class="chatlog__message " data-message-id="785684185309904897" id="message-785684185309904897">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">Nice job <span class="mention" title="AJMbear#7746">@AJMbear</span>, you just advanced to level 1!</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="San%20Vooperisco%20Community%20Server%20-%20Ping%20%F0%9F%94%94%20-%20levels%20%5B726836971313561680%5D.html_Files/b50adff099924dd5e6b72d13f77eb9d7-A48AE.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="MEE6#4876" data-user-id="159985870458322944" style="color: rgb(0,255,144)">MEE6</span>
+
+            <span class="chatlog__bot-tag">BOT</span>
+
+        <span class="chatlog__timestamp">08-Dec-20 02:06 AM</span>
+
+            <div class="chatlog__message " data-message-id="785688801833254923" id="message-785688801833254923">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">Nice job <span class="mention" title="Bryan Miralda#8396">@Former Govenor Bryan</span>, you just advanced to level 9!</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="San%20Vooperisco%20Community%20Server%20-%20Ping%20%F0%9F%94%94%20-%20levels%20%5B726836971313561680%5D.html_Files/b50adff099924dd5e6b72d13f77eb9d7-A48AE.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="MEE6#4876" data-user-id="159985870458322944" style="color: rgb(0,255,144)">MEE6</span>
+
+            <span class="chatlog__bot-tag">BOT</span>
+
+        <span class="chatlog__timestamp">19-Dec-20 10:22 PM</span>
+
+            <div class="chatlog__message " data-message-id="789980967888486470" id="message-789980967888486470">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">Nice job <span class="mention" title="Niami#7504">@Niami</span>, you just advanced to level 6!</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="San%20Vooperisco%20Community%20Server%20-%20Ping%20%F0%9F%94%94%20-%20levels%20%5B726836971313561680%5D.html_Files/b50adff099924dd5e6b72d13f77eb9d7-A48AE.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="MEE6#4876" data-user-id="159985870458322944" style="color: rgb(0,255,144)">MEE6</span>
+
+            <span class="chatlog__bot-tag">BOT</span>
+
+        <span class="chatlog__timestamp">20-Dec-20 01:11 AM</span>
+
+            <div class="chatlog__message " data-message-id="790023440312303616" id="message-790023440312303616">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">Nice job <span class="mention" title="MinesomeMC#9053">@Rep. MinesomeMC (CAD - SV)</span>, you just advanced to level 8!</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="San%20Vooperisco%20Community%20Server%20-%20Ping%20%F0%9F%94%94%20-%20levels%20%5B726836971313561680%5D.html_Files/b50adff099924dd5e6b72d13f77eb9d7-A48AE.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="MEE6#4876" data-user-id="159985870458322944" style="color: rgb(0,255,144)">MEE6</span>
+
+            <span class="chatlog__bot-tag">BOT</span>
+
+        <span class="chatlog__timestamp">29-Dec-20 12:40 AM</span>
+
+            <div class="chatlog__message " data-message-id="793277214161895438" id="message-793277214161895438">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">Nice job <span class="mention" title="D.J.Z.#2016">@D.J.Z.</span>, you just advanced to level 2!</span>
+
+                        </div>
+                    </div>
+
+
+
+                    <div class="chatlog__reactions">
+                            <div class="chatlog__reaction">
+                                <img class="emoji emoji--small" alt="Nice" title="Nice" src="San%20Vooperisco%20Community%20Server%20-%20Ping%20%F0%9F%94%94%20-%20levels%20%5B726836971313561680%5D.html_Files/542888964487512067-EE73C.png">
+                                <span class="chatlog__reaction-count">2</span>
+                            </div>
+                    </div>
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="San%20Vooperisco%20Community%20Server%20-%20Ping%20%F0%9F%94%94%20-%20levels%20%5B726836971313561680%5D.html_Files/b50adff099924dd5e6b72d13f77eb9d7-A48AE.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="MEE6#4876" data-user-id="159985870458322944" style="color: rgb(0,255,144)">MEE6</span>
+
+            <span class="chatlog__bot-tag">BOT</span>
+
+        <span class="chatlog__timestamp">09-Jan-21 12:19 AM</span>
+
+            <div class="chatlog__message " data-message-id="797258126121631765" id="message-797258126121631765">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">Nice job <span class="mention" title="Bryan Miralda#8396">@Former Govenor Bryan</span>, you just advanced to level 10!</span>
+
+                        </div>
+                    </div>
+
+
+
+                    <div class="chatlog__reactions">
+                            <div class="chatlog__reaction">
+                                <img class="emoji emoji--small" alt="&#128555;" title="&#128555;" src="San%20Vooperisco%20Community%20Server%20-%20Ping%20%F0%9F%94%94%20-%20levels%20%5B726836971313561680%5D.html_Files/1f62b-FAE81.png">
+                                <span class="chatlog__reaction-count">1</span>
+                            </div>
+                    </div>
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="San%20Vooperisco%20Community%20Server%20-%20Ping%20%F0%9F%94%94%20-%20levels%20%5B726836971313561680%5D.html_Files/b50adff099924dd5e6b72d13f77eb9d7-A48AE.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="MEE6#4876" data-user-id="159985870458322944" style="color: rgb(0,255,144)">MEE6</span>
+
+            <span class="chatlog__bot-tag">BOT</span>
+
+        <span class="chatlog__timestamp">12-Jan-21 07:20 PM</span>
+
+            <div class="chatlog__message " data-message-id="798632423361216543" id="message-798632423361216543">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">Nice job <span class="mention" title="Izukei#4451">@Izukei</span>, you just advanced to level 14!</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="San%20Vooperisco%20Community%20Server%20-%20Ping%20%F0%9F%94%94%20-%20levels%20%5B726836971313561680%5D.html_Files/b50adff099924dd5e6b72d13f77eb9d7-A48AE.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="MEE6#4876" data-user-id="159985870458322944" style="color: rgb(0,255,144)">MEE6</span>
+
+            <span class="chatlog__bot-tag">BOT</span>
+
+        <span class="chatlog__timestamp">14-Jan-21 12:52 AM</span>
+
+            <div class="chatlog__message " data-message-id="799078392620253185" id="message-799078392620253185">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">Nice job <span class="mention" title="gb#9316">@gb #popeforsv</span>, you just advanced to level 4!</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+</div>
+
+<div class="postamble">
+    <div class="postamble__entry">Exported 136 message(s)</div>
+</div>
+
+</body>
+
+</html>

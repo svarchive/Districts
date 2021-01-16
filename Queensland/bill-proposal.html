@@ -1,0 +1,1816 @@
+
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>Queensland - bill-proposal</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width">
+
+    <style>
+        /* General */
+
+@font-face {
+    font-family: Whitney;
+    src: url(https://cdn.jsdelivr.net/gh/Tyrrrz/DiscordFonts@master/whitney-300.woff);
+    font-weight: 300;
+}
+
+@font-face {
+    font-family: Whitney;
+    src: url(https://cdn.jsdelivr.net/gh/Tyrrrz/DiscordFonts@master/whitney-400.woff);
+    font-weight: 400;
+}
+
+@font-face {
+    font-family: Whitney;
+    src: url(https://cdn.jsdelivr.net/gh/Tyrrrz/DiscordFonts@master/whitney-500.woff);
+    font-weight: 500;
+}
+
+@font-face {
+    font-family: Whitney;
+    src: url(https://cdn.jsdelivr.net/gh/Tyrrrz/DiscordFonts@master/whitney-600.woff);
+    font-weight: 600;
+}
+
+@font-face {
+    font-family: Whitney;
+    src: url(https://cdn.jsdelivr.net/gh/Tyrrrz/DiscordFonts@master/whitney-700.woff);
+    font-weight: 700;
+}
+
+body {
+    font-family: "Whitney", "Helvetica Neue", Helvetica, Arial, sans-serif;
+    font-size: 17px;
+}
+
+a {
+    text-decoration: none;
+}
+
+a:hover {
+    text-decoration: underline;
+}
+
+img {
+    object-fit: contain;
+}
+
+.markdown {
+    max-width: 100%;
+    line-height: 1.3;
+    overflow-wrap: break-word;
+}
+
+.preserve-whitespace {
+    white-space: pre-wrap;
+}
+
+.spoiler {
+    /* width: fit-content; */
+    display: inline-block;
+    /* This is more consistent across browsers, the old attribute worked well under Chrome but not FireFox. */
+}
+
+.spoiler--hidden {
+    cursor: pointer;
+}
+
+.spoiler-text {
+    border-radius: 3px;
+}
+
+.spoiler--hidden .spoiler-text {
+    color: rgba(0, 0, 0, 0);
+}
+
+.spoiler--hidden .spoiler-text::selection {
+    color: rgba(0, 0, 0, 0);
+}
+
+.spoiler-image {
+    position: relative;
+    overflow: hidden;
+    border-radius: 3px;
+}
+
+.spoiler--hidden .spoiler-image {
+    box-shadow: 0 0 1px 1px rgba(0, 0, 0, 0.1);
+}
+
+.spoiler--hidden .spoiler-image * {
+    filter: blur(44px);
+}
+
+.spoiler--hidden .spoiler-image:after {
+    content: "SPOILER";
+    color: #dcddde;
+    background-color: rgba(0, 0, 0, 0.6);
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    font-weight: 600;
+    padding: 100%;
+    border-radius: 20px;
+    letter-spacing: 0.05em;
+    font-size: 0.9em;
+}
+
+.spoiler--hidden:hover .spoiler-image:after {
+    color: #fff;
+    background-color: rgba(0, 0, 0, 0.9);
+}
+
+.quote {
+    margin: 0.1em 0;
+    padding-left: 0.6em;
+    border-left: 4px solid;
+    border-radius: 3px;
+}
+
+.pre {
+    font-family: "Consolas", "Courier New", Courier, monospace;
+}
+
+.pre--multiline {
+    margin-top: 0.25em;
+    padding: 0.5em;
+    border: 2px solid;
+    border-radius: 5px;
+}
+
+.pre--inline {
+    padding: 2px;
+    border-radius: 3px;
+    font-size: 0.85em;
+}
+
+.mention {
+    border-radius: 3px;
+    padding: 0 2px;
+    color: #7289da;
+    background: rgba(114, 137, 218, .1);
+    font-weight: 500;
+}
+
+.emoji {
+    width: 1.25em;
+    height: 1.25em;
+    margin: 0 0.06em;
+    vertical-align: -0.4em;
+}
+
+.emoji--small {
+    width: 1em;
+    height: 1em;
+}
+
+.emoji--large {
+    width: 2.8em;
+    height: 2.8em;
+}
+
+/* Preamble */
+
+.preamble {
+    display: grid;
+    margin: 0 0.3em 0.6em 0.3em;
+    max-width: 100%;
+    grid-template-columns: auto 1fr;
+}
+
+.preamble__guild-icon-container {
+    grid-column: 1;
+}
+
+.preamble__guild-icon {
+    max-width: 88px;
+    max-height: 88px;
+}
+
+.preamble__entries-container {
+    grid-column: 2;
+    margin-left: 0.6em;
+}
+
+.preamble__entry {
+    font-size: 1.4em;
+}
+
+.preamble__entry--small {
+    font-size: 1em;
+}
+
+/* Chatlog */
+
+.chatlog {
+    max-width: 100%;
+}
+
+.chatlog__message-group {
+    display: grid;
+    margin: 0 0.6em;
+    padding: 0.9em 0;
+    border-top: 1px solid;
+    grid-template-columns: auto 1fr;
+}
+
+.chatlog__reference-symbol {
+    grid-column: 1;
+    border-style: solid;
+    border-width: 2px 0 0 2px;
+    border-radius: 8px 0 0 0;
+    margin-left: 16px;
+    margin-top: 8px;
+}
+
+.chatlog__reference {
+    display: flex;
+    grid-column: 2;
+    margin-left: 1.2em;
+    margin-bottom: 0.25em;
+    font-size: 0.875em;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    align-items: center;
+}
+
+.chatlog__reference-avatar {
+    border-radius: 50%;
+    height: 16px;
+    width: 16px;
+    margin-right: 0.25em;
+}
+
+.chatlog__reference-name {
+    margin-right: 0.25em;
+    font-weight: 600;
+}
+
+.chatlog__reference-link {
+    flex-grow: 1;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.chatlog__reference-link:hover {
+    text-decoration: none;
+}
+
+.chatlog__reference-content > * {
+    display: inline;
+}
+
+.chatlog__reference-edited-timestamp {
+    margin-left: 0.25em;
+    font-size: 0.8em;
+}
+
+.chatlog__author-avatar-container {
+    grid-column: 1;
+    width: 40px;
+    height: 40px;
+}
+
+.chatlog__author-avatar {
+    border-radius: 50%;
+    height: 40px;
+    width: 40px;
+}
+
+.chatlog__messages {
+    grid-column: 2;
+    margin-left: 1.2em;
+    min-width: 50%;
+}
+
+.chatlog__author-name {
+    font-weight: 500;
+}
+
+.chatlog__timestamp {
+    margin-left: 0.3em;
+    font-size: 0.75em;
+}
+
+.chatlog__message {
+    padding: 0.1em 0.3em;
+    margin: 0 -0.3em;
+    background-color: transparent;
+    transition: background-color 1s ease;
+}
+
+.chatlog__content {
+    font-size: 0.95em;
+    word-wrap: break-word;
+}
+
+.chatlog__edited-timestamp {
+    margin-left: 0.15em;
+    font-size: 0.8em;
+}
+
+.chatlog__attachment {
+    margin-top: 0.3em;
+}
+
+.chatlog__attachment-thumbnail {
+    vertical-align: top;
+    max-width: 45vw;
+    max-height: 500px;
+    border-radius: 3px;
+}
+
+.chatlog__attachment-container {
+    height: 40px;
+    width: 100%;
+    max-width: 520px;
+    padding: 10px;
+    border: 1px solid;
+    border-radius: 3px;
+    overflow: hidden;
+}
+
+.chatlog__attachment-icon {
+    float: left;
+    height: 100%;
+    margin-right: 10px;
+}
+
+.chatlog__attachment-icon > .a {
+    fill: #f4f5fb;
+    d: path("M50,935a25,25,0,0,1-25-25V50A25,25,0,0,1,50,25H519.6L695,201.32V910a25,25,0,0,1-25,25Z");
+}
+
+.chatlog__attachment-icon > .b {
+    fill: #7789c4;
+    d: path("M509.21,50,670,211.63V910H50V50H509.21M530,0H50A50,50,0,0,0,0,50V910a50,50,0,0,0,50,50H670a50,50,0,0,0,50-50h0V191Z");
+}
+
+.chatlog__attachment-icon > .c {
+    fill: #f4f5fb;
+    d: path("M530,215a25,25,0,0,1-25-25V50a25,25,0,0,1,16.23-23.41L693.41,198.77A25,25,0,0,1,670,215Z");
+}
+
+.chatlog__attachment-icon > .d {
+    fill: #7789c4;
+    d: path("M530,70.71,649.29,190H530V70.71M530,0a50,50,0,0,0-50,50V190a50,50,0,0,0,50,50H670a50,50,0,0,0,50-50Z");
+}
+
+.chatlog__attachment-filesize {
+    color: #72767d;
+    font-size: 12px;
+}
+
+.chatlog__attachment-filename {
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+
+.chatlog__embed {
+    display: flex;
+    margin-top: 0.3em;
+    max-width: 520px;
+}
+
+.chatlog__embed-color-pill {
+    flex-shrink: 0;
+    width: 0.25em;
+    border-top-left-radius: 3px;
+    border-bottom-left-radius: 3px;
+}
+
+.chatlog__embed-content-container {
+    display: flex;
+    flex-direction: column;
+    padding: 0.5em 0.6em;
+    border: 1px solid;
+    border-top-right-radius: 3px;
+    border-bottom-right-radius: 3px;
+}
+
+.chatlog__embed-content {
+    display: flex;
+    width: 100%;
+}
+
+.chatlog__embed-text {
+    flex: 1;
+}
+
+.chatlog__embed-author {
+    display: flex;
+    margin-bottom: 0.3em;
+    align-items: center;
+}
+
+.chatlog__embed-author-icon {
+    margin-right: 0.5em;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+}
+
+.chatlog__embed-author-name {
+    font-size: 0.875em;
+    font-weight: 600;
+}
+
+.chatlog__embed-title {
+    margin-bottom: 0.2em;
+    font-size: 0.875em;
+    font-weight: 600;
+}
+
+.chatlog__embed-description {
+    font-weight: 500;
+    font-size: 0.85em;
+}
+
+.chatlog__embed-fields {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.chatlog__embed-field {
+    flex: 0;
+    min-width: 100%;
+    max-width: 506px;
+    padding-top: 0.6em;
+    font-size: 0.875em;
+}
+
+.chatlog__embed-field--inline {
+    flex: 1;
+    flex-basis: auto;
+    min-width: 150px;
+}
+
+.chatlog__embed-field-name {
+    margin-bottom: 0.2em;
+    font-weight: 600;
+}
+
+.chatlog__embed-field-value {
+    font-weight: 500;
+}
+
+.chatlog__embed-thumbnail {
+    flex: 0;
+    margin-left: 1.2em;
+    max-width: 80px;
+    max-height: 80px;
+    border-radius: 3px;
+}
+
+.chatlog__embed-image-container {
+    margin-top: 0.6em;
+}
+
+.chatlog__embed-image {
+    max-width: 500px;
+    max-height: 400px;
+    border-radius: 3px;
+}
+
+.chatlog__embed-footer {
+    margin-top: 0.6em;
+}
+
+.chatlog__embed-footer-icon {
+    margin-right: 0.2em;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    vertical-align: middle;
+}
+
+.chatlog__embed-footer-text {
+    font-size: 0.75em;
+    font-weight: 500;
+}
+
+.chatlog__reactions {
+    display: flex;
+}
+
+.chatlog__reaction {
+    display: flex;
+    align-items: center;
+    margin: 0.35em 0.1em 0.1em 0.1em;
+    padding: 0.2em 0.35em;
+    border-radius: 3px;
+}
+
+.chatlog__reaction-count {
+    min-width: 9px;
+    margin-left: 0.35em;
+    font-size: 0.875em;
+}
+
+.chatlog__bot-tag {
+    position: relative;
+    top: -.2em;
+    margin-left: 0.3em;
+    padding: 0.05em 0.3em;
+    border-radius: 3px;
+    vertical-align: middle;
+    line-height: 1.3;
+    background: #7289da;
+    color: #ffffff;
+    font-size: 0.625em;
+    font-weight: 500;
+}
+
+/* Postamble */
+
+.postamble {
+    margin: 1.4em 0.3em 0.6em 0.3em;
+    padding: 1em;
+    border-top: 1px solid;
+}
+    </style>
+    <style>
+        /* General */
+
+body {
+    background-color: #36393e;
+    color: #dcddde;
+}
+
+a {
+    color: #0096cf;
+}
+
+.spoiler-text {
+    background-color: rgba(255, 255, 255, 0.1);
+}
+
+.spoiler--hidden .spoiler-text {
+    background-color: #202225;
+}
+
+.spoiler--hidden:hover .spoiler-text {
+    background-color: rgba(32, 34, 37, 0.8);
+}
+
+.quote {
+    border-color: #4f545c;
+}
+
+.pre {
+    background-color: #2f3136 !important;
+}
+
+.pre--multiline {
+    border-color: #282b30 !important;
+    color: #b9bbbe !important;
+}
+
+/* === Preamble === */
+
+.preamble__entry {
+    color: #ffffff;
+}
+
+/* Chatlog */
+
+.chatlog__message-group {
+    border-color: rgba(255, 255, 255, 0.1);
+}
+
+.chatlog__reference-symbol {
+    border-color: #4f545c;
+}
+
+.chatlog__reference {
+    color: #b5b6b8;
+}
+
+.chatlog__reference-link {
+    color: #b5b6b8;
+}
+
+.chatlog__reference-link:hover {
+    color: #ffffff;
+}
+
+.chatlog__reference-edited-timestamp {
+    color: rgba(255, 255, 255, 0.2);
+}
+
+.chatlog__author-name {
+    color: #ffffff;
+}
+
+.chatlog__timestamp {
+    color: rgba(255, 255, 255, 0.2);
+}
+
+.chatlog__message--highlighted {
+    background-color: rgba(114, 137, 218, 0.2) !important;
+}
+
+.chatlog__message--pinned {
+    background-color: rgba(249, 168, 37, 0.05);
+}
+
+.chatlog__attachment-container {
+    background-color: #2f3136;
+    border-color: #292b2f;
+}
+
+.chatlog__edited-timestamp {
+    color: rgba(255, 255, 255, 0.2);
+}
+
+.chatlog__embed-color-pill--default {
+    background-color: rgba(79, 84, 92, 1);
+}
+
+.chatlog__embed-content-container {
+    background-color: rgba(46, 48, 54, 0.3);
+    border-color: rgba(46, 48, 54, 0.6);
+}
+
+.chatlog__embed-author-name {
+    color: #ffffff;
+}
+
+.chatlog__embed-author-name-link {
+    color: #ffffff;
+}
+
+.chatlog__embed-title {
+    color: #ffffff;
+}
+
+.chatlog__embed-description {
+    color: rgba(255, 255, 255, 0.6);
+}
+
+.chatlog__embed-field-name {
+    color: #ffffff;
+}
+
+.chatlog__embed-field-value {
+    color: rgba(255, 255, 255, 0.6);
+}
+
+.chatlog__embed-footer {
+    color: rgba(255, 255, 255, 0.6);
+}
+
+.chatlog__reaction {
+    background-color: rgba(255, 255, 255, 0.05);
+}
+
+.chatlog__reaction-count {
+    color: rgba(255, 255, 255, 0.3);
+}
+
+/* Postamble */
+
+.postamble {
+    border-color: rgba(255, 255, 255, 0.1);
+}
+
+.postamble__entry {
+    color: #ffffff;
+}
+    </style>
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.6/styles/solarized-dark.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.6/highlight.min.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            document.querySelectorAll('.pre--multiline').forEach(block => hljs.highlightBlock(block));
+        });
+    </script>
+
+    <script>
+        function scrollToMessage(event, id) {
+            var element = document.getElementById('message-' + id);
+
+            if (element) {
+                event.preventDefault();
+
+                element.classList.add('chatlog__message--highlighted');
+
+                window.scrollTo({
+                    top: element.getBoundingClientRect().top - document.body.getBoundingClientRect().top - (window.innerHeight / 2),
+                    behavior: 'smooth'
+                });
+
+                window.setTimeout(function() {
+                    element.classList.remove('chatlog__message--highlighted');
+                }, 2000);
+            }
+        }
+
+        function showSpoiler(event, element) {
+            if (element && element.classList.contains('spoiler--hidden')) {
+                event.preventDefault();
+                element.classList.remove('spoiler--hidden');
+            }
+        }
+    </script>
+</head>
+<body>
+
+<div class="preamble">
+    <div class="preamble__guild-icon-container">
+        <img class="preamble__guild-icon" src="Queensland%20-%20Government%20-%20bill-proposal%20%5B778320924604366848%5D.html_Files/3b66834b809fe0cd630bdfbcb6174f82-62FA9.png" alt="Guild icon">
+    </div>
+    <div class="preamble__entries-container">
+        <div class="preamble__entry">Queensland</div>
+        <div class="preamble__entry">Government / bill-proposal</div>
+
+
+    </div>
+</div>
+
+<div class="chatlog">
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Queensland%20-%20Government%20-%20bill-proposal%20%5B778320924604366848%5D.html_Files/77f3d716a48be4a28cf0ac45bdd72090-B85F0.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Topc200#9141" data-user-id="703249801227010078" style="color: rgb(52,206,21)">Topc200</span>
+
+
+        <span class="chatlog__timestamp">17-Nov-20 06:09 PM</span>
+
+            <div class="chatlog__message " data-message-id="778320970427531304" id="message-778320970427531304">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><span class="mention" title="Caesar#3953">@Caesar The Train</span></span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="778321061636472883" id="message-778321061636472883">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">bill proposals only any other conversations will be deleted thanks</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Queensland%20-%20Government%20-%20bill-proposal%20%5B778320924604366848%5D.html_Files/f4875b07696ea19405700aaa67029fe9-55F4C.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Caesar#3953" data-user-id="468932644210475009" style="color: rgb(52,206,21)">Caesar The Train</span>
+
+
+        <span class="chatlog__timestamp">17-Nov-20 06:10 PM</span>
+
+            <div class="chatlog__message " data-message-id="778321069776961575" id="message-778321069776961575">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">hello</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="778321734423543829" id="message-778321734423543829">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><span class="mention" title="Topc200#9141">@Topc200</span> <a href="https://docs.google.com/document/d/1FgSvoy0K7RFC573D1xnxaKmyVJdEqLP7z4KrW3fbZE8/edit#">https://docs.google.com/document/d/1FgSvoy0K7RFC573D1xnxaKmyVJdEqLP7z4KrW3fbZE8/edit#</a></span>
+
+                        </div>
+                    </div>
+
+
+                    <div class="chatlog__embed">
+                            <div class="chatlog__embed-color-pill chatlog__embed-color-pill--default"></div>
+
+                        <div class="chatlog__embed-content-container">
+                            <div class="chatlog__embed-content">
+                                <div class="chatlog__embed-text">
+
+                                        <div class="chatlog__embed-title">
+                                                <a class="chatlog__embed-title-link" href="https://docs.google.com/document/d/1FgSvoy0K7RFC573D1xnxaKmyVJdEqLP7z4KrW3fbZE8/edit">
+                                                    <div class="markdown preserve-whitespace">Queensland Officalization Act</div>
+                                                </a>
+                                        </div>
+
+                                        <div class="chatlog__embed-description">
+                                            <div class="markdown preserve-whitespace">BY THE DECREE OF THE SENATOR OF QUEENSLAND Queensland Officilazation Act    The Queensland Officalization Act will be to protect the integrity and name of the great district of queensland. Any person who is in the jurisdiction of Queensland who proceeds to use the name of Quee...</div>
+                                        </div>
+
+                                </div>
+
+                                    <div class="chatlog__embed-thumbnail-container">
+                                        <a class="chatlog__embed-thumbnail-link" href="Queensland%20-%20Government%20-%20bill-proposal%20%5B778320924604366848%5D.html_Files/-tWNAFLDJlKNo0ElOjZPHR37_12sHuppIx5QqzxtKZ-037E0">
+                                            <img class="chatlog__embed-thumbnail" src="Queensland%20-%20Government%20-%20bill-proposal%20%5B778320924604366848%5D.html_Files/-tWNAFLDJlKNo0ElOjZPHR37_12sHuppIx5QqzxtKZ-037E0" alt="Thumbnail">
+                                        </a>
+                                    </div>
+                            </div>
+
+
+                        </div>
+                    </div>
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Queensland%20-%20Government%20-%20bill-proposal%20%5B778320924604366848%5D.html_Files/77f3d716a48be4a28cf0ac45bdd72090-B85F0.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Topc200#9141" data-user-id="703249801227010078" style="color: rgb(52,206,21)">Topc200</span>
+
+
+        <span class="chatlog__timestamp">17-Nov-20 06:13 PM</span>
+
+            <div class="chatlog__message " data-message-id="778321872190177280" id="message-778321872190177280">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">yes we need laws</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="778321925507383306" id="message-778321925507383306">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">when our district will have alot of people</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Queensland%20-%20Government%20-%20bill-proposal%20%5B778320924604366848%5D.html_Files/77f3d716a48be4a28cf0ac45bdd72090-B85F0.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Topc200#9141" data-user-id="703249801227010078" style="color: rgb(52,206,21)">Topc200</span>
+
+
+        <span class="chatlog__timestamp">17-Nov-20 07:52 PM</span>
+
+            <div class="chatlog__message chatlog__message--pinned" data-message-id="778346921457614879" id="message-778346921457614879">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">if anyone wants to make laws or regulations for queensland make a bill and use this format
+<a href="https://docs.google.com/document/d/1GRsGSctsIJ385BtE_yF5RYJ2ZzsKWUvb_wRfCrYbLoQ/edit?usp=sharing">https://docs.google.com/document/d/1GRsGSctsIJ385BtE_yF5RYJ2ZzsKWUvb_wRfCrYbLoQ/edit?usp=sharing</a></span>
+
+                                <span class="chatlog__edited-timestamp" title="17-Nov-20 07:53 PM">(edited)</span>
+                        </div>
+                    </div>
+
+
+                    <div class="chatlog__embed">
+                            <div class="chatlog__embed-color-pill chatlog__embed-color-pill--default"></div>
+
+                        <div class="chatlog__embed-content-container">
+                            <div class="chatlog__embed-content">
+                                <div class="chatlog__embed-text">
+
+                                        <div class="chatlog__embed-title">
+                                                <a class="chatlog__embed-title-link" href="https://docs.google.com/document/d/1GRsGSctsIJ385BtE_yF5RYJ2ZzsKWUvb_wRfCrYbLoQ/edit?usp=sharing">
+                                                    <div class="markdown preserve-whitespace">BILL FORMAT</div>
+                                                </a>
+                                        </div>
+
+                                        <div class="chatlog__embed-description">
+                                            <div class="markdown preserve-whitespace">1st SESSION OF QUEENSLANDS’ GOVERNMENT  DATE BILL WAS MADE: October 19th, 2020  NAME OF BILL AND WHO IT WAS MADE BY HERE:   TITLE I —  SEC. 1. SHORT NAME  SEC. 2. INFORMATION  (a) (1) SUMMARY OF THIS ACT.     END OF DOCUMENT    THE IMPERIAL FEDERATION  OF VOOPE...</div>
+                                        </div>
+
+                                </div>
+
+                                    <div class="chatlog__embed-thumbnail-container">
+                                        <a class="chatlog__embed-thumbnail-link" href="Queensland%20-%20Government%20-%20bill-proposal%20%5B778320924604366848%5D.html_Files/xC34TAJ3LSA7bNA4LXLaEGcUKyab9Mb6Sfo6Q7Hk1Z-84DFF">
+                                            <img class="chatlog__embed-thumbnail" src="Queensland%20-%20Government%20-%20bill-proposal%20%5B778320924604366848%5D.html_Files/xC34TAJ3LSA7bNA4LXLaEGcUKyab9Mb6Sfo6Q7Hk1Z-84DFF" alt="Thumbnail">
+                                        </a>
+                                    </div>
+                            </div>
+
+
+                        </div>
+                    </div>
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+        <div class="chatlog__reference-symbol">
+        </div>
+        <div class="chatlog__reference">
+                <img class="chatlog__reference-avatar" src="Queensland%20-%20Government%20-%20bill-proposal%20%5B778320924604366848%5D.html_Files/77f3d716a48be4a28cf0ac45bdd72090-B85F0.png" alt="Avatar">
+                <span class="chatlog__reference-name" title="Topc200#9141" style="color: rgb(52,206,21)">Topc200</span>
+                <a class="chatlog__reference-link" href="#" onclick="scrollToMessage(event, &#39;778346921457614879&#39;)">
+                    <span class="chatlog__reference-content">
+if anyone wants to make laws or regulations for queensland make a bill and use this format
+<a href="https://docs.google.com/document/d/1GRsGSctsIJ385BtE_yF5RYJ2ZzsKWUvb_wRfCrYbLoQ/edit?usp=sharing">https://docs.google.com/document/d/1GRsGSctsIJ385BtE_yF5RYJ2ZzsKWUvb_wRfCrYbLoQ/edit?usp=sharing</a>                    </span>
+
+                        <span class="chatlog__reference-edited-timestamp" title="17-Nov-20 07:53 PM">(edited)</span>
+                </a>
+        </div>
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Queensland%20-%20Government%20-%20bill-proposal%20%5B778320924604366848%5D.html_Files/77f3d716a48be4a28cf0ac45bdd72090-B85F0.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Topc200#9141" data-user-id="703249801227010078" style="color: rgb(52,206,21)">Topc200</span>
+
+
+        <span class="chatlog__timestamp">17-Nov-20 07:53 PM</span>
+
+            <div class="chatlog__message " data-message-id="778347116308332554" id="message-778347116308332554">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">Pinned a message.</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Queensland%20-%20Government%20-%20bill-proposal%20%5B778320924604366848%5D.html_Files/9d7fc48ab98f27a21f0cb45c1ee7e85f-8E16F.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Kazerkazerk#7047" data-user-id="707763461391777834" style="color: rgb(6,95,32)">Kazerkazerk</span>
+
+
+        <span class="chatlog__timestamp">17-Nov-20 09:01 PM</span>
+
+            <div class="chatlog__message " data-message-id="778364263164936234" id="message-778364263164936234">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">I have a proposal for the Ministry of Infastructure. I also would like to note that I will run for Chief Of Engineers
+<a href="https://docs.google.com/document/d/1R87K5fwykEYhpgSgaFQavYJKdmoquKXTm3K_KhXz41M/edit?usp=sharing">https://docs.google.com/document/d/1R87K5fwykEYhpgSgaFQavYJKdmoquKXTm3K_KhXz41M/edit?usp=sharing</a></span>
+
+                                <span class="chatlog__edited-timestamp" title="18-Nov-20 06:14 PM">(edited)</span>
+                        </div>
+                    </div>
+
+
+                    <div class="chatlog__embed">
+                            <div class="chatlog__embed-color-pill chatlog__embed-color-pill--default"></div>
+
+                        <div class="chatlog__embed-content-container">
+                            <div class="chatlog__embed-content">
+                                <div class="chatlog__embed-text">
+
+                                        <div class="chatlog__embed-title">
+                                                <a class="chatlog__embed-title-link" href="https://docs.google.com/document/d/1R87K5fwykEYhpgSgaFQavYJKdmoquKXTm3K_KhXz41M/edit?usp=sharing">
+                                                    <div class="markdown preserve-whitespace">BILL For formation of MBR</div>
+                                                </a>
+                                        </div>
+
+                                        <div class="chatlog__embed-description">
+                                            <div class="markdown preserve-whitespace">1st SESSION OF QUEENSLANDS’ GOVERNMENT  DATE BILL WAS MADE: November 17th, 2020  Ministry of Building and RepairsProposed by Kazerkazerk   Creation Of MBR SEC. 1. MBR  SEC. 2.  The Ministry of Building and Repairs (MBR) Will be accountable for the following The ...</div>
+                                        </div>
+
+                                </div>
+
+                                    <div class="chatlog__embed-thumbnail-container">
+                                        <a class="chatlog__embed-thumbnail-link" href="Queensland%20-%20Government%20-%20bill-proposal%20%5B778320924604366848%5D.html_Files/j41lH3Lk4n-3pyJ0bVnINo3hNb6_0pcuXods2SkQT6-BAE28">
+                                            <img class="chatlog__embed-thumbnail" src="Queensland%20-%20Government%20-%20bill-proposal%20%5B778320924604366848%5D.html_Files/j41lH3Lk4n-3pyJ0bVnINo3hNb6_0pcuXods2SkQT6-BAE28" alt="Thumbnail">
+                                        </a>
+                                    </div>
+                            </div>
+
+
+                        </div>
+                    </div>
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Queensland%20-%20Government%20-%20bill-proposal%20%5B778320924604366848%5D.html_Files/c21616b26585bed66d2e69ce28b411ae-EA65E.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="xboy#1580" data-user-id="440936933015814155" style="color: rgb(7,185,0)">xboy</span>
+
+
+        <span class="chatlog__timestamp">19-Nov-20 06:00 PM</span>
+
+            <div class="chatlog__message " data-message-id="779043369963487242" id="message-779043369963487242">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><a href="https://docs.google.com/document/d/18ETUeqCG-Mg4fG3QaPUZIQ4kQdPAGpLL1aaUEYWt9K4/edit?usp=sharing">https://docs.google.com/document/d/18ETUeqCG-Mg4fG3QaPUZIQ4kQdPAGpLL1aaUEYWt9K4/edit?usp=sharing</a></span>
+
+                        </div>
+                    </div>
+
+
+                    <div class="chatlog__embed">
+                            <div class="chatlog__embed-color-pill chatlog__embed-color-pill--default"></div>
+
+                        <div class="chatlog__embed-content-container">
+                            <div class="chatlog__embed-content">
+                                <div class="chatlog__embed-text">
+
+                                        <div class="chatlog__embed-title">
+                                                <a class="chatlog__embed-title-link" href="https://docs.google.com/document/d/18ETUeqCG-Mg4fG3QaPUZIQ4kQdPAGpLL1aaUEYWt9K4/edit?usp=sharing">
+                                                    <div class="markdown preserve-whitespace">Countie cities renaming act</div>
+                                                </a>
+                                        </div>
+
+                                        <div class="chatlog__embed-description">
+                                            <div class="markdown preserve-whitespace">1st SESSION OF QUEENSLANDS’ GOVERNMENT  DATE BILL WAS MADE: October 19th, 2020  NAME OF BILL AND WHO IT WAS MADE BY HERE:   TITLE I — County cities renaming act  SEC. 1. CCRA  SEC. 2. INFORMATION (a) (1) SUMMARY OF THIS ACT. Giving counties the ability to rename townes and ci...</div>
+                                        </div>
+
+                                </div>
+
+                                    <div class="chatlog__embed-thumbnail-container">
+                                        <a class="chatlog__embed-thumbnail-link" href="Queensland%20-%20Government%20-%20bill-proposal%20%5B778320924604366848%5D.html_Files/V5k1bdcKErZAZPCDtPkz87VARIUmVLqPZCuxxlAiJj-D471D">
+                                            <img class="chatlog__embed-thumbnail" src="Queensland%20-%20Government%20-%20bill-proposal%20%5B778320924604366848%5D.html_Files/V5k1bdcKErZAZPCDtPkz87VARIUmVLqPZCuxxlAiJj-D471D" alt="Thumbnail">
+                                        </a>
+                                    </div>
+                            </div>
+
+
+                        </div>
+                    </div>
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Queensland%20-%20Government%20-%20bill-proposal%20%5B778320924604366848%5D.html_Files/77f3d716a48be4a28cf0ac45bdd72090-B85F0.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Topc200#9141" data-user-id="703249801227010078" style="color: rgb(52,206,21)">Topc200</span>
+
+
+        <span class="chatlog__timestamp">30-Nov-20 12:36 AM</span>
+
+            <div class="chatlog__message " data-message-id="782767083037524038" id="message-782767083037524038">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">Remembers anyone can propose bills</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Queensland%20-%20Government%20-%20bill-proposal%20%5B778320924604366848%5D.html_Files/77f3d716a48be4a28cf0ac45bdd72090-B85F0.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Topc200#9141" data-user-id="703249801227010078" style="color: rgb(52,206,21)">Topc200</span>
+
+
+        <span class="chatlog__timestamp">05-Dec-20 08:54 PM</span>
+
+            <div class="chatlog__message " data-message-id="784885479040352307" id="message-784885479040352307">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">removing the &quot;Any right to use of the term “Queensland” shall be held by the senator.&quot; in the <a href="https://docs.google.com/document/d/1FgSvoy0K7RFC573D1xnxaKmyVJdEqLP7z4KrW3fbZE8/edit#">https://docs.google.com/document/d/1FgSvoy0K7RFC573D1xnxaKmyVJdEqLP7z4KrW3fbZE8/edit#</a></span>
+
+                        </div>
+                    </div>
+
+
+                    <div class="chatlog__embed">
+                            <div class="chatlog__embed-color-pill chatlog__embed-color-pill--default"></div>
+
+                        <div class="chatlog__embed-content-container">
+                            <div class="chatlog__embed-content">
+                                <div class="chatlog__embed-text">
+
+                                        <div class="chatlog__embed-title">
+                                                <a class="chatlog__embed-title-link" href="https://docs.google.com/document/d/1FgSvoy0K7RFC573D1xnxaKmyVJdEqLP7z4KrW3fbZE8/edit">
+                                                    <div class="markdown preserve-whitespace">Queensland Officalization Act</div>
+                                                </a>
+                                        </div>
+
+                                        <div class="chatlog__embed-description">
+                                            <div class="markdown preserve-whitespace">BY THE DECREE OF THE SENATOR OF QUEENSLAND Queensland Officilazation Act    The Queensland Officalization Act will be to protect the integrity and name of the great district of queensland. Any person who is in the jurisdiction of Queensland who proceeds to use the name of Queensland in a company ...</div>
+                                        </div>
+
+                                </div>
+
+                                    <div class="chatlog__embed-thumbnail-container">
+                                        <a class="chatlog__embed-thumbnail-link" href="Queensland%20-%20Government%20-%20bill-proposal%20%5B778320924604366848%5D.html_Files/-tWNAFLDJlKNo0ElOjZPHR37_12sHuppIx5QqzxtKZ-037E0">
+                                            <img class="chatlog__embed-thumbnail" src="Queensland%20-%20Government%20-%20bill-proposal%20%5B778320924604366848%5D.html_Files/-tWNAFLDJlKNo0ElOjZPHR37_12sHuppIx5QqzxtKZ-037E0" alt="Thumbnail">
+                                        </a>
+                                    </div>
+                            </div>
+
+
+                        </div>
+                    </div>
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Queensland%20-%20Government%20-%20bill-proposal%20%5B778320924604366848%5D.html_Files/f4875b07696ea19405700aaa67029fe9-55F4C.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Caesar#3953" data-user-id="468932644210475009" style="color: rgb(52,206,21)">Caesar The Train</span>
+
+
+        <span class="chatlog__timestamp">06-Dec-20 02:55 PM</span>
+
+            <div class="chatlog__message " data-message-id="785157391096086528" id="message-785157391096086528">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><span class="mention" title="Topc200#9141">@Topc200</span> <a href="https://docs.google.com/document/d/1VK9ZWSHIwTWM4Ezg7MLAzDd-Y7Ho09BnlgGBXjZs59Q/edit#">https://docs.google.com/document/d/1VK9ZWSHIwTWM4Ezg7MLAzDd-Y7Ho09BnlgGBXjZs59Q/edit#</a></span>
+
+                        </div>
+                    </div>
+
+
+                    <div class="chatlog__embed">
+                            <div class="chatlog__embed-color-pill chatlog__embed-color-pill--default"></div>
+
+                        <div class="chatlog__embed-content-container">
+                            <div class="chatlog__embed-content">
+                                <div class="chatlog__embed-text">
+
+                                        <div class="chatlog__embed-title">
+                                                <a class="chatlog__embed-title-link" href="https://docs.google.com/document/d/1VK9ZWSHIwTWM4Ezg7MLAzDd-Y7Ho09BnlgGBXjZs59Q/edit">
+                                                    <div class="markdown preserve-whitespace">Official Request From The Governor Of Queensland</div>
+                                                </a>
+                                        </div>
+
+                                        <div class="chatlog__embed-description">
+                                            <div class="markdown preserve-whitespace">Official Request   Due to the ongoing crisis in medievalia i think it is time to activate the queensland royal guard. This is a national guard of sorts created during the New Yam Dam Crisis in where donia allegedly blew a thermonuclear bomb inside the new yam dam. I think it has become time to ac...</div>
+                                        </div>
+
+                                </div>
+
+                                    <div class="chatlog__embed-thumbnail-container">
+                                        <a class="chatlog__embed-thumbnail-link" href="Queensland%20-%20Government%20-%20bill-proposal%20%5B778320924604366848%5D.html_Files/EvyRT9ht-0N2m1vWiwxPkWErRa4bJeHpbGCvP44UIb-36A57">
+                                            <img class="chatlog__embed-thumbnail" src="Queensland%20-%20Government%20-%20bill-proposal%20%5B778320924604366848%5D.html_Files/EvyRT9ht-0N2m1vWiwxPkWErRa4bJeHpbGCvP44UIb-36A57" alt="Thumbnail">
+                                        </a>
+                                    </div>
+                            </div>
+
+
+                        </div>
+                    </div>
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Queensland%20-%20Government%20-%20bill-proposal%20%5B778320924604366848%5D.html_Files/f4875b07696ea19405700aaa67029fe9-55F4C.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Caesar#3953" data-user-id="468932644210475009" style="color: rgb(52,206,21)">Caesar The Train</span>
+
+
+        <span class="chatlog__timestamp">06-Dec-20 04:03 PM</span>
+
+            <div class="chatlog__message " data-message-id="785174642640814100" id="message-785174642640814100">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><span class="mention" title="Topc200#9141">@Topc200</span> <a href="https://docs.google.com/document/d/1jNOdiIraW9iPvrk1RRZxC3ghLAocmq74KDwopOl9m5I/edit?usp=sharing">https://docs.google.com/document/d/1jNOdiIraW9iPvrk1RRZxC3ghLAocmq74KDwopOl9m5I/edit?usp=sharing</a></span>
+
+                        </div>
+                    </div>
+
+
+                    <div class="chatlog__embed">
+                            <div class="chatlog__embed-color-pill chatlog__embed-color-pill--default"></div>
+
+                        <div class="chatlog__embed-content-container">
+                            <div class="chatlog__embed-content">
+                                <div class="chatlog__embed-text">
+
+                                        <div class="chatlog__embed-title">
+                                                <a class="chatlog__embed-title-link" href="https://docs.google.com/document/d/1jNOdiIraW9iPvrk1RRZxC3ghLAocmq74KDwopOl9m5I/edit?usp=sharing">
+                                                    <div class="markdown preserve-whitespace">Queensland Militia Act</div>
+                                                </a>
+                                        </div>
+
+                                        <div class="chatlog__embed-description">
+                                            <div class="markdown preserve-whitespace">BY THE DECREE OF THE SENATOR OF QUEENSLAND Queensland Royal Guard Act The Queensland Royal Guard shall be a defense force consisting of troops soldiers from the district of Queensland. The base structure of the militia shall be as followsSenator: Commander in chief of the royal guard, all order...</div>
+                                        </div>
+
+                                </div>
+
+                                    <div class="chatlog__embed-thumbnail-container">
+                                        <a class="chatlog__embed-thumbnail-link" href="Queensland%20-%20Government%20-%20bill-proposal%20%5B778320924604366848%5D.html_Files/5FT-9YHeuK3zUw6hI94FJytUMkcv6xNW4SorODjw4N-F1490">
+                                            <img class="chatlog__embed-thumbnail" src="Queensland%20-%20Government%20-%20bill-proposal%20%5B778320924604366848%5D.html_Files/5FT-9YHeuK3zUw6hI94FJytUMkcv6xNW4SorODjw4N-F1490" alt="Thumbnail">
+                                        </a>
+                                    </div>
+                            </div>
+
+
+                        </div>
+                    </div>
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Queensland%20-%20Government%20-%20bill-proposal%20%5B778320924604366848%5D.html_Files/c21616b26585bed66d2e69ce28b411ae-EA65E.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="xboy#1580" data-user-id="440936933015814155" style="color: rgb(7,185,0)">xboy</span>
+
+
+        <span class="chatlog__timestamp">08-Dec-20 06:49 AM</span>
+
+            <div class="chatlog__message " data-message-id="785759915977343006" id="message-785759915977343006">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">Repealing the queensland Officilazation Act  <a href="https://docs.google.com/document/d/1FgSvoy0K7RFC573D1xnxaKmyVJdEqLP7z4KrW3fbZE8/edit#">https://docs.google.com/document/d/1FgSvoy0K7RFC573D1xnxaKmyVJdEqLP7z4KrW3fbZE8/edit#</a></span>
+
+                        </div>
+                    </div>
+
+
+                    <div class="chatlog__embed">
+                            <div class="chatlog__embed-color-pill chatlog__embed-color-pill--default"></div>
+
+                        <div class="chatlog__embed-content-container">
+                            <div class="chatlog__embed-content">
+                                <div class="chatlog__embed-text">
+
+                                        <div class="chatlog__embed-title">
+                                                <a class="chatlog__embed-title-link" href="https://docs.google.com/document/d/1FgSvoy0K7RFC573D1xnxaKmyVJdEqLP7z4KrW3fbZE8/edit">
+                                                    <div class="markdown preserve-whitespace">Queensland Officalization Act</div>
+                                                </a>
+                                        </div>
+
+                                        <div class="chatlog__embed-description">
+                                            <div class="markdown preserve-whitespace">BY THE DECREE OF THE SENATOR OF QUEENSLAND Queensland Officilazation Act    The Queensland Officalization Act will be to protect the integrity and name of the great district of queensland. Any person who is in the jurisdiction of Queensland who proceeds to use the name of Queensland in a company ...</div>
+                                        </div>
+
+                                </div>
+
+                                    <div class="chatlog__embed-thumbnail-container">
+                                        <a class="chatlog__embed-thumbnail-link" href="Queensland%20-%20Government%20-%20bill-proposal%20%5B778320924604366848%5D.html_Files/-tWNAFLDJlKNo0ElOjZPHR37_12sHuppIx5QqzxtKZ-037E0">
+                                            <img class="chatlog__embed-thumbnail" src="Queensland%20-%20Government%20-%20bill-proposal%20%5B778320924604366848%5D.html_Files/-tWNAFLDJlKNo0ElOjZPHR37_12sHuppIx5QqzxtKZ-037E0" alt="Thumbnail">
+                                        </a>
+                                    </div>
+                            </div>
+
+
+                        </div>
+                    </div>
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Queensland%20-%20Government%20-%20bill-proposal%20%5B778320924604366848%5D.html_Files/77f3d716a48be4a28cf0ac45bdd72090-B85F0.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Topc200#9141" data-user-id="703249801227010078" style="color: rgb(52,206,21)">Topc200</span>
+
+
+        <span class="chatlog__timestamp">08-Dec-20 07:42 PM</span>
+
+            <div class="chatlog__message " data-message-id="785954507007197204" id="message-785954507007197204">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">I’ll do vote later <span class="mention" title="xboy#1580">@xboy</span></span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Queensland%20-%20Government%20-%20bill-proposal%20%5B778320924604366848%5D.html_Files/f4875b07696ea19405700aaa67029fe9-55F4C.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Caesar#3953" data-user-id="468932644210475009" style="color: rgb(52,206,21)">Caesar The Train</span>
+
+
+        <span class="chatlog__timestamp">10-Dec-20 10:00 PM</span>
+
+            <div class="chatlog__message " data-message-id="786714079942934579" id="message-786714079942934579">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">Motion to create cartographer role</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Queensland%20-%20Government%20-%20bill-proposal%20%5B778320924604366848%5D.html_Files/22fc1d872ddfed10d6c80c767aa7f75d-AA07E.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Phantomfighter#6248" data-user-id="528986354281873410" style="color: rgb(55,255,0)">Phantomfighter</span>
+
+
+        <span class="chatlog__timestamp">10-Dec-20 10:01 PM</span>
+
+            <div class="chatlog__message " data-message-id="786714204143878214" id="message-786714204143878214">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">cough cough xboy</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Queensland%20-%20Government%20-%20bill-proposal%20%5B778320924604366848%5D.html_Files/f4875b07696ea19405700aaa67029fe9-55F4C.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Caesar#3953" data-user-id="468932644210475009" style="color: rgb(52,206,21)">Caesar The Train</span>
+
+
+        <span class="chatlog__timestamp">10-Dec-20 10:01 PM</span>
+
+            <div class="chatlog__message " data-message-id="786714293814427678" id="message-786714293814427678">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">cough cough</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Queensland%20-%20Government%20-%20bill-proposal%20%5B778320924604366848%5D.html_Files/c21616b26585bed66d2e69ce28b411ae-EA65E.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="xboy#1580" data-user-id="440936933015814155" style="color: rgb(7,185,0)">xboy</span>
+
+
+        <span class="chatlog__timestamp">10-Dec-20 10:03 PM</span>
+
+            <div class="chatlog__message " data-message-id="786714846795923496" id="message-786714846795923496">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">cough cough</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="786714857294397450" id="message-786714857294397450">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">Uh oh</span>
+
+                                <span class="chatlog__edited-timestamp" title="10-Dec-20 10:04 PM">(edited)</span>
+                        </div>
+                    </div>
+
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="786714867897860136" id="message-786714867897860136">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">Blood</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Queensland%20-%20Government%20-%20bill-proposal%20%5B778320924604366848%5D.html_Files/f4875b07696ea19405700aaa67029fe9-55F4C.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Caesar#3953" data-user-id="468932644210475009" style="color: rgb(52,206,21)">Caesar The Train</span>
+
+
+        <span class="chatlog__timestamp">14-Dec-20 06:18 PM</span>
+
+            <div class="chatlog__message " data-message-id="788107548904914984" id="message-788107548904914984">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">I will be creating the cartographer role. If anybody has any opposition to this please let me know in <span class="mention">#govt</span></span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Queensland%20-%20Government%20-%20bill-proposal%20%5B778320924604366848%5D.html_Files/f4875b07696ea19405700aaa67029fe9-55F4C.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Caesar#3953" data-user-id="468932644210475009" style="color: rgb(52,206,21)">Caesar The Train</span>
+
+
+        <span class="chatlog__timestamp">16-Dec-20 09:25 PM</span>
+
+            <div class="chatlog__message " data-message-id="788879602248450078" id="message-788879602248450078">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">Motion to move the queensland RP channels to the archives category <span class="mention" style="color: rgb(255, 0, 0); background-color: rgba(255, 0, 0, 0.1);">@Representatives</span></span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="788879658463789126" id="message-788879658463789126">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">(please vote in <span class="mention">#voting</span>)</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="788879995161411636" id="message-788879995161411636">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><em>cough do it in <span class="mention">#voting</span>  cough</em></span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Queensland%20-%20Government%20-%20bill-proposal%20%5B778320924604366848%5D.html_Files/c21616b26585bed66d2e69ce28b411ae-EA65E.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="xboy#1580" data-user-id="440936933015814155" style="color: rgb(7,185,0)">xboy</span>
+
+
+        <span class="chatlog__timestamp">16-Dec-20 09:28 PM</span>
+
+            <div class="chatlog__message " data-message-id="788880149097611334" id="message-788880149097611334">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">I was showing my support of you saying that dummy</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Queensland%20-%20Government%20-%20bill-proposal%20%5B778320924604366848%5D.html_Files/f4875b07696ea19405700aaa67029fe9-55F4C.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Caesar#3953" data-user-id="468932644210475009" style="color: rgb(52,206,21)">Caesar The Train</span>
+
+
+        <span class="chatlog__timestamp">16-Dec-20 09:30 PM</span>
+
+            <div class="chatlog__message " data-message-id="788880818637766707" id="message-788880818637766707">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">oh</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Queensland%20-%20Government%20-%20bill-proposal%20%5B778320924604366848%5D.html_Files/c21616b26585bed66d2e69ce28b411ae-EA65E.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="xboy#1580" data-user-id="440936933015814155" style="color: rgb(7,185,0)">xboy</span>
+
+
+        <span class="chatlog__timestamp">16-Dec-20 09:40 PM</span>
+
+            <div class="chatlog__message " data-message-id="788883238604767232" id="message-788883238604767232">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><em>definetly not axidently voting</em></span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Queensland%20-%20Government%20-%20bill-proposal%20%5B778320924604366848%5D.html_Files/b96350c64c37956f81aebda03acd5270-E9DD0.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Potato#9080" data-user-id="255862808493817857" style="color: rgb(255,0,0)">Potato</span>
+
+
+        <span class="chatlog__timestamp">16-Dec-20 10:15 PM</span>
+
+            <div class="chatlog__message " data-message-id="788892186854948924" id="message-788892186854948924">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">spells accident wrong</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Queensland%20-%20Government%20-%20bill-proposal%20%5B778320924604366848%5D.html_Files/c21616b26585bed66d2e69ce28b411ae-EA65E.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="xboy#1580" data-user-id="440936933015814155" style="color: rgb(7,185,0)">xboy</span>
+
+
+        <span class="chatlog__timestamp">16-Dec-20 10:16 PM</span>
+
+            <div class="chatlog__message " data-message-id="788892381017276418" id="message-788892381017276418">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><img class="emoji emoji--large" alt="😡" title="😡" src="https://twemoji.maxcdn.com/2/72x72/1f621.png"></span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Queensland%20-%20Government%20-%20bill-proposal%20%5B778320924604366848%5D.html_Files/f4875b07696ea19405700aaa67029fe9-55F4C.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Caesar#3953" data-user-id="468932644210475009" style="color: rgb(52,206,21)">Caesar The Train</span>
+
+
+        <span class="chatlog__timestamp">18-Dec-20 12:31 PM</span>
+
+            <div class="chatlog__message " data-message-id="789469850958823424" id="message-789469850958823424">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">Voting has ended. Motion has been passed.</span>
+
+                                <span class="chatlog__edited-timestamp" title="18-Dec-20 12:31 PM">(edited)</span>
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Queensland%20-%20Government%20-%20bill-proposal%20%5B778320924604366848%5D.html_Files/f4875b07696ea19405700aaa67029fe9-55F4C.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Caesar#3953" data-user-id="468932644210475009" style="color: rgb(52,206,21)">Caesar The Train</span>
+
+
+        <span class="chatlog__timestamp">02-Jan-21 10:34 AM</span>
+
+            <div class="chatlog__message " data-message-id="794876213293875240" id="message-794876213293875240">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><a href="https://docs.google.com/document/d/1W_BOjUTQtLGeybnq0SHtPuQ5WINkHf0nJawMsRwuM_0/edit?usp=sharing">https://docs.google.com/document/d/1W_BOjUTQtLGeybnq0SHtPuQ5WINkHf0nJawMsRwuM_0/edit?usp=sharing</a></span>
+
+                        </div>
+                    </div>
+
+
+                    <div class="chatlog__embed">
+                            <div class="chatlog__embed-color-pill chatlog__embed-color-pill--default"></div>
+
+                        <div class="chatlog__embed-content-container">
+                            <div class="chatlog__embed-content">
+                                <div class="chatlog__embed-text">
+
+                                        <div class="chatlog__embed-title">
+                                                <a class="chatlog__embed-title-link" href="https://docs.google.com/document/d/1W_BOjUTQtLGeybnq0SHtPuQ5WINkHf0nJawMsRwuM_0/edit?usp=sharing">
+                                                    <div class="markdown preserve-whitespace">Support Corps</div>
+                                                </a>
+                                        </div>
+
+                                        <div class="chatlog__embed-description">
+                                            <div class="markdown preserve-whitespace">Support Corps  Roles &amp; Definitions  Military Intelligence (MI) Military intelligence’s role is to gather information from the army and turn it into something usable. An example is when a scout arrives back at HQ with information about the front lines of an enemy army, MI will base our plans off o...</div>
+                                        </div>
+
+                                </div>
+
+                                    <div class="chatlog__embed-thumbnail-container">
+                                        <a class="chatlog__embed-thumbnail-link" href="Queensland%20-%20Government%20-%20bill-proposal%20%5B778320924604366848%5D.html_Files/yJsZgOcxCbK-ufAWEmWwdfFRIvWXhCaf-EKCZH1ARo-710A8">
+                                            <img class="chatlog__embed-thumbnail" src="Queensland%20-%20Government%20-%20bill-proposal%20%5B778320924604366848%5D.html_Files/yJsZgOcxCbK-ufAWEmWwdfFRIvWXhCaf-EKCZH1ARo-710A8" alt="Thumbnail">
+                                        </a>
+                                    </div>
+                            </div>
+
+
+                        </div>
+                    </div>
+
+            </div>
+            <div class="chatlog__message " data-message-id="794876253651992576" id="message-794876253651992576">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><span class="mention" style="color: rgb(255, 0, 0); background-color: rgba(255, 0, 0, 0.1);">@Representatives</span></span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Queensland%20-%20Government%20-%20bill-proposal%20%5B778320924604366848%5D.html_Files/c21616b26585bed66d2e69ce28b411ae-EA65E.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="xboy#1580" data-user-id="440936933015814155" style="color: rgb(7,185,0)">xboy</span>
+
+
+        <span class="chatlog__timestamp">02-Jan-21 10:34 AM</span>
+
+            <div class="chatlog__message " data-message-id="794876300669616180" id="message-794876300669616180">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">oop</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Queensland%20-%20Government%20-%20bill-proposal%20%5B778320924604366848%5D.html_Files/f4875b07696ea19405700aaa67029fe9-55F4C.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Caesar#3953" data-user-id="468932644210475009" style="color: rgb(52,206,21)">Caesar The Train</span>
+
+
+        <span class="chatlog__timestamp">02-Jan-21 10:34 AM</span>
+
+            <div class="chatlog__message " data-message-id="794876338107973663" id="message-794876338107973663">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">vote in <span class="mention">#voting</span></span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+</div>
+
+<div class="postamble">
+    <div class="postamble__entry">Exported 36 message(s)</div>
+</div>
+
+</body>
+
+</html>

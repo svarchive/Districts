@@ -1,0 +1,4869 @@
+
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>Landing Cove - general</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width">
+
+    <style>
+        /* General */
+
+@font-face {
+    font-family: Whitney;
+    src: url(https://cdn.jsdelivr.net/gh/Tyrrrz/DiscordFonts@master/whitney-300.woff);
+    font-weight: 300;
+}
+
+@font-face {
+    font-family: Whitney;
+    src: url(https://cdn.jsdelivr.net/gh/Tyrrrz/DiscordFonts@master/whitney-400.woff);
+    font-weight: 400;
+}
+
+@font-face {
+    font-family: Whitney;
+    src: url(https://cdn.jsdelivr.net/gh/Tyrrrz/DiscordFonts@master/whitney-500.woff);
+    font-weight: 500;
+}
+
+@font-face {
+    font-family: Whitney;
+    src: url(https://cdn.jsdelivr.net/gh/Tyrrrz/DiscordFonts@master/whitney-600.woff);
+    font-weight: 600;
+}
+
+@font-face {
+    font-family: Whitney;
+    src: url(https://cdn.jsdelivr.net/gh/Tyrrrz/DiscordFonts@master/whitney-700.woff);
+    font-weight: 700;
+}
+
+body {
+    font-family: "Whitney", "Helvetica Neue", Helvetica, Arial, sans-serif;
+    font-size: 17px;
+}
+
+a {
+    text-decoration: none;
+}
+
+a:hover {
+    text-decoration: underline;
+}
+
+img {
+    object-fit: contain;
+}
+
+.markdown {
+    max-width: 100%;
+    line-height: 1.3;
+    overflow-wrap: break-word;
+}
+
+.preserve-whitespace {
+    white-space: pre-wrap;
+}
+
+.spoiler {
+    /* width: fit-content; */
+    display: inline-block;
+    /* This is more consistent across browsers, the old attribute worked well under Chrome but not FireFox. */
+}
+
+.spoiler--hidden {
+    cursor: pointer;
+}
+
+.spoiler-text {
+    border-radius: 3px;
+}
+
+.spoiler--hidden .spoiler-text {
+    color: rgba(0, 0, 0, 0);
+}
+
+.spoiler--hidden .spoiler-text::selection {
+    color: rgba(0, 0, 0, 0);
+}
+
+.spoiler-image {
+    position: relative;
+    overflow: hidden;
+    border-radius: 3px;
+}
+
+.spoiler--hidden .spoiler-image {
+    box-shadow: 0 0 1px 1px rgba(0, 0, 0, 0.1);
+}
+
+.spoiler--hidden .spoiler-image * {
+    filter: blur(44px);
+}
+
+.spoiler--hidden .spoiler-image:after {
+    content: "SPOILER";
+    color: #dcddde;
+    background-color: rgba(0, 0, 0, 0.6);
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    font-weight: 600;
+    padding: 100%;
+    border-radius: 20px;
+    letter-spacing: 0.05em;
+    font-size: 0.9em;
+}
+
+.spoiler--hidden:hover .spoiler-image:after {
+    color: #fff;
+    background-color: rgba(0, 0, 0, 0.9);
+}
+
+.quote {
+    margin: 0.1em 0;
+    padding-left: 0.6em;
+    border-left: 4px solid;
+    border-radius: 3px;
+}
+
+.pre {
+    font-family: "Consolas", "Courier New", Courier, monospace;
+}
+
+.pre--multiline {
+    margin-top: 0.25em;
+    padding: 0.5em;
+    border: 2px solid;
+    border-radius: 5px;
+}
+
+.pre--inline {
+    padding: 2px;
+    border-radius: 3px;
+    font-size: 0.85em;
+}
+
+.mention {
+    border-radius: 3px;
+    padding: 0 2px;
+    color: #7289da;
+    background: rgba(114, 137, 218, .1);
+    font-weight: 500;
+}
+
+.emoji {
+    width: 1.25em;
+    height: 1.25em;
+    margin: 0 0.06em;
+    vertical-align: -0.4em;
+}
+
+.emoji--small {
+    width: 1em;
+    height: 1em;
+}
+
+.emoji--large {
+    width: 2.8em;
+    height: 2.8em;
+}
+
+/* Preamble */
+
+.preamble {
+    display: grid;
+    margin: 0 0.3em 0.6em 0.3em;
+    max-width: 100%;
+    grid-template-columns: auto 1fr;
+}
+
+.preamble__guild-icon-container {
+    grid-column: 1;
+}
+
+.preamble__guild-icon {
+    max-width: 88px;
+    max-height: 88px;
+}
+
+.preamble__entries-container {
+    grid-column: 2;
+    margin-left: 0.6em;
+}
+
+.preamble__entry {
+    font-size: 1.4em;
+}
+
+.preamble__entry--small {
+    font-size: 1em;
+}
+
+/* Chatlog */
+
+.chatlog {
+    max-width: 100%;
+}
+
+.chatlog__message-group {
+    display: grid;
+    margin: 0 0.6em;
+    padding: 0.9em 0;
+    border-top: 1px solid;
+    grid-template-columns: auto 1fr;
+}
+
+.chatlog__reference-symbol {
+    grid-column: 1;
+    border-style: solid;
+    border-width: 2px 0 0 2px;
+    border-radius: 8px 0 0 0;
+    margin-left: 16px;
+    margin-top: 8px;
+}
+
+.chatlog__reference {
+    display: flex;
+    grid-column: 2;
+    margin-left: 1.2em;
+    margin-bottom: 0.25em;
+    font-size: 0.875em;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    align-items: center;
+}
+
+.chatlog__reference-avatar {
+    border-radius: 50%;
+    height: 16px;
+    width: 16px;
+    margin-right: 0.25em;
+}
+
+.chatlog__reference-name {
+    margin-right: 0.25em;
+    font-weight: 600;
+}
+
+.chatlog__reference-link {
+    flex-grow: 1;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.chatlog__reference-link:hover {
+    text-decoration: none;
+}
+
+.chatlog__reference-content > * {
+    display: inline;
+}
+
+.chatlog__reference-edited-timestamp {
+    margin-left: 0.25em;
+    font-size: 0.8em;
+}
+
+.chatlog__author-avatar-container {
+    grid-column: 1;
+    width: 40px;
+    height: 40px;
+}
+
+.chatlog__author-avatar {
+    border-radius: 50%;
+    height: 40px;
+    width: 40px;
+}
+
+.chatlog__messages {
+    grid-column: 2;
+    margin-left: 1.2em;
+    min-width: 50%;
+}
+
+.chatlog__author-name {
+    font-weight: 500;
+}
+
+.chatlog__timestamp {
+    margin-left: 0.3em;
+    font-size: 0.75em;
+}
+
+.chatlog__message {
+    padding: 0.1em 0.3em;
+    margin: 0 -0.3em;
+    background-color: transparent;
+    transition: background-color 1s ease;
+}
+
+.chatlog__content {
+    font-size: 0.95em;
+    word-wrap: break-word;
+}
+
+.chatlog__edited-timestamp {
+    margin-left: 0.15em;
+    font-size: 0.8em;
+}
+
+.chatlog__attachment {
+    margin-top: 0.3em;
+}
+
+.chatlog__attachment-thumbnail {
+    vertical-align: top;
+    max-width: 45vw;
+    max-height: 500px;
+    border-radius: 3px;
+}
+
+.chatlog__attachment-container {
+    height: 40px;
+    width: 100%;
+    max-width: 520px;
+    padding: 10px;
+    border: 1px solid;
+    border-radius: 3px;
+    overflow: hidden;
+}
+
+.chatlog__attachment-icon {
+    float: left;
+    height: 100%;
+    margin-right: 10px;
+}
+
+.chatlog__attachment-icon > .a {
+    fill: #f4f5fb;
+    d: path("M50,935a25,25,0,0,1-25-25V50A25,25,0,0,1,50,25H519.6L695,201.32V910a25,25,0,0,1-25,25Z");
+}
+
+.chatlog__attachment-icon > .b {
+    fill: #7789c4;
+    d: path("M509.21,50,670,211.63V910H50V50H509.21M530,0H50A50,50,0,0,0,0,50V910a50,50,0,0,0,50,50H670a50,50,0,0,0,50-50h0V191Z");
+}
+
+.chatlog__attachment-icon > .c {
+    fill: #f4f5fb;
+    d: path("M530,215a25,25,0,0,1-25-25V50a25,25,0,0,1,16.23-23.41L693.41,198.77A25,25,0,0,1,670,215Z");
+}
+
+.chatlog__attachment-icon > .d {
+    fill: #7789c4;
+    d: path("M530,70.71,649.29,190H530V70.71M530,0a50,50,0,0,0-50,50V190a50,50,0,0,0,50,50H670a50,50,0,0,0,50-50Z");
+}
+
+.chatlog__attachment-filesize {
+    color: #72767d;
+    font-size: 12px;
+}
+
+.chatlog__attachment-filename {
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+
+.chatlog__embed {
+    display: flex;
+    margin-top: 0.3em;
+    max-width: 520px;
+}
+
+.chatlog__embed-color-pill {
+    flex-shrink: 0;
+    width: 0.25em;
+    border-top-left-radius: 3px;
+    border-bottom-left-radius: 3px;
+}
+
+.chatlog__embed-content-container {
+    display: flex;
+    flex-direction: column;
+    padding: 0.5em 0.6em;
+    border: 1px solid;
+    border-top-right-radius: 3px;
+    border-bottom-right-radius: 3px;
+}
+
+.chatlog__embed-content {
+    display: flex;
+    width: 100%;
+}
+
+.chatlog__embed-text {
+    flex: 1;
+}
+
+.chatlog__embed-author {
+    display: flex;
+    margin-bottom: 0.3em;
+    align-items: center;
+}
+
+.chatlog__embed-author-icon {
+    margin-right: 0.5em;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+}
+
+.chatlog__embed-author-name {
+    font-size: 0.875em;
+    font-weight: 600;
+}
+
+.chatlog__embed-title {
+    margin-bottom: 0.2em;
+    font-size: 0.875em;
+    font-weight: 600;
+}
+
+.chatlog__embed-description {
+    font-weight: 500;
+    font-size: 0.85em;
+}
+
+.chatlog__embed-fields {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.chatlog__embed-field {
+    flex: 0;
+    min-width: 100%;
+    max-width: 506px;
+    padding-top: 0.6em;
+    font-size: 0.875em;
+}
+
+.chatlog__embed-field--inline {
+    flex: 1;
+    flex-basis: auto;
+    min-width: 150px;
+}
+
+.chatlog__embed-field-name {
+    margin-bottom: 0.2em;
+    font-weight: 600;
+}
+
+.chatlog__embed-field-value {
+    font-weight: 500;
+}
+
+.chatlog__embed-thumbnail {
+    flex: 0;
+    margin-left: 1.2em;
+    max-width: 80px;
+    max-height: 80px;
+    border-radius: 3px;
+}
+
+.chatlog__embed-image-container {
+    margin-top: 0.6em;
+}
+
+.chatlog__embed-image {
+    max-width: 500px;
+    max-height: 400px;
+    border-radius: 3px;
+}
+
+.chatlog__embed-footer {
+    margin-top: 0.6em;
+}
+
+.chatlog__embed-footer-icon {
+    margin-right: 0.2em;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    vertical-align: middle;
+}
+
+.chatlog__embed-footer-text {
+    font-size: 0.75em;
+    font-weight: 500;
+}
+
+.chatlog__reactions {
+    display: flex;
+}
+
+.chatlog__reaction {
+    display: flex;
+    align-items: center;
+    margin: 0.35em 0.1em 0.1em 0.1em;
+    padding: 0.2em 0.35em;
+    border-radius: 3px;
+}
+
+.chatlog__reaction-count {
+    min-width: 9px;
+    margin-left: 0.35em;
+    font-size: 0.875em;
+}
+
+.chatlog__bot-tag {
+    position: relative;
+    top: -.2em;
+    margin-left: 0.3em;
+    padding: 0.05em 0.3em;
+    border-radius: 3px;
+    vertical-align: middle;
+    line-height: 1.3;
+    background: #7289da;
+    color: #ffffff;
+    font-size: 0.625em;
+    font-weight: 500;
+}
+
+/* Postamble */
+
+.postamble {
+    margin: 1.4em 0.3em 0.6em 0.3em;
+    padding: 1em;
+    border-top: 1px solid;
+}
+    </style>
+    <style>
+        /* General */
+
+body {
+    background-color: #36393e;
+    color: #dcddde;
+}
+
+a {
+    color: #0096cf;
+}
+
+.spoiler-text {
+    background-color: rgba(255, 255, 255, 0.1);
+}
+
+.spoiler--hidden .spoiler-text {
+    background-color: #202225;
+}
+
+.spoiler--hidden:hover .spoiler-text {
+    background-color: rgba(32, 34, 37, 0.8);
+}
+
+.quote {
+    border-color: #4f545c;
+}
+
+.pre {
+    background-color: #2f3136 !important;
+}
+
+.pre--multiline {
+    border-color: #282b30 !important;
+    color: #b9bbbe !important;
+}
+
+/* === Preamble === */
+
+.preamble__entry {
+    color: #ffffff;
+}
+
+/* Chatlog */
+
+.chatlog__message-group {
+    border-color: rgba(255, 255, 255, 0.1);
+}
+
+.chatlog__reference-symbol {
+    border-color: #4f545c;
+}
+
+.chatlog__reference {
+    color: #b5b6b8;
+}
+
+.chatlog__reference-link {
+    color: #b5b6b8;
+}
+
+.chatlog__reference-link:hover {
+    color: #ffffff;
+}
+
+.chatlog__reference-edited-timestamp {
+    color: rgba(255, 255, 255, 0.2);
+}
+
+.chatlog__author-name {
+    color: #ffffff;
+}
+
+.chatlog__timestamp {
+    color: rgba(255, 255, 255, 0.2);
+}
+
+.chatlog__message--highlighted {
+    background-color: rgba(114, 137, 218, 0.2) !important;
+}
+
+.chatlog__message--pinned {
+    background-color: rgba(249, 168, 37, 0.05);
+}
+
+.chatlog__attachment-container {
+    background-color: #2f3136;
+    border-color: #292b2f;
+}
+
+.chatlog__edited-timestamp {
+    color: rgba(255, 255, 255, 0.2);
+}
+
+.chatlog__embed-color-pill--default {
+    background-color: rgba(79, 84, 92, 1);
+}
+
+.chatlog__embed-content-container {
+    background-color: rgba(46, 48, 54, 0.3);
+    border-color: rgba(46, 48, 54, 0.6);
+}
+
+.chatlog__embed-author-name {
+    color: #ffffff;
+}
+
+.chatlog__embed-author-name-link {
+    color: #ffffff;
+}
+
+.chatlog__embed-title {
+    color: #ffffff;
+}
+
+.chatlog__embed-description {
+    color: rgba(255, 255, 255, 0.6);
+}
+
+.chatlog__embed-field-name {
+    color: #ffffff;
+}
+
+.chatlog__embed-field-value {
+    color: rgba(255, 255, 255, 0.6);
+}
+
+.chatlog__embed-footer {
+    color: rgba(255, 255, 255, 0.6);
+}
+
+.chatlog__reaction {
+    background-color: rgba(255, 255, 255, 0.05);
+}
+
+.chatlog__reaction-count {
+    color: rgba(255, 255, 255, 0.3);
+}
+
+/* Postamble */
+
+.postamble {
+    border-color: rgba(255, 255, 255, 0.1);
+}
+
+.postamble__entry {
+    color: #ffffff;
+}
+    </style>
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.6/styles/solarized-dark.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.6/highlight.min.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            document.querySelectorAll('.pre--multiline').forEach(block => hljs.highlightBlock(block));
+        });
+    </script>
+
+    <script>
+        function scrollToMessage(event, id) {
+            var element = document.getElementById('message-' + id);
+
+            if (element) {
+                event.preventDefault();
+
+                element.classList.add('chatlog__message--highlighted');
+
+                window.scrollTo({
+                    top: element.getBoundingClientRect().top - document.body.getBoundingClientRect().top - (window.innerHeight / 2),
+                    behavior: 'smooth'
+                });
+
+                window.setTimeout(function() {
+                    element.classList.remove('chatlog__message--highlighted');
+                }, 2000);
+            }
+        }
+
+        function showSpoiler(event, element) {
+            if (element && element.classList.contains('spoiler--hidden')) {
+                event.preventDefault();
+                element.classList.remove('spoiler--hidden');
+            }
+        }
+    </script>
+</head>
+<body>
+
+<div class="preamble">
+    <div class="preamble__guild-icon-container">
+        <img class="preamble__guild-icon" src="Landing%20Cove%20-%20General%20Chats%20-%20general%20%5B777589539253911565%5D.html_Files/ab0c04d2056a952f5dd295606fe1235e-73FC3.png" alt="Guild icon">
+    </div>
+    <div class="preamble__entries-container">
+        <div class="preamble__entry">Landing Cove</div>
+        <div class="preamble__entry">General Chats / general</div>
+
+
+    </div>
+</div>
+
+<div class="chatlog">
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Landing%20Cove%20-%20General%20Chats%20-%20general%20%5B777589539253911565%5D.html_Files/e68df58a79efb01e26dc1085b229f4f7-7494D.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Gav#6698" data-user-id="423623361411940353" style="color: rgb(255,185,0)">Gav</span>
+
+
+        <span class="chatlog__timestamp">15-Nov-20 07:19 PM</span>
+
+            <div class="chatlog__message " data-message-id="777613649056759858" id="message-777613649056759858">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">Joined the server.</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="777613676168871956" id="message-777613676168871956">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">interesting</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Landing%20Cove%20-%20General%20Chats%20-%20general%20%5B777589539253911565%5D.html_Files/3f63bc447b54c154f2a70bee23e5e498-D3358.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="TalkinTurtle#3842" data-user-id="185190742988292096" style="color: rgb(0,36,125)">TalkinTurtle</span>
+
+
+        <span class="chatlog__timestamp">15-Nov-20 07:19 PM</span>
+
+            <div class="chatlog__message " data-message-id="777613821430726706" id="message-777613821430726706">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">Joined the server.</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Landing%20Cove%20-%20General%20Chats%20-%20general%20%5B777589539253911565%5D.html_Files/3932628f1962727cde9fb2647190844e-E6F11.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="intothenextportal#2259" data-user-id="333234472583561216" style="color: rgb(155,89,182)">intothenextportal</span>
+
+
+        <span class="chatlog__timestamp">15-Nov-20 07:19 PM</span>
+
+            <div class="chatlog__message " data-message-id="777613873489379378" id="message-777613873489379378">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">Joined the server.</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Landing%20Cove%20-%20General%20Chats%20-%20general%20%5B777589539253911565%5D.html_Files/eb8df90e3dadf9439d56f025f5e1ae3b-63B18.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="DarthJake#5294" data-user-id="411601192502951938" style="color: rgb(255,185,0)">Jacobo</span>
+
+
+        <span class="chatlog__timestamp">15-Nov-20 07:25 PM</span>
+
+            <div class="chatlog__message " data-message-id="777615228035924038" id="message-777615228035924038">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">Joined the server.</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Landing%20Cove%20-%20General%20Chats%20-%20general%20%5B777589539253911565%5D.html_Files/e68df58a79efb01e26dc1085b229f4f7-7494D.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Gav#6698" data-user-id="423623361411940353" style="color: rgb(255,185,0)">Gav</span>
+
+
+        <span class="chatlog__timestamp">15-Nov-20 07:25 PM</span>
+
+            <div class="chatlog__message " data-message-id="777615304133181490" id="message-777615304133181490">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">I hate humans</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Landing%20Cove%20-%20General%20Chats%20-%20general%20%5B777589539253911565%5D.html_Files/eb8df90e3dadf9439d56f025f5e1ae3b-63B18.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="DarthJake#5294" data-user-id="411601192502951938" style="color: rgb(255,185,0)">Jacobo</span>
+
+
+        <span class="chatlog__timestamp">15-Nov-20 07:25 PM</span>
+
+            <div class="chatlog__message " data-message-id="777615338929651752" id="message-777615338929651752">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">same bro</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Landing%20Cove%20-%20General%20Chats%20-%20general%20%5B777589539253911565%5D.html_Files/400870646e09bfc3258977e102b58844-3D3E2.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Datalore1#1846" data-user-id="422161093163614209" style="color: rgb(255,185,0)">Datalore1</span>
+
+
+        <span class="chatlog__timestamp">15-Nov-20 08:26 PM</span>
+
+            <div class="chatlog__message " data-message-id="777630612706164743" id="message-777630612706164743">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">Joined the server.</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="777630640984031232" id="message-777630640984031232">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">Uh</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="777630644934017084" id="message-777630644934017084">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">Hello</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Landing%20Cove%20-%20General%20Chats%20-%20general%20%5B777589539253911565%5D.html_Files/9298c8ef5f131c9d2e050b37e6649aa0-607AC.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Tyco#0410" data-user-id="339896226122301440" style="color: rgb(255,185,0)">Tyco</span>
+
+
+        <span class="chatlog__timestamp">15-Nov-20 08:26 PM</span>
+
+            <div class="chatlog__message " data-message-id="777630667088461864" id="message-777630667088461864">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">Hi</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Landing%20Cove%20-%20General%20Chats%20-%20general%20%5B777589539253911565%5D.html_Files/e68df58a79efb01e26dc1085b229f4f7-7494D.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Gav#6698" data-user-id="423623361411940353" style="color: rgb(255,185,0)">Gav</span>
+
+
+        <span class="chatlog__timestamp">15-Nov-20 08:26 PM</span>
+
+            <div class="chatlog__message " data-message-id="777630669328875521" id="message-777630669328875521">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">hello human</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="777630686205968394" id="message-777630686205968394">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">or non-human</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Landing%20Cove%20-%20General%20Chats%20-%20general%20%5B777589539253911565%5D.html_Files/400870646e09bfc3258977e102b58844-3D3E2.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Datalore1#1846" data-user-id="422161093163614209" style="color: rgb(255,185,0)">Datalore1</span>
+
+
+        <span class="chatlog__timestamp">15-Nov-20 08:26 PM</span>
+
+            <div class="chatlog__message " data-message-id="777630717013393419" id="message-777630717013393419">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">I am a lamprey.</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Landing%20Cove%20-%20General%20Chats%20-%20general%20%5B777589539253911565%5D.html_Files/9298c8ef5f131c9d2e050b37e6649aa0-607AC.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Tyco#0410" data-user-id="339896226122301440" style="color: rgb(255,185,0)">Tyco</span>
+
+
+        <span class="chatlog__timestamp">15-Nov-20 08:26 PM</span>
+
+            <div class="chatlog__message " data-message-id="777630720403046400" id="message-777630720403046400">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">I think they are a leech</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Landing%20Cove%20-%20General%20Chats%20-%20general%20%5B777589539253911565%5D.html_Files/400870646e09bfc3258977e102b58844-3D3E2.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Datalore1#1846" data-user-id="422161093163614209" style="color: rgb(255,185,0)">Datalore1</span>
+
+
+        <span class="chatlog__timestamp">15-Nov-20 08:26 PM</span>
+
+            <div class="chatlog__message " data-message-id="777630724995809373" id="message-777630724995809373">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">Or rather</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Landing%20Cove%20-%20General%20Chats%20-%20general%20%5B777589539253911565%5D.html_Files/9298c8ef5f131c9d2e050b37e6649aa0-607AC.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Tyco#0410" data-user-id="339896226122301440" style="color: rgb(255,185,0)">Tyco</span>
+
+
+        <span class="chatlog__timestamp">15-Nov-20 08:26 PM</span>
+
+            <div class="chatlog__message " data-message-id="777630731647189022" id="message-777630731647189022">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">Close enough</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Landing%20Cove%20-%20General%20Chats%20-%20general%20%5B777589539253911565%5D.html_Files/400870646e09bfc3258977e102b58844-3D3E2.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Datalore1#1846" data-user-id="422161093163614209" style="color: rgb(255,185,0)">Datalore1</span>
+
+
+        <span class="chatlog__timestamp">15-Nov-20 08:26 PM</span>
+
+            <div class="chatlog__message " data-message-id="777630753185202216" id="message-777630753185202216">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">3 lamprey in a trench coat</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Landing%20Cove%20-%20General%20Chats%20-%20general%20%5B777589539253911565%5D.html_Files/9298c8ef5f131c9d2e050b37e6649aa0-607AC.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Tyco#0410" data-user-id="339896226122301440" style="color: rgb(255,185,0)">Tyco</span>
+
+
+        <span class="chatlog__timestamp">15-Nov-20 08:27 PM</span>
+
+            <div class="chatlog__message " data-message-id="777630768460464128" id="message-777630768460464128">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">Interesting</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Landing%20Cove%20-%20General%20Chats%20-%20general%20%5B777589539253911565%5D.html_Files/e68df58a79efb01e26dc1085b229f4f7-7494D.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Gav#6698" data-user-id="423623361411940353" style="color: rgb(255,185,0)">Gav</span>
+
+
+        <span class="chatlog__timestamp">15-Nov-20 08:27 PM</span>
+
+            <div class="chatlog__message " data-message-id="777630771368165376" id="message-777630771368165376">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">I see</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Landing%20Cove%20-%20General%20Chats%20-%20general%20%5B777589539253911565%5D.html_Files/a_c10709f2386e44555d874f85ca9dce6e-A2CDA.gif" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="D.J.Z.#2016" data-user-id="481008005706547201" style="color: rgb(255,111,111)">D.J.Z.</span>
+
+
+        <span class="chatlog__timestamp">15-Nov-20 08:33 PM</span>
+
+            <div class="chatlog__message " data-message-id="777632343992172575" id="message-777632343992172575">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">Joined the server.</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="777632478537973791" id="message-777632478537973791">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">h</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Landing%20Cove%20-%20General%20Chats%20-%20general%20%5B777589539253911565%5D.html_Files/9298c8ef5f131c9d2e050b37e6649aa0-607AC.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Tyco#0410" data-user-id="339896226122301440" style="color: rgb(255,185,0)">Tyco</span>
+
+
+        <span class="chatlog__timestamp">15-Nov-20 08:33 PM</span>
+
+            <div class="chatlog__message " data-message-id="777632495894134824" id="message-777632495894134824">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">h</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Landing%20Cove%20-%20General%20Chats%20-%20general%20%5B777589539253911565%5D.html_Files/e68df58a79efb01e26dc1085b229f4f7-7494D.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Gav#6698" data-user-id="423623361411940353" style="color: rgb(255,185,0)">Gav</span>
+
+
+        <span class="chatlog__timestamp">15-Nov-20 08:34 PM</span>
+
+            <div class="chatlog__message " data-message-id="777632522975576114" id="message-777632522975576114">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">outsider</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Landing%20Cove%20-%20General%20Chats%20-%20general%20%5B777589539253911565%5D.html_Files/9298c8ef5f131c9d2e050b37e6649aa0-607AC.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Tyco#0410" data-user-id="339896226122301440" style="color: rgb(255,185,0)">Tyco</span>
+
+
+        <span class="chatlog__timestamp">15-Nov-20 08:34 PM</span>
+
+            <div class="chatlog__message " data-message-id="777632540541845554" id="message-777632540541845554">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">Outsider</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Landing%20Cove%20-%20General%20Chats%20-%20general%20%5B777589539253911565%5D.html_Files/a_c10709f2386e44555d874f85ca9dce6e-A2CDA.gif" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="D.J.Z.#2016" data-user-id="481008005706547201" style="color: rgb(255,111,111)">D.J.Z.</span>
+
+
+        <span class="chatlog__timestamp">15-Nov-20 08:34 PM</span>
+
+            <div class="chatlog__message " data-message-id="777632613351292938" id="message-777632613351292938">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">CHANGE THE DEFAULT SERVER NOTIFICATIONS</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Landing%20Cove%20-%20General%20Chats%20-%20general%20%5B777589539253911565%5D.html_Files/e68df58a79efb01e26dc1085b229f4f7-7494D.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Gav#6698" data-user-id="423623361411940353" style="color: rgb(255,185,0)">Gav</span>
+
+
+        <span class="chatlog__timestamp">15-Nov-20 08:34 PM</span>
+
+            <div class="chatlog__message " data-message-id="777632638340038676" id="message-777632638340038676">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">no</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Landing%20Cove%20-%20General%20Chats%20-%20general%20%5B777589539253911565%5D.html_Files/9298c8ef5f131c9d2e050b37e6649aa0-607AC.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Tyco#0410" data-user-id="339896226122301440" style="color: rgb(255,185,0)">Tyco</span>
+
+
+        <span class="chatlog__timestamp">15-Nov-20 08:34 PM</span>
+
+            <div class="chatlog__message " data-message-id="777632707085336627" id="message-777632707085336627">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">maybe I will maybe I won&#39;t</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Landing%20Cove%20-%20General%20Chats%20-%20general%20%5B777589539253911565%5D.html_Files/202136c8fd9e9dc185eecc6f7e798ba4-73892.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Coca162#1419" data-user-id="388454632835514380" style="color: rgb(255,111,111)">Coca162</span>
+
+
+        <span class="chatlog__timestamp">16-Nov-20 12:38 AM</span>
+
+            <div class="chatlog__message " data-message-id="777694021463965696" id="message-777694021463965696">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">Joined the server.</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Landing%20Cove%20-%20General%20Chats%20-%20general%20%5B777589539253911565%5D.html_Files/e68df58a79efb01e26dc1085b229f4f7-7494D.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Gav#6698" data-user-id="423623361411940353" style="color: rgb(255,185,0)">Gav</span>
+
+
+        <span class="chatlog__timestamp">16-Nov-20 02:03 AM</span>
+
+            <div class="chatlog__message " data-message-id="777715408303685644" id="message-777715408303685644">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">oh</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Landing%20Cove%20-%20General%20Chats%20-%20general%20%5B777589539253911565%5D.html_Files/034ec7893af8db38914e70bddde7cd96-A275B.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="hellodan#0001" data-user-id="323485542366969856" style="color: rgb(255,111,111)">hellodan</span>
+
+
+        <span class="chatlog__timestamp">16-Nov-20 02:07 AM</span>
+
+            <div class="chatlog__message " data-message-id="777716420502356018" id="message-777716420502356018">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">Joined the server.</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="777716473660833802" id="message-777716473660833802">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">bruh</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="777716482805071903" id="message-777716482805071903">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">&quot;outsider&quot;</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="777716489481355284" id="message-777716489481355284">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">bruhh</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Landing%20Cove%20-%20General%20Chats%20-%20general%20%5B777589539253911565%5D.html_Files/9298c8ef5f131c9d2e050b37e6649aa0-607AC.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Tyco#0410" data-user-id="339896226122301440" style="color: rgb(255,185,0)">Tyco</span>
+
+
+        <span class="chatlog__timestamp">16-Nov-20 02:08 AM</span>
+
+            <div class="chatlog__message " data-message-id="777716708370677784" id="message-777716708370677784">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">haha dan is an outsider</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Landing%20Cove%20-%20General%20Chats%20-%20general%20%5B777589539253911565%5D.html_Files/202136c8fd9e9dc185eecc6f7e798ba4-73892.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Coca162#1419" data-user-id="388454632835514380" style="color: rgb(255,111,111)">Coca162</span>
+
+
+        <span class="chatlog__timestamp">16-Nov-20 02:09 AM</span>
+
+            <div class="chatlog__message " data-message-id="777716983855972424" id="message-777716983855972424">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">Mfw I see a SV discord server but it doesn&#39;t have any bot</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="777717064516239390" id="message-777717064516239390">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">Get CocaBot or Merope smh</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Landing%20Cove%20-%20General%20Chats%20-%20general%20%5B777589539253911565%5D.html_Files/eb8df90e3dadf9439d56f025f5e1ae3b-63B18.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="DarthJake#5294" data-user-id="411601192502951938" style="color: rgb(255,185,0)">Jacobo</span>
+
+
+        <span class="chatlog__timestamp">16-Nov-20 02:41 AM</span>
+
+            <div class="chatlog__message " data-message-id="777725100619333654" id="message-777725100619333654">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">its a new server</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="777725119195774977" id="message-777725119195774977">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">as of, like, this morning</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Landing%20Cove%20-%20General%20Chats%20-%20general%20%5B777589539253911565%5D.html_Files/3932628f1962727cde9fb2647190844e-E6F11.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="intothenextportal#2259" data-user-id="333234472583561216" style="color: rgb(155,89,182)">intothenextportal</span>
+
+
+        <span class="chatlog__timestamp">16-Nov-20 03:44 AM</span>
+
+            <div class="chatlog__message " data-message-id="777740862783488002" id="message-777740862783488002">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">where is mee6 the superior xp bot</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Landing%20Cove%20-%20General%20Chats%20-%20general%20%5B777589539253911565%5D.html_Files/b8bfdfb9c6e85d695dc8689fc2a84d88-85EE3.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Trevor#0741" data-user-id="545001855495831563" style="">Trevor</span>
+
+
+        <span class="chatlog__timestamp">16-Nov-20 10:30 PM</span>
+
+            <div class="chatlog__message " data-message-id="778024229014732811" id="message-778024229014732811">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">Joined the server.</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Landing%20Cove%20-%20General%20Chats%20-%20general%20%5B777589539253911565%5D.html_Files/c6cfe951a5504e4f22e99b6f4f1e2eca-B55B3.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="orbit1#5079" data-user-id="655909297263214598" style="color: rgb(255,185,0)">orbit1</span>
+
+
+        <span class="chatlog__timestamp">17-Nov-20 12:03 AM</span>
+
+            <div class="chatlog__message " data-message-id="778047566361002034" id="message-778047566361002034">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">Joined the server.</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Landing%20Cove%20-%20General%20Chats%20-%20general%20%5B777589539253911565%5D.html_Files/4-4551A.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Riverblade_#0434" data-user-id="706402821414715444" style="color: rgb(255,185,0)">Riverblade_</span>
+
+
+        <span class="chatlog__timestamp">17-Nov-20 05:05 AM</span>
+
+            <div class="chatlog__message " data-message-id="778123667338952744" id="message-778123667338952744">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">Joined the server.</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="778124462221557780" id="message-778124462221557780">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">test</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="778124949755265026" id="message-778124949755265026">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">Yay I have a fancy nametag color now</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Landing%20Cove%20-%20General%20Chats%20-%20general%20%5B777589539253911565%5D.html_Files/9298c8ef5f131c9d2e050b37e6649aa0-607AC.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Tyco#0410" data-user-id="339896226122301440" style="color: rgb(255,185,0)">Tyco</span>
+
+
+        <span class="chatlog__timestamp">17-Nov-20 06:01 AM</span>
+
+            <div class="chatlog__message " data-message-id="778137615584198676" id="message-778137615584198676">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">Yes very cool</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Landing%20Cove%20-%20General%20Chats%20-%20general%20%5B777589539253911565%5D.html_Files/010e24b96b459d67e3b6bce03742fe2f-49C01.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="deadbones bones#9181" data-user-id="640047003631484930" style="color: rgb(255,185,0)">deadbones bones</span>
+
+
+        <span class="chatlog__timestamp">17-Nov-20 09:24 PM</span>
+
+            <div class="chatlog__message " data-message-id="778369897301934130" id="message-778369897301934130">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">Joined the server.</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Landing%20Cove%20-%20General%20Chats%20-%20general%20%5B777589539253911565%5D.html_Files/d04ae53bef18fa60c22652455de9c417-25DCC.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Kaprilik Katothēmon Īmētstilikas#8063" data-user-id="553041789976838154" style="">Kaprilik Katothēmon Īmētstilikas</span>
+
+
+        <span class="chatlog__timestamp">18-Nov-20 12:30 AM</span>
+
+            <div class="chatlog__message " data-message-id="778416867441901588" id="message-778416867441901588">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">Joined the server.</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Landing%20Cove%20-%20General%20Chats%20-%20general%20%5B777589539253911565%5D.html_Files/f12d042afc0d24a96c33fb6a3d9f746b-6C885.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="asdia#1556" data-user-id="470203136771096596" style="">asdia</span>
+
+
+        <span class="chatlog__timestamp">19-Nov-20 03:36 AM</span>
+
+            <div class="chatlog__message " data-message-id="778826123404378113" id="message-778826123404378113">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">Joined the server.</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Landing%20Cove%20-%20General%20Chats%20-%20general%20%5B777589539253911565%5D.html_Files/eb8df90e3dadf9439d56f025f5e1ae3b-63B18.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="DarthJake#5294" data-user-id="411601192502951938" style="color: rgb(255,185,0)">Jacobo</span>
+
+
+        <span class="chatlog__timestamp">22-Nov-20 03:14 AM</span>
+
+            <div class="chatlog__message " data-message-id="779907637558247474" id="message-779907637558247474">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">How do you check how many messages you have</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Landing%20Cove%20-%20General%20Chats%20-%20general%20%5B777589539253911565%5D.html_Files/9298c8ef5f131c9d2e050b37e6649aa0-607AC.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Tyco#0410" data-user-id="339896226122301440" style="color: rgb(255,185,0)">Tyco</span>
+
+
+        <span class="chatlog__timestamp">22-Nov-20 03:19 AM</span>
+
+            <div class="chatlog__message " data-message-id="779908923104690196" id="message-779908923104690196">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">You use the search bar and just do &quot;from: jcl1234#5294&quot;</span>
+
+                                <span class="chatlog__edited-timestamp" title="22-Nov-20 03:19 AM">(edited)</span>
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Landing%20Cove%20-%20General%20Chats%20-%20general%20%5B777589539253911565%5D.html_Files/034ec7893af8db38914e70bddde7cd96-A275B.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="hellodan#0001" data-user-id="323485542366969856" style="color: rgb(255,111,111)">hellodan</span>
+
+
+        <span class="chatlog__timestamp">22-Nov-20 04:07 AM</span>
+
+            <div class="chatlog__message " data-message-id="779920965576556594" id="message-779920965576556594">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">landing cove is kinda weird</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Landing%20Cove%20-%20General%20Chats%20-%20general%20%5B777589539253911565%5D.html_Files/9298c8ef5f131c9d2e050b37e6649aa0-607AC.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Tyco#0410" data-user-id="339896226122301440" style="color: rgb(255,185,0)">Tyco</span>
+
+
+        <span class="chatlog__timestamp">22-Nov-20 04:07 AM</span>
+
+            <div class="chatlog__message " data-message-id="779921002162814977" id="message-779921002162814977">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">Why</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Landing%20Cove%20-%20General%20Chats%20-%20general%20%5B777589539253911565%5D.html_Files/034ec7893af8db38914e70bddde7cd96-A275B.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="hellodan#0001" data-user-id="323485542366969856" style="color: rgb(255,111,111)">hellodan</span>
+
+
+        <span class="chatlog__timestamp">22-Nov-20 04:08 AM</span>
+
+            <div class="chatlog__message " data-message-id="779921104261087252" id="message-779921104261087252">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">why are they called district senators</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="779921139954745356" id="message-779921139954745356">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">kinda gross</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Landing%20Cove%20-%20General%20Chats%20-%20general%20%5B777589539253911565%5D.html_Files/9298c8ef5f131c9d2e050b37e6649aa0-607AC.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Tyco#0410" data-user-id="339896226122301440" style="color: rgb(255,185,0)">Tyco</span>
+
+
+        <span class="chatlog__timestamp">22-Nov-20 04:08 AM</span>
+
+            <div class="chatlog__message " data-message-id="779921254722306049" id="message-779921254722306049">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">Why not</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Landing%20Cove%20-%20General%20Chats%20-%20general%20%5B777589539253911565%5D.html_Files/400870646e09bfc3258977e102b58844-3D3E2.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Datalore1#1846" data-user-id="422161093163614209" style="color: rgb(255,185,0)">Datalore1</span>
+
+
+        <span class="chatlog__timestamp">23-Nov-20 04:37 AM</span>
+
+            <div class="chatlog__message " data-message-id="780290975796690985" id="message-780290975796690985">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><strong>Citizens of Landing Cove!</strong>
+
+My name is Datalore1, and I am a candidate for the district senator position. You may have seen me around the SpookVooper server, engaging in the local economy, supporting up and coming businesses, and participating in casual discussions. Fellow Vooperians, fellow Landing Covites, I seek this seat out of a desire to better the district, to ensure its continued prominence in Vooperian politics, and to burgeon our local economy. Remember this friends, I am no career politician. I desire not a return to power, only to present a new and honest perspective in local proceedings. If elected, I shall push for businesses to move to Landing Cove, encourage immigration to our great district, and ensure we continue to establish our district as an autonomous entity. We can make a difference and we can make a name for ourselves.
+
+Vote Datalore1 for district senator!</span>
+
+                                <span class="chatlog__edited-timestamp" title="23-Nov-20 04:38 AM">(edited)</span>
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Landing%20Cove%20-%20General%20Chats%20-%20general%20%5B777589539253911565%5D.html_Files/3932628f1962727cde9fb2647190844e-E6F11.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="intothenextportal#2259" data-user-id="333234472583561216" style="color: rgb(155,89,182)">intothenextportal</span>
+
+
+        <span class="chatlog__timestamp">23-Nov-20 05:50 AM</span>
+
+            <div class="chatlog__message " data-message-id="780309198625570818" id="message-780309198625570818">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">uh</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="780309219513204756" id="message-780309219513204756">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">you all know me</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="780309274932281404" id="message-780309274932281404">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">I was on the vooperian senate for this once</span>
+
+                                <span class="chatlog__edited-timestamp" title="23-Nov-20 05:55 AM">(edited)</span>
+                        </div>
+                    </div>
+
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="780309370004570123" id="message-780309370004570123">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">im part of DOL</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="780309408114409483" id="message-780309408114409483">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">not that weve done anything</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="780309464435523604" id="message-780309464435523604">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">(spikes fault)</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="780309978136576012" id="message-780309978136576012">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">but uh</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="780310006791667713" id="message-780310006791667713">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">I want nerdcraft to come back</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="780310094776631336" id="message-780310094776631336">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">and for landing cove to become a labor powerhouse</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="780310549731999755" id="message-780310549731999755">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">we only have 3 ppl running</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="780310555612282910" id="message-780310555612282910">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">so</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="780310597064458251" id="message-780310597064458251">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">thats all we need</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Landing%20Cove%20-%20General%20Chats%20-%20general%20%5B777589539253911565%5D.html_Files/400870646e09bfc3258977e102b58844-3D3E2.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Datalore1#1846" data-user-id="422161093163614209" style="color: rgb(255,185,0)">Datalore1</span>
+
+
+        <span class="chatlog__timestamp">23-Nov-20 05:56 AM</span>
+
+            <div class="chatlog__message " data-message-id="780310708674887710" id="message-780310708674887710">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">To become a labor powerhouse we need an economy. I will work to build up our sever infrastructure and supplying revenue sources for the local government. With this revenue we can offer grants, which will encourage companies to move to landing cove.</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Landing%20Cove%20-%20General%20Chats%20-%20general%20%5B777589539253911565%5D.html_Files/3932628f1962727cde9fb2647190844e-E6F11.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="intothenextportal#2259" data-user-id="333234472583561216" style="color: rgb(155,89,182)">intothenextportal</span>
+
+
+        <span class="chatlog__timestamp">23-Nov-20 05:56 AM</span>
+
+            <div class="chatlog__message " data-message-id="780310799783952394" id="message-780310799783952394">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">well ty and co already exists in landing cove</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Landing%20Cove%20-%20General%20Chats%20-%20general%20%5B777589539253911565%5D.html_Files/400870646e09bfc3258977e102b58844-3D3E2.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Datalore1#1846" data-user-id="422161093163614209" style="color: rgb(255,185,0)">Datalore1</span>
+
+
+        <span class="chatlog__timestamp">23-Nov-20 05:56 AM</span>
+
+            <div class="chatlog__message " data-message-id="780310841932644392" id="message-780310841932644392">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">We need to encourage further development</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Landing%20Cove%20-%20General%20Chats%20-%20general%20%5B777589539253911565%5D.html_Files/3932628f1962727cde9fb2647190844e-E6F11.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="intothenextportal#2259" data-user-id="333234472583561216" style="color: rgb(155,89,182)">intothenextportal</span>
+
+
+        <span class="chatlog__timestamp">23-Nov-20 05:56 AM</span>
+
+            <div class="chatlog__message " data-message-id="780310845901111297" id="message-780310845901111297">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">and turtle also wanted to start his own company</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="780310860732170251" id="message-780310860732170251">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">yeah</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Landing%20Cove%20-%20General%20Chats%20-%20general%20%5B777589539253911565%5D.html_Files/400870646e09bfc3258977e102b58844-3D3E2.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Datalore1#1846" data-user-id="422161093163614209" style="color: rgb(255,185,0)">Datalore1</span>
+
+
+        <span class="chatlog__timestamp">23-Nov-20 05:56 AM</span>
+
+            <div class="chatlog__message " data-message-id="780310879497355295" id="message-780310879497355295">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">We could become an industrial powerhouse</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="780310896130916362" id="message-780310896130916362">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">And I have a plan for that.</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Landing%20Cove%20-%20General%20Chats%20-%20general%20%5B777589539253911565%5D.html_Files/3932628f1962727cde9fb2647190844e-E6F11.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="intothenextportal#2259" data-user-id="333234472583561216" style="color: rgb(155,89,182)">intothenextportal</span>
+
+
+        <span class="chatlog__timestamp">23-Nov-20 05:57 AM</span>
+
+            <div class="chatlog__message " data-message-id="780310929396727838" id="message-780310929396727838">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">labor powerhouse requires steps</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Landing%20Cove%20-%20General%20Chats%20-%20general%20%5B777589539253911565%5D.html_Files/400870646e09bfc3258977e102b58844-3D3E2.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Datalore1#1846" data-user-id="422161093163614209" style="color: rgb(255,185,0)">Datalore1</span>
+
+
+        <span class="chatlog__timestamp">23-Nov-20 05:57 AM</span>
+
+            <div class="chatlog__message " data-message-id="780311004802056252" id="message-780311004802056252">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">And there are only 2 seats. One of us isn’t going to win.</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Landing%20Cove%20-%20General%20Chats%20-%20general%20%5B777589539253911565%5D.html_Files/3932628f1962727cde9fb2647190844e-E6F11.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="intothenextportal#2259" data-user-id="333234472583561216" style="color: rgb(155,89,182)">intothenextportal</span>
+
+
+        <span class="chatlog__timestamp">23-Nov-20 05:57 AM</span>
+
+            <div class="chatlog__message " data-message-id="780311047860781126" id="message-780311047860781126">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">btw is ur username a star trek reference</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Landing%20Cove%20-%20General%20Chats%20-%20general%20%5B777589539253911565%5D.html_Files/400870646e09bfc3258977e102b58844-3D3E2.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Datalore1#1846" data-user-id="422161093163614209" style="color: rgb(255,185,0)">Datalore1</span>
+
+
+        <span class="chatlog__timestamp">23-Nov-20 05:57 AM</span>
+
+            <div class="chatlog__message " data-message-id="780311076122132490" id="message-780311076122132490">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">Yes. Yes it is.</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Landing%20Cove%20-%20General%20Chats%20-%20general%20%5B777589539253911565%5D.html_Files/3932628f1962727cde9fb2647190844e-E6F11.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="intothenextportal#2259" data-user-id="333234472583561216" style="color: rgb(155,89,182)">intothenextportal</span>
+
+
+        <span class="chatlog__timestamp">23-Nov-20 05:57 AM</span>
+
+            <div class="chatlog__message " data-message-id="780311088591274046" id="message-780311088591274046">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">ah ok</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="780311138159427594" id="message-780311138159427594">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">this person is cool guys</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Landing%20Cove%20-%20General%20Chats%20-%20general%20%5B777589539253911565%5D.html_Files/400870646e09bfc3258977e102b58844-3D3E2.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Datalore1#1846" data-user-id="422161093163614209" style="color: rgb(255,185,0)">Datalore1</span>
+
+
+        <span class="chatlog__timestamp">23-Nov-20 05:58 AM</span>
+
+            <div class="chatlog__message " data-message-id="780311209487892500" id="message-780311209487892500">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">If we can offer competitive grants the economy will boom. All we need is a source of revenue.</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Landing%20Cove%20-%20General%20Chats%20-%20general%20%5B777589539253911565%5D.html_Files/3932628f1962727cde9fb2647190844e-E6F11.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="intothenextportal#2259" data-user-id="333234472583561216" style="color: rgb(155,89,182)">intothenextportal</span>
+
+
+        <span class="chatlog__timestamp">23-Nov-20 05:58 AM</span>
+
+            <div class="chatlog__message " data-message-id="780311329743044629" id="message-780311329743044629">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">uh yeah</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="780311383550984192" id="message-780311383550984192">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">we dont have that</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="780311447854121000" id="message-780311447854121000">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">tyco would have to propose business grants</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Landing%20Cove%20-%20General%20Chats%20-%20general%20%5B777589539253911565%5D.html_Files/400870646e09bfc3258977e102b58844-3D3E2.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Datalore1#1846" data-user-id="422161093163614209" style="color: rgb(255,185,0)">Datalore1</span>
+
+
+        <span class="chatlog__timestamp">23-Nov-20 05:59 AM</span>
+
+            <div class="chatlog__message " data-message-id="780311463424294943" id="message-780311463424294943">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">Instead of taxes, we can establish a district government funded corporation, owned by the government.</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Landing%20Cove%20-%20General%20Chats%20-%20general%20%5B777589539253911565%5D.html_Files/3932628f1962727cde9fb2647190844e-E6F11.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="intothenextportal#2259" data-user-id="333234472583561216" style="color: rgb(155,89,182)">intothenextportal</span>
+
+
+        <span class="chatlog__timestamp">23-Nov-20 05:59 AM</span>
+
+            <div class="chatlog__message " data-message-id="780311487917850666" id="message-780311487917850666">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">also we would need nerdcraft</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Landing%20Cove%20-%20General%20Chats%20-%20general%20%5B777589539253911565%5D.html_Files/400870646e09bfc3258977e102b58844-3D3E2.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Datalore1#1846" data-user-id="422161093163614209" style="color: rgb(255,185,0)">Datalore1</span>
+
+
+        <span class="chatlog__timestamp">23-Nov-20 05:59 AM</span>
+
+            <div class="chatlog__message " data-message-id="780311568998596628" id="message-780311568998596628">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">No, we offer local grants though the district government,</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Landing%20Cove%20-%20General%20Chats%20-%20general%20%5B777589539253911565%5D.html_Files/3932628f1962727cde9fb2647190844e-E6F11.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="intothenextportal#2259" data-user-id="333234472583561216" style="color: rgb(155,89,182)">intothenextportal</span>
+
+
+        <span class="chatlog__timestamp">23-Nov-20 05:59 AM</span>
+
+            <div class="chatlog__message " data-message-id="780311628762578995" id="message-780311628762578995">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">because the economy currently doesnt care about districts</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Landing%20Cove%20-%20General%20Chats%20-%20general%20%5B777589539253911565%5D.html_Files/400870646e09bfc3258977e102b58844-3D3E2.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Datalore1#1846" data-user-id="422161093163614209" style="color: rgb(255,185,0)">Datalore1</span>
+
+
+        <span class="chatlog__timestamp">23-Nov-20 06:00 AM</span>
+
+            <div class="chatlog__message " data-message-id="780311698845466624" id="message-780311698845466624">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">Oh, I’m all for nerdcraft. But that will take time.</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="780311764092977162" id="message-780311764092977162">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">In the interim, people will care if it becomes advantageous for business</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="780311795293618218" id="message-780311795293618218">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">And we can make it advantageous</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Landing%20Cove%20-%20General%20Chats%20-%20general%20%5B777589539253911565%5D.html_Files/3932628f1962727cde9fb2647190844e-E6F11.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="intothenextportal#2259" data-user-id="333234472583561216" style="color: rgb(155,89,182)">intothenextportal</span>
+
+
+        <span class="chatlog__timestamp">23-Nov-20 06:00 AM</span>
+
+            <div class="chatlog__message " data-message-id="780311811509452820" id="message-780311811509452820">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">thats true</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="780311877585469440" id="message-780311877585469440">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">originally the plan was just for us to sell cheap plots</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Landing%20Cove%20-%20General%20Chats%20-%20general%20%5B777589539253911565%5D.html_Files/400870646e09bfc3258977e102b58844-3D3E2.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Datalore1#1846" data-user-id="422161093163614209" style="color: rgb(255,185,0)">Datalore1</span>
+
+
+        <span class="chatlog__timestamp">23-Nov-20 06:01 AM</span>
+
+            <div class="chatlog__message " data-message-id="780311945373810709" id="message-780311945373810709">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">That would work.</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Landing%20Cove%20-%20General%20Chats%20-%20general%20%5B777589539253911565%5D.html_Files/3932628f1962727cde9fb2647190844e-E6F11.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="intothenextportal#2259" data-user-id="333234472583561216" style="color: rgb(155,89,182)">intothenextportal</span>
+
+
+        <span class="chatlog__timestamp">23-Nov-20 06:01 AM</span>
+
+            <div class="chatlog__message " data-message-id="780311975564804108" id="message-780311975564804108">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">but once I was no longer senator the chance faded away</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="780312116086964235" id="message-780312116086964235">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">basically i would sell land cheaper or at cost</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="780312168650375218" id="message-780312168650375218">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">then what i purchased it for</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="780312213227044894" id="message-780312213227044894">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">and add on a small land tax</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Landing%20Cove%20-%20General%20Chats%20-%20general%20%5B777589539253911565%5D.html_Files/400870646e09bfc3258977e102b58844-3D3E2.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Datalore1#1846" data-user-id="422161093163614209" style="color: rgb(255,185,0)">Datalore1</span>
+
+
+        <span class="chatlog__timestamp">23-Nov-20 06:02 AM</span>
+
+            <div class="chatlog__message " data-message-id="780312227576021013" id="message-780312227576021013">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">All of this makes sense</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="780312238556053505" id="message-780312238556053505">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">The issue is</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="780312249066848316" id="message-780312249066848316">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">It’s all moot</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Landing%20Cove%20-%20General%20Chats%20-%20general%20%5B777589539253911565%5D.html_Files/3932628f1962727cde9fb2647190844e-E6F11.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="intothenextportal#2259" data-user-id="333234472583561216" style="color: rgb(155,89,182)">intothenextportal</span>
+
+
+        <span class="chatlog__timestamp">23-Nov-20 06:02 AM</span>
+
+            <div class="chatlog__message " data-message-id="780312269232930867" id="message-780312269232930867">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">yeah</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="780312296928051201" id="message-780312296928051201">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">so is labor</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Landing%20Cove%20-%20General%20Chats%20-%20general%20%5B777589539253911565%5D.html_Files/400870646e09bfc3258977e102b58844-3D3E2.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Datalore1#1846" data-user-id="422161093163614209" style="color: rgb(255,185,0)">Datalore1</span>
+
+
+        <span class="chatlog__timestamp">23-Nov-20 06:02 AM</span>
+
+            <div class="chatlog__message " data-message-id="780312332831686666" id="message-780312332831686666">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">We need to work with the resources available to us</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Landing%20Cove%20-%20General%20Chats%20-%20general%20%5B777589539253911565%5D.html_Files/3932628f1962727cde9fb2647190844e-E6F11.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="intothenextportal#2259" data-user-id="333234472583561216" style="color: rgb(155,89,182)">intothenextportal</span>
+
+
+        <span class="chatlog__timestamp">23-Nov-20 06:02 AM</span>
+
+            <div class="chatlog__message " data-message-id="780312377887162388" id="message-780312377887162388">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">whats the point of having employees when u can do all the work yourself</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="780312477073276958" id="message-780312477073276958">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">and whats the point of making a company when u kinda cant</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Landing%20Cove%20-%20General%20Chats%20-%20general%20%5B777589539253911565%5D.html_Files/400870646e09bfc3258977e102b58844-3D3E2.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Datalore1#1846" data-user-id="422161093163614209" style="color: rgb(255,185,0)">Datalore1</span>
+
+
+        <span class="chatlog__timestamp">23-Nov-20 06:03 AM</span>
+
+            <div class="chatlog__message " data-message-id="780312495382331392" id="message-780312495382331392">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">True. But without a method to work, corporations are all we can support.</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="780312537009750058" id="message-780312537009750058">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">What we need to do is encourage those companies to move here</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="780312579423076372" id="message-780312579423076372">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">And we can do that with competitive grants</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="780312684381995010" id="message-780312684381995010">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">These grants can be funded by state controlled stock funds or a nationalized corporation.</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="780312723183108106" id="message-780312723183108106">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">Instead of local taxpayers</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Landing%20Cove%20-%20General%20Chats%20-%20general%20%5B777589539253911565%5D.html_Files/3932628f1962727cde9fb2647190844e-E6F11.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="intothenextportal#2259" data-user-id="333234472583561216" style="color: rgb(155,89,182)">intothenextportal</span>
+
+
+        <span class="chatlog__timestamp">23-Nov-20 06:04 AM</span>
+
+            <div class="chatlog__message " data-message-id="780312757576138762" id="message-780312757576138762">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">yeah</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Landing%20Cove%20-%20General%20Chats%20-%20general%20%5B777589539253911565%5D.html_Files/400870646e09bfc3258977e102b58844-3D3E2.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Datalore1#1846" data-user-id="422161093163614209" style="color: rgb(255,185,0)">Datalore1</span>
+
+
+        <span class="chatlog__timestamp">23-Nov-20 06:04 AM</span>
+
+            <div class="chatlog__message " data-message-id="780312878753906728" id="message-780312878753906728">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">Let’s go full Norway, and use the stock market to help our district!</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Landing%20Cove%20-%20General%20Chats%20-%20general%20%5B777589539253911565%5D.html_Files/3932628f1962727cde9fb2647190844e-E6F11.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="intothenextportal#2259" data-user-id="333234472583561216" style="color: rgb(155,89,182)">intothenextportal</span>
+
+
+        <span class="chatlog__timestamp">23-Nov-20 06:04 AM</span>
+
+            <div class="chatlog__message " data-message-id="780312917505605643" id="message-780312917505605643">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">uh yeah</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="780312944164470784" id="message-780312944164470784">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">thats kinda</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="780312961046544384" id="message-780312961046544384">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">hard</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Landing%20Cove%20-%20General%20Chats%20-%20general%20%5B777589539253911565%5D.html_Files/400870646e09bfc3258977e102b58844-3D3E2.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Datalore1#1846" data-user-id="422161093163614209" style="color: rgb(255,185,0)">Datalore1</span>
+
+
+        <span class="chatlog__timestamp">23-Nov-20 06:05 AM</span>
+
+            <div class="chatlog__message " data-message-id="780312973096255530" id="message-780312973096255530">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">True</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="780312978465357835" id="message-780312978465357835">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">It is</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="780313003446763591" id="message-780313003446763591">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">But not impossible</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Landing%20Cove%20-%20General%20Chats%20-%20general%20%5B777589539253911565%5D.html_Files/3932628f1962727cde9fb2647190844e-E6F11.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="intothenextportal#2259" data-user-id="333234472583561216" style="color: rgb(155,89,182)">intothenextportal</span>
+
+
+        <span class="chatlog__timestamp">23-Nov-20 06:05 AM</span>
+
+            <div class="chatlog__message " data-message-id="780313073885511690" id="message-780313073885511690">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">because districts kinda cant do much for or against companies directly</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="780313102570749973" id="message-780313102570749973">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">its all</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="780313156710039552" id="message-780313156710039552">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">there are so many laws piled on top of laws</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="780313205150187540" id="message-780313205150187540">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">and i havent been keeping up with the senate</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="780313228005343263" id="message-780313228005343263">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">idk ask tyco</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Landing%20Cove%20-%20General%20Chats%20-%20general%20%5B777589539253911565%5D.html_Files/400870646e09bfc3258977e102b58844-3D3E2.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Datalore1#1846" data-user-id="422161093163614209" style="color: rgb(255,185,0)">Datalore1</span>
+
+
+        <span class="chatlog__timestamp">23-Nov-20 06:06 AM</span>
+
+            <div class="chatlog__message " data-message-id="780313361718968331" id="message-780313361718968331">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">We can still do this. And that’s why we need progressive candidates willing to put in the hard work to help this district.</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="780313376353026054" id="message-780313376353026054">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">That’s why I’m running.</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Landing%20Cove%20-%20General%20Chats%20-%20general%20%5B777589539253911565%5D.html_Files/3932628f1962727cde9fb2647190844e-E6F11.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="intothenextportal#2259" data-user-id="333234472583561216" style="color: rgb(155,89,182)">intothenextportal</span>
+
+
+        <span class="chatlog__timestamp">23-Nov-20 06:06 AM</span>
+
+            <div class="chatlog__message " data-message-id="780313392358752316" id="message-780313392358752316">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">yes</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="780313430438707220" id="message-780313430438707220">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">but it might be impossible or illegal</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="780313480287879169" id="message-780313480287879169">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">i just dont remember/dont know</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="780313532126330901" id="message-780313532126330901">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">so we have to see if we can so it first</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Landing%20Cove%20-%20General%20Chats%20-%20general%20%5B777589539253911565%5D.html_Files/400870646e09bfc3258977e102b58844-3D3E2.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Datalore1#1846" data-user-id="422161093163614209" style="color: rgb(255,185,0)">Datalore1</span>
+
+
+        <span class="chatlog__timestamp">23-Nov-20 06:07 AM</span>
+
+            <div class="chatlog__message " data-message-id="780313539768352778" id="message-780313539768352778">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">I’m sure we could find a way.</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Landing%20Cove%20-%20General%20Chats%20-%20general%20%5B777589539253911565%5D.html_Files/3932628f1962727cde9fb2647190844e-E6F11.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="intothenextportal#2259" data-user-id="333234472583561216" style="color: rgb(155,89,182)">intothenextportal</span>
+
+
+        <span class="chatlog__timestamp">23-Nov-20 06:07 AM</span>
+
+            <div class="chatlog__message " data-message-id="780313570353217536" id="message-780313570353217536">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">and if not we can propose a bill</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="780313596923084830" id="message-780313596923084830">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">making it legal</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="780313611209670696" id="message-780313611209670696">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">and viable</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Landing%20Cove%20-%20General%20Chats%20-%20general%20%5B777589539253911565%5D.html_Files/400870646e09bfc3258977e102b58844-3D3E2.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Datalore1#1846" data-user-id="422161093163614209" style="color: rgb(255,185,0)">Datalore1</span>
+
+
+        <span class="chatlog__timestamp">23-Nov-20 06:07 AM</span>
+
+            <div class="chatlog__message " data-message-id="780313617349214238" id="message-780313617349214238">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">And we have the backing of Tyco, hopefully</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="780313667531046984" id="message-780313667531046984">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">He’s still an influential voice</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Landing%20Cove%20-%20General%20Chats%20-%20general%20%5B777589539253911565%5D.html_Files/3932628f1962727cde9fb2647190844e-E6F11.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="intothenextportal#2259" data-user-id="333234472583561216" style="color: rgb(155,89,182)">intothenextportal</span>
+
+
+        <span class="chatlog__timestamp">23-Nov-20 06:08 AM</span>
+
+            <div class="chatlog__message " data-message-id="780313694994563072" id="message-780313694994563072">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">just ask tyco</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="780313710978662430" id="message-780313710978662430">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">yes vote us 2</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="780313743086321695" id="message-780313743086321695">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">im progressive</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Landing%20Cove%20-%20General%20Chats%20-%20general%20%5B777589539253911565%5D.html_Files/400870646e09bfc3258977e102b58844-3D3E2.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Datalore1#1846" data-user-id="422161093163614209" style="color: rgb(255,185,0)">Datalore1</span>
+
+
+        <span class="chatlog__timestamp">23-Nov-20 06:08 AM</span>
+
+            <div class="chatlog__message " data-message-id="780313755295809537" id="message-780313755295809537">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">Data and Into for progressive reform!</span>
+
+                                <span class="chatlog__edited-timestamp" title="23-Nov-20 06:08 AM">(edited)</span>
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Landing%20Cove%20-%20General%20Chats%20-%20general%20%5B777589539253911565%5D.html_Files/3932628f1962727cde9fb2647190844e-E6F11.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="intothenextportal#2259" data-user-id="333234472583561216" style="color: rgb(155,89,182)">intothenextportal</span>
+
+
+        <span class="chatlog__timestamp">23-Nov-20 06:08 AM</span>
+
+            <div class="chatlog__message " data-message-id="780313787689467905" id="message-780313787689467905">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">and gav is more inactive than me</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Landing%20Cove%20-%20General%20Chats%20-%20general%20%5B777589539253911565%5D.html_Files/400870646e09bfc3258977e102b58844-3D3E2.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Datalore1#1846" data-user-id="422161093163614209" style="color: rgb(255,185,0)">Datalore1</span>
+
+
+        <span class="chatlog__timestamp">23-Nov-20 06:13 AM</span>
+
+            <div class="chatlog__message " data-message-id="780314996827619328" id="message-780314996827619328">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">I just realized, there are only 6 undecided votes, assuming us candidates vote for ourselves.</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="780315095896293417" id="message-780315095896293417">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">Thought the population was a little larger. But that’s fine.</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="780315130629062677" id="message-780315130629062677">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">Part of my platform is to encourage immigration</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Landing%20Cove%20-%20General%20Chats%20-%20general%20%5B777589539253911565%5D.html_Files/400870646e09bfc3258977e102b58844-3D3E2.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Datalore1#1846" data-user-id="422161093163614209" style="color: rgb(255,185,0)">Datalore1</span>
+
+
+        <span class="chatlog__timestamp">24-Nov-20 07:12 PM</span>
+
+            <div class="chatlog__message " data-message-id="780873550281965589" id="message-780873550281965589">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><span class="mention" title="Tyco#0410">@Tyco</span> How goes the election?</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Landing%20Cove%20-%20General%20Chats%20-%20general%20%5B777589539253911565%5D.html_Files/9298c8ef5f131c9d2e050b37e6649aa0-607AC.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Tyco#0410" data-user-id="339896226122301440" style="color: rgb(255,185,0)">Tyco</span>
+
+
+        <span class="chatlog__timestamp">24-Nov-20 07:12 PM</span>
+
+            <div class="chatlog__message " data-message-id="780873588492075018" id="message-780873588492075018">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">Yes</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Landing%20Cove%20-%20General%20Chats%20-%20general%20%5B777589539253911565%5D.html_Files/400870646e09bfc3258977e102b58844-3D3E2.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Datalore1#1846" data-user-id="422161093163614209" style="color: rgb(255,185,0)">Datalore1</span>
+
+
+        <span class="chatlog__timestamp">24-Nov-20 07:14 PM</span>
+
+            <div class="chatlog__message " data-message-id="780874028587286558" id="message-780874028587286558">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">Can we expect the results by 8:30 tonight?</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Landing%20Cove%20-%20General%20Chats%20-%20general%20%5B777589539253911565%5D.html_Files/9298c8ef5f131c9d2e050b37e6649aa0-607AC.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Tyco#0410" data-user-id="339896226122301440" style="color: rgb(255,185,0)">Tyco</span>
+
+
+        <span class="chatlog__timestamp">24-Nov-20 07:32 PM</span>
+
+            <div class="chatlog__message " data-message-id="780878603894128706" id="message-780878603894128706">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">Most likely</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Landing%20Cove%20-%20General%20Chats%20-%20general%20%5B777589539253911565%5D.html_Files/3932628f1962727cde9fb2647190844e-E6F11.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="intothenextportal#2259" data-user-id="333234472583561216" style="color: rgb(155,89,182)">intothenextportal</span>
+
+
+        <span class="chatlog__timestamp">24-Nov-20 07:33 PM</span>
+
+            <div class="chatlog__message " data-message-id="780878845783572520" id="message-780878845783572520">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">did anyone put gav as first choice besides gav</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Landing%20Cove%20-%20General%20Chats%20-%20general%20%5B777589539253911565%5D.html_Files/9298c8ef5f131c9d2e050b37e6649aa0-607AC.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Tyco#0410" data-user-id="339896226122301440" style="color: rgb(255,185,0)">Tyco</span>
+
+
+        <span class="chatlog__timestamp">24-Nov-20 07:36 PM</span>
+
+            <div class="chatlog__message " data-message-id="780879457854423102" id="message-780879457854423102">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">So far 4 people have voted</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Landing%20Cove%20-%20General%20Chats%20-%20general%20%5B777589539253911565%5D.html_Files/3932628f1962727cde9fb2647190844e-E6F11.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="intothenextportal#2259" data-user-id="333234472583561216" style="color: rgb(155,89,182)">intothenextportal</span>
+
+
+        <span class="chatlog__timestamp">25-Nov-20 02:55 AM</span>
+
+            <div class="chatlog__message " data-message-id="780989916767191041" id="message-780989916767191041">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">tyco wtf do u even know who that character is</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Landing%20Cove%20-%20General%20Chats%20-%20general%20%5B777589539253911565%5D.html_Files/9298c8ef5f131c9d2e050b37e6649aa0-607AC.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Tyco#0410" data-user-id="339896226122301440" style="color: rgb(255,185,0)">Tyco</span>
+
+
+        <span class="chatlog__timestamp">25-Nov-20 03:18 AM</span>
+
+            <div class="chatlog__message " data-message-id="780995833579044864" id="message-780995833579044864">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">No</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="780995854432862238" id="message-780995854432862238">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">I am being held against my will</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="780995862289580083" id="message-780995862289580083">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">Please help</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Landing%20Cove%20-%20General%20Chats%20-%20general%20%5B777589539253911565%5D.html_Files/3932628f1962727cde9fb2647190844e-E6F11.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="intothenextportal#2259" data-user-id="333234472583561216" style="color: rgb(155,89,182)">intothenextportal</span>
+
+
+        <span class="chatlog__timestamp">25-Nov-20 03:41 AM</span>
+
+            <div class="chatlog__message " data-message-id="781001535982403594" id="message-781001535982403594">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">is it that shtewpid challenge</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Landing%20Cove%20-%20General%20Chats%20-%20general%20%5B777589539253911565%5D.html_Files/9298c8ef5f131c9d2e050b37e6649aa0-607AC.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Tyco#0410" data-user-id="339896226122301440" style="color: rgb(255,185,0)">Tyco</span>
+
+
+        <span class="chatlog__timestamp">25-Nov-20 03:44 AM</span>
+
+            <div class="chatlog__message " data-message-id="781002228893745172" id="message-781002228893745172">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">Kind of</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Landing%20Cove%20-%20General%20Chats%20-%20general%20%5B777589539253911565%5D.html_Files/3932628f1962727cde9fb2647190844e-E6F11.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="intothenextportal#2259" data-user-id="333234472583561216" style="color: rgb(155,89,182)">intothenextportal</span>
+
+
+        <span class="chatlog__timestamp">25-Nov-20 03:44 AM</span>
+
+            <div class="chatlog__message " data-message-id="781002291989315634" id="message-781002291989315634">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">thats better</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="781002316152307743" id="message-781002316152307743">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">alright tyco what are the results</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Landing%20Cove%20-%20General%20Chats%20-%20general%20%5B777589539253911565%5D.html_Files/9298c8ef5f131c9d2e050b37e6649aa0-607AC.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Tyco#0410" data-user-id="339896226122301440" style="color: rgb(255,185,0)">Tyco</span>
+
+
+        <span class="chatlog__timestamp">25-Nov-20 03:50 AM</span>
+
+            <div class="chatlog__message " data-message-id="781003827473940481" id="message-781003827473940481">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">There is still a little longer</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Landing%20Cove%20-%20General%20Chats%20-%20general%20%5B777589539253911565%5D.html_Files/e68df58a79efb01e26dc1085b229f4f7-7494D.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Gav#6698" data-user-id="423623361411940353" style="color: rgb(255,185,0)">Gav</span>
+
+
+        <span class="chatlog__timestamp">25-Nov-20 04:13 AM</span>
+
+            <div class="chatlog__message " data-message-id="781009665281753089" id="message-781009665281753089">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">hey</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="781009749206237234" id="message-781009749206237234">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">how&#39;s the voting so far?</span>
+
+                                <span class="chatlog__edited-timestamp" title="25-Nov-20 04:14 AM">(edited)</span>
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Landing%20Cove%20-%20General%20Chats%20-%20general%20%5B777589539253911565%5D.html_Files/3932628f1962727cde9fb2647190844e-E6F11.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="intothenextportal#2259" data-user-id="333234472583561216" style="color: rgb(155,89,182)">intothenextportal</span>
+
+
+        <span class="chatlog__timestamp">25-Nov-20 04:14 AM</span>
+
+            <div class="chatlog__message " data-message-id="781009842503942184" id="message-781009842503942184">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">tyco what sort of time zone do u live in</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Landing%20Cove%20-%20General%20Chats%20-%20general%20%5B777589539253911565%5D.html_Files/9298c8ef5f131c9d2e050b37e6649aa0-607AC.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Tyco#0410" data-user-id="339896226122301440" style="color: rgb(255,185,0)">Tyco</span>
+
+
+        <span class="chatlog__timestamp">25-Nov-20 04:16 AM</span>
+
+            <div class="chatlog__message " data-message-id="781010513327947807" id="message-781010513327947807">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">PST</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Landing%20Cove%20-%20General%20Chats%20-%20general%20%5B777589539253911565%5D.html_Files/400870646e09bfc3258977e102b58844-3D3E2.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Datalore1#1846" data-user-id="422161093163614209" style="color: rgb(255,185,0)">Datalore1</span>
+
+
+        <span class="chatlog__timestamp">25-Nov-20 04:17 AM</span>
+
+            <div class="chatlog__message " data-message-id="781010546811600906" id="message-781010546811600906">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">I would very much like to see the results</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Landing%20Cove%20-%20General%20Chats%20-%20general%20%5B777589539253911565%5D.html_Files/3932628f1962727cde9fb2647190844e-E6F11.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="intothenextportal#2259" data-user-id="333234472583561216" style="color: rgb(155,89,182)">intothenextportal</span>
+
+
+        <span class="chatlog__timestamp">25-Nov-20 04:17 AM</span>
+
+            <div class="chatlog__message " data-message-id="781010619297955840" id="message-781010619297955840">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">tyco its like midnight for u</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Landing%20Cove%20-%20General%20Chats%20-%20general%20%5B777589539253911565%5D.html_Files/e68df58a79efb01e26dc1085b229f4f7-7494D.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Gav#6698" data-user-id="423623361411940353" style="color: rgb(255,185,0)">Gav</span>
+
+
+        <span class="chatlog__timestamp">25-Nov-20 04:17 AM</span>
+
+            <div class="chatlog__message " data-message-id="781010660477501460" id="message-781010660477501460">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">no it&#39;s not</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Landing%20Cove%20-%20General%20Chats%20-%20general%20%5B777589539253911565%5D.html_Files/3932628f1962727cde9fb2647190844e-E6F11.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="intothenextportal#2259" data-user-id="333234472583561216" style="color: rgb(155,89,182)">intothenextportal</span>
+
+
+        <span class="chatlog__timestamp">25-Nov-20 04:17 AM</span>
+
+            <div class="chatlog__message " data-message-id="781010745579274260" id="message-781010745579274260">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">oh nvm</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Landing%20Cove%20-%20General%20Chats%20-%20general%20%5B777589539253911565%5D.html_Files/e68df58a79efb01e26dc1085b229f4f7-7494D.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Gav#6698" data-user-id="423623361411940353" style="color: rgb(255,185,0)">Gav</span>
+
+
+        <span class="chatlog__timestamp">25-Nov-20 04:17 AM</span>
+
+            <div class="chatlog__message " data-message-id="781010767226732554" id="message-781010767226732554">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">it&#39;s 8:17 for him</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Landing%20Cove%20-%20General%20Chats%20-%20general%20%5B777589539253911565%5D.html_Files/3932628f1962727cde9fb2647190844e-E6F11.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="intothenextportal#2259" data-user-id="333234472583561216" style="color: rgb(155,89,182)">intothenextportal</span>
+
+
+        <span class="chatlog__timestamp">25-Nov-20 04:18 AM</span>
+
+            <div class="chatlog__message " data-message-id="781010795219386399" id="message-781010795219386399">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">i got my timezones reversed</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Landing%20Cove%20-%20General%20Chats%20-%20general%20%5B777589539253911565%5D.html_Files/e68df58a79efb01e26dc1085b229f4f7-7494D.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Gav#6698" data-user-id="423623361411940353" style="color: rgb(255,185,0)">Gav</span>
+
+
+        <span class="chatlog__timestamp">25-Nov-20 04:18 AM</span>
+
+            <div class="chatlog__message " data-message-id="781010857135964170" id="message-781010857135964170">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">yes</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Landing%20Cove%20-%20General%20Chats%20-%20general%20%5B777589539253911565%5D.html_Files/159b7db96b45941c204fceeb064126d5-5515B.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="blueviper10#7486" data-user-id="477124835231662091" style="color: rgb(255,111,111)">blueviper10</span>
+
+
+        <span class="chatlog__timestamp">26-Nov-20 12:42 AM</span>
+
+            <div class="chatlog__message " data-message-id="781318925920370688" id="message-781318925920370688">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">Joined the server.</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Landing%20Cove%20-%20General%20Chats%20-%20general%20%5B777589539253911565%5D.html_Files/a_c10709f2386e44555d874f85ca9dce6e-A2CDA.gif" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="D.J.Z.#2016" data-user-id="481008005706547201" style="color: rgb(255,111,111)">D.J.Z.</span>
+
+
+        <span class="chatlog__timestamp">26-Nov-20 07:56 AM</span>
+
+            <div class="chatlog__message " data-message-id="781428214555082752" id="message-781428214555082752">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">Joined the server.</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Landing%20Cove%20-%20General%20Chats%20-%20general%20%5B777589539253911565%5D.html_Files/0a6ccbce5adbfb34954426a47a9780d0-F6E3C.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Syntholion#3151" data-user-id="370349158034571264" style="">Syntholion</span>
+
+
+        <span class="chatlog__timestamp">30-Nov-20 12:09 PM</span>
+
+            <div class="chatlog__message " data-message-id="782941467744272394" id="message-782941467744272394">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">Joined the server.</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="782941620831649803" id="message-782941620831649803">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">If you&#39;re running for LC elections and you have a platform, please DM me your platform so SVNP can do the election coverage for your district.</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Landing%20Cove%20-%20General%20Chats%20-%20general%20%5B777589539253911565%5D.html_Files/a_c10709f2386e44555d874f85ca9dce6e-A2CDA.gif" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="D.J.Z.#2016" data-user-id="481008005706547201" style="color: rgb(255,111,111)">D.J.Z.</span>
+
+
+        <span class="chatlog__timestamp">30-Nov-20 12:10 PM</span>
+
+            <div class="chatlog__message " data-message-id="782941637327323167" id="message-782941637327323167">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">the flag is garbage</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Landing%20Cove%20-%20General%20Chats%20-%20general%20%5B777589539253911565%5D.html_Files/0a6ccbce5adbfb34954426a47a9780d0-F6E3C.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Syntholion#3151" data-user-id="370349158034571264" style="">Syntholion</span>
+
+
+        <span class="chatlog__timestamp">30-Nov-20 12:10 PM</span>
+
+            <div class="chatlog__message " data-message-id="782941652926070844" id="message-782941652926070844">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">i agree lmao</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Landing%20Cove%20-%20General%20Chats%20-%20general%20%5B777589539253911565%5D.html_Files/233085dbb374e51844d41854beed4db8-7648F.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Bip#6332" data-user-id="735604606138318909" style="">Bip</span>
+
+
+        <span class="chatlog__timestamp">03-Dec-20 02:49 AM</span>
+
+            <div class="chatlog__message " data-message-id="783887509263351818" id="message-783887509263351818">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">Joined the server.</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Landing%20Cove%20-%20General%20Chats%20-%20general%20%5B777589539253911565%5D.html_Files/4-4551A.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Riverblade_#0434" data-user-id="706402821414715444" style="color: rgb(255,185,0)">Riverblade_</span>
+
+
+        <span class="chatlog__timestamp">03-Dec-20 05:14 AM</span>
+
+            <div class="chatlog__message " data-message-id="783924114175557672" id="message-783924114175557672">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">I don&#39;t think the flag is bad</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Landing%20Cove%20-%20General%20Chats%20-%20general%20%5B777589539253911565%5D.html_Files/3f63bc447b54c154f2a70bee23e5e498-D3358.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="TalkinTurtle#3842" data-user-id="185190742988292096" style="color: rgb(0,36,125)">TalkinTurtle</span>
+
+
+        <span class="chatlog__timestamp">04-Dec-20 06:54 PM</span>
+
+            <div class="chatlog__message " data-message-id="784492836518101033" id="message-784492836518101033">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><span class="mention" title="intothenextportal#2259">@intothenextportal</span> wut did u edit to say tf3 as ur game</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Landing%20Cove%20-%20General%20Chats%20-%20general%20%5B777589539253911565%5D.html_Files/3932628f1962727cde9fb2647190844e-E6F11.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="intothenextportal#2259" data-user-id="333234472583561216" style="color: rgb(155,89,182)">intothenextportal</span>
+
+
+        <span class="chatlog__timestamp">04-Dec-20 06:55 PM</span>
+
+            <div class="chatlog__message " data-message-id="784493113543491594" id="message-784493113543491594">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">user settings -&gt; game activity -&gt; select something running in the background and rename it</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Landing%20Cove%20-%20General%20Chats%20-%20general%20%5B777589539253911565%5D.html_Files/3f63bc447b54c154f2a70bee23e5e498-D3358.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="TalkinTurtle#3842" data-user-id="185190742988292096" style="color: rgb(0,36,125)">TalkinTurtle</span>
+
+
+        <span class="chatlog__timestamp">04-Dec-20 06:55 PM</span>
+
+            <div class="chatlog__message " data-message-id="784493165264633866" id="message-784493165264633866">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">yeah ik that but wuts running</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Landing%20Cove%20-%20General%20Chats%20-%20general%20%5B777589539253911565%5D.html_Files/3932628f1962727cde9fb2647190844e-E6F11.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="intothenextportal#2259" data-user-id="333234472583561216" style="color: rgb(155,89,182)">intothenextportal</span>
+
+
+        <span class="chatlog__timestamp">04-Dec-20 06:55 PM</span>
+
+            <div class="chatlog__message " data-message-id="784493218997207050" id="message-784493218997207050">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">uhhh i think its malwarebytes</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="784493439743819816" id="message-784493439743819816">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">on mac certain programs are running infinitely idk how it works on windows</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Landing%20Cove%20-%20General%20Chats%20-%20general%20%5B777589539253911565%5D.html_Files/4-4551A.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Riverblade_#0434" data-user-id="706402821414715444" style="color: rgb(255,185,0)">Riverblade_</span>
+
+
+        <span class="chatlog__timestamp">05-Dec-20 09:39 PM</span>
+
+            <div class="chatlog__message " data-message-id="784896802067447808" id="message-784896802067447808">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">I check discord today and there&#39;s been a coup in Medivala, what the heck I&#39;m so confused</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Landing%20Cove%20-%20General%20Chats%20-%20general%20%5B777589539253911565%5D.html_Files/9298c8ef5f131c9d2e050b37e6649aa0-607AC.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Tyco#0410" data-user-id="339896226122301440" style="color: rgb(255,185,0)">Tyco</span>
+
+
+        <span class="chatlog__timestamp">05-Dec-20 09:46 PM</span>
+
+            <div class="chatlog__message " data-message-id="784898557340680202" id="message-784898557340680202">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">Yeah</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Landing%20Cove%20-%20General%20Chats%20-%20general%20%5B777589539253911565%5D.html_Files/3932628f1962727cde9fb2647190844e-E6F11.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="intothenextportal#2259" data-user-id="333234472583561216" style="color: rgb(155,89,182)">intothenextportal</span>
+
+
+        <span class="chatlog__timestamp">05-Dec-20 10:06 PM</span>
+
+            <div class="chatlog__message " data-message-id="784903577474301952" id="message-784903577474301952">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">what happened there</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Landing%20Cove%20-%20General%20Chats%20-%20general%20%5B777589539253911565%5D.html_Files/fc4e3b9e1c42e3d6041bc1c25aba6fc4-4C13A.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="WizardCraft568#6629" data-user-id="297763026956845057" style="color: rgb(255,111,111)">WizardCraft568</span>
+
+
+        <span class="chatlog__timestamp">06-Dec-20 04:34 AM</span>
+
+            <div class="chatlog__message " data-message-id="785001218689990656" id="message-785001218689990656">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">Joined the server.</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Landing%20Cove%20-%20General%20Chats%20-%20general%20%5B777589539253911565%5D.html_Files/f4c5750d99dbc036c9fd1e355b5caf33-CDC1C.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Niami#7504" data-user-id="333639017944055809" style="">Niami</span>
+
+
+        <span class="chatlog__timestamp">09-Dec-20 07:33 PM</span>
+
+            <div class="chatlog__message " data-message-id="786314569349464095" id="message-786314569349464095">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">Joined the server.</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Landing%20Cove%20-%20General%20Chats%20-%20general%20%5B777589539253911565%5D.html_Files/202136c8fd9e9dc185eecc6f7e798ba4-73892.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Coca162#1419" data-user-id="388454632835514380" style="color: rgb(255,111,111)">Coca162</span>
+
+
+        <span class="chatlog__timestamp">14-Jan-21 08:01 PM</span>
+
+            <div class="chatlog__message " data-message-id="799367672785272842" id="message-799367672785272842">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><span class="mention" title="Tyco#0410">@Tyco</span> can I archive this?</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Landing%20Cove%20-%20General%20Chats%20-%20general%20%5B777589539253911565%5D.html_Files/9298c8ef5f131c9d2e050b37e6649aa0-607AC.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Tyco#0410" data-user-id="339896226122301440" style="color: rgb(255,185,0)">Tyco</span>
+
+
+        <span class="chatlog__timestamp">14-Jan-21 08:02 PM</span>
+
+            <div class="chatlog__message " data-message-id="799367771707932712" id="message-799367771707932712">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">Ask Turte</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="799367779416932362" id="message-799367779416932362">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">Turtle</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Landing%20Cove%20-%20General%20Chats%20-%20general%20%5B777589539253911565%5D.html_Files/202136c8fd9e9dc185eecc6f7e798ba4-73892.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Coca162#1419" data-user-id="388454632835514380" style="color: rgb(255,111,111)">Coca162</span>
+
+
+        <span class="chatlog__timestamp">14-Jan-21 08:02 PM</span>
+
+            <div class="chatlog__message " data-message-id="799367847826423818" id="message-799367847826423818">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">ah</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="799367860450230332" id="message-799367860450230332">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><span class="mention" title="TalkinTurtle#3842">@TalkinTurtle</span></span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="799367923914506300" id="message-799367923914506300">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">i guess yall transfer ownerships with senators</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="799367945515958337" id="message-799367945515958337">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">which actually makes since</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="799368821500149861" id="message-799368821500149861">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">I need to invite a bot*</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Landing%20Cove%20-%20General%20Chats%20-%20general%20%5B777589539253911565%5D.html_Files/3f63bc447b54c154f2a70bee23e5e498-D3358.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="TalkinTurtle#3842" data-user-id="185190742988292096" style="color: rgb(0,36,125)">TalkinTurtle</span>
+
+
+        <span class="chatlog__timestamp">14-Jan-21 08:14 PM</span>
+
+            <div class="chatlog__message " data-message-id="799370848993411122" id="message-799370848993411122">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">i can after zoom clsses end</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="799370859998609418" id="message-799370859998609418">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">classes</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Landing%20Cove%20-%20General%20Chats%20-%20general%20%5B777589539253911565%5D.html_Files/202136c8fd9e9dc185eecc6f7e798ba4-73892.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Coca162#1419" data-user-id="388454632835514380" style="color: rgb(255,111,111)">Coca162</span>
+
+
+        <span class="chatlog__timestamp">14-Jan-21 08:14 PM</span>
+
+            <div class="chatlog__message " data-message-id="799370920585068565" id="message-799370920585068565">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">mkmk</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Landing%20Cove%20-%20General%20Chats%20-%20general%20%5B777589539253911565%5D.html_Files/699687c36ee2d825e87f94ab81afb1dd-01F9C.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="SVArchiver#0371" data-user-id="798914519299653683" style="color: rgb(255,185,0)">SVArchiver</span>
+
+            <span class="chatlog__bot-tag">BOT</span>
+
+        <span class="chatlog__timestamp">14-Jan-21 09:51 PM</span>
+
+            <div class="chatlog__message " data-message-id="799395393809022996" id="message-799395393809022996">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">Joined the server.</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Landing%20Cove%20-%20General%20Chats%20-%20general%20%5B777589539253911565%5D.html_Files/3f63bc447b54c154f2a70bee23e5e498-D3358.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="TalkinTurtle#3842" data-user-id="185190742988292096" style="color: rgb(0,36,125)">TalkinTurtle</span>
+
+
+        <span class="chatlog__timestamp">14-Jan-21 09:53 PM</span>
+
+            <div class="chatlog__message " data-message-id="799395731932708905" id="message-799395731932708905">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><span class="mention" title="Coca162#1419">@Coca162</span></span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="799395806662099024" id="message-799395806662099024">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">i gave citizen so it can archive that stuff too</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Landing%20Cove%20-%20General%20Chats%20-%20general%20%5B777589539253911565%5D.html_Files/202136c8fd9e9dc185eecc6f7e798ba4-73892.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Coca162#1419" data-user-id="388454632835514380" style="color: rgb(255,111,111)">Coca162</span>
+
+
+        <span class="chatlog__timestamp">14-Jan-21 09:53 PM</span>
+
+            <div class="chatlog__message " data-message-id="799395835590475866" id="message-799395835590475866">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">alright</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="799395855777267753" id="message-799395855777267753">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">you want to begin?</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Landing%20Cove%20-%20General%20Chats%20-%20general%20%5B777589539253911565%5D.html_Files/3f63bc447b54c154f2a70bee23e5e498-D3358.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="TalkinTurtle#3842" data-user-id="185190742988292096" style="color: rgb(0,36,125)">TalkinTurtle</span>
+
+
+        <span class="chatlog__timestamp">14-Jan-21 09:53 PM</span>
+
+            <div class="chatlog__message " data-message-id="799395887302443038" id="message-799395887302443038">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">could</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+</div>
+
+<div class="postamble">
+    <div class="postamble__entry">Exported 207 message(s)</div>
+</div>
+
+</body>
+
+</html>

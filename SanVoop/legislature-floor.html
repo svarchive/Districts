@@ -1,0 +1,4757 @@
+
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>San Vooperisco Community Server - legislature-floor</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width">
+
+    <style>
+        /* General */
+
+@font-face {
+    font-family: Whitney;
+    src: url(https://cdn.jsdelivr.net/gh/Tyrrrz/DiscordFonts@master/whitney-300.woff);
+    font-weight: 300;
+}
+
+@font-face {
+    font-family: Whitney;
+    src: url(https://cdn.jsdelivr.net/gh/Tyrrrz/DiscordFonts@master/whitney-400.woff);
+    font-weight: 400;
+}
+
+@font-face {
+    font-family: Whitney;
+    src: url(https://cdn.jsdelivr.net/gh/Tyrrrz/DiscordFonts@master/whitney-500.woff);
+    font-weight: 500;
+}
+
+@font-face {
+    font-family: Whitney;
+    src: url(https://cdn.jsdelivr.net/gh/Tyrrrz/DiscordFonts@master/whitney-600.woff);
+    font-weight: 600;
+}
+
+@font-face {
+    font-family: Whitney;
+    src: url(https://cdn.jsdelivr.net/gh/Tyrrrz/DiscordFonts@master/whitney-700.woff);
+    font-weight: 700;
+}
+
+body {
+    font-family: "Whitney", "Helvetica Neue", Helvetica, Arial, sans-serif;
+    font-size: 17px;
+}
+
+a {
+    text-decoration: none;
+}
+
+a:hover {
+    text-decoration: underline;
+}
+
+img {
+    object-fit: contain;
+}
+
+.markdown {
+    max-width: 100%;
+    line-height: 1.3;
+    overflow-wrap: break-word;
+}
+
+.preserve-whitespace {
+    white-space: pre-wrap;
+}
+
+.spoiler {
+    /* width: fit-content; */
+    display: inline-block;
+    /* This is more consistent across browsers, the old attribute worked well under Chrome but not FireFox. */
+}
+
+.spoiler--hidden {
+    cursor: pointer;
+}
+
+.spoiler-text {
+    border-radius: 3px;
+}
+
+.spoiler--hidden .spoiler-text {
+    color: rgba(0, 0, 0, 0);
+}
+
+.spoiler--hidden .spoiler-text::selection {
+    color: rgba(0, 0, 0, 0);
+}
+
+.spoiler-image {
+    position: relative;
+    overflow: hidden;
+    border-radius: 3px;
+}
+
+.spoiler--hidden .spoiler-image {
+    box-shadow: 0 0 1px 1px rgba(0, 0, 0, 0.1);
+}
+
+.spoiler--hidden .spoiler-image * {
+    filter: blur(44px);
+}
+
+.spoiler--hidden .spoiler-image:after {
+    content: "SPOILER";
+    color: #dcddde;
+    background-color: rgba(0, 0, 0, 0.6);
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    font-weight: 600;
+    padding: 100%;
+    border-radius: 20px;
+    letter-spacing: 0.05em;
+    font-size: 0.9em;
+}
+
+.spoiler--hidden:hover .spoiler-image:after {
+    color: #fff;
+    background-color: rgba(0, 0, 0, 0.9);
+}
+
+.quote {
+    margin: 0.1em 0;
+    padding-left: 0.6em;
+    border-left: 4px solid;
+    border-radius: 3px;
+}
+
+.pre {
+    font-family: "Consolas", "Courier New", Courier, monospace;
+}
+
+.pre--multiline {
+    margin-top: 0.25em;
+    padding: 0.5em;
+    border: 2px solid;
+    border-radius: 5px;
+}
+
+.pre--inline {
+    padding: 2px;
+    border-radius: 3px;
+    font-size: 0.85em;
+}
+
+.mention {
+    border-radius: 3px;
+    padding: 0 2px;
+    color: #7289da;
+    background: rgba(114, 137, 218, .1);
+    font-weight: 500;
+}
+
+.emoji {
+    width: 1.25em;
+    height: 1.25em;
+    margin: 0 0.06em;
+    vertical-align: -0.4em;
+}
+
+.emoji--small {
+    width: 1em;
+    height: 1em;
+}
+
+.emoji--large {
+    width: 2.8em;
+    height: 2.8em;
+}
+
+/* Preamble */
+
+.preamble {
+    display: grid;
+    margin: 0 0.3em 0.6em 0.3em;
+    max-width: 100%;
+    grid-template-columns: auto 1fr;
+}
+
+.preamble__guild-icon-container {
+    grid-column: 1;
+}
+
+.preamble__guild-icon {
+    max-width: 88px;
+    max-height: 88px;
+}
+
+.preamble__entries-container {
+    grid-column: 2;
+    margin-left: 0.6em;
+}
+
+.preamble__entry {
+    font-size: 1.4em;
+}
+
+.preamble__entry--small {
+    font-size: 1em;
+}
+
+/* Chatlog */
+
+.chatlog {
+    max-width: 100%;
+}
+
+.chatlog__message-group {
+    display: grid;
+    margin: 0 0.6em;
+    padding: 0.9em 0;
+    border-top: 1px solid;
+    grid-template-columns: auto 1fr;
+}
+
+.chatlog__reference-symbol {
+    grid-column: 1;
+    border-style: solid;
+    border-width: 2px 0 0 2px;
+    border-radius: 8px 0 0 0;
+    margin-left: 16px;
+    margin-top: 8px;
+}
+
+.chatlog__reference {
+    display: flex;
+    grid-column: 2;
+    margin-left: 1.2em;
+    margin-bottom: 0.25em;
+    font-size: 0.875em;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    align-items: center;
+}
+
+.chatlog__reference-avatar {
+    border-radius: 50%;
+    height: 16px;
+    width: 16px;
+    margin-right: 0.25em;
+}
+
+.chatlog__reference-name {
+    margin-right: 0.25em;
+    font-weight: 600;
+}
+
+.chatlog__reference-link {
+    flex-grow: 1;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.chatlog__reference-link:hover {
+    text-decoration: none;
+}
+
+.chatlog__reference-content > * {
+    display: inline;
+}
+
+.chatlog__reference-edited-timestamp {
+    margin-left: 0.25em;
+    font-size: 0.8em;
+}
+
+.chatlog__author-avatar-container {
+    grid-column: 1;
+    width: 40px;
+    height: 40px;
+}
+
+.chatlog__author-avatar {
+    border-radius: 50%;
+    height: 40px;
+    width: 40px;
+}
+
+.chatlog__messages {
+    grid-column: 2;
+    margin-left: 1.2em;
+    min-width: 50%;
+}
+
+.chatlog__author-name {
+    font-weight: 500;
+}
+
+.chatlog__timestamp {
+    margin-left: 0.3em;
+    font-size: 0.75em;
+}
+
+.chatlog__message {
+    padding: 0.1em 0.3em;
+    margin: 0 -0.3em;
+    background-color: transparent;
+    transition: background-color 1s ease;
+}
+
+.chatlog__content {
+    font-size: 0.95em;
+    word-wrap: break-word;
+}
+
+.chatlog__edited-timestamp {
+    margin-left: 0.15em;
+    font-size: 0.8em;
+}
+
+.chatlog__attachment {
+    margin-top: 0.3em;
+}
+
+.chatlog__attachment-thumbnail {
+    vertical-align: top;
+    max-width: 45vw;
+    max-height: 500px;
+    border-radius: 3px;
+}
+
+.chatlog__attachment-container {
+    height: 40px;
+    width: 100%;
+    max-width: 520px;
+    padding: 10px;
+    border: 1px solid;
+    border-radius: 3px;
+    overflow: hidden;
+}
+
+.chatlog__attachment-icon {
+    float: left;
+    height: 100%;
+    margin-right: 10px;
+}
+
+.chatlog__attachment-icon > .a {
+    fill: #f4f5fb;
+    d: path("M50,935a25,25,0,0,1-25-25V50A25,25,0,0,1,50,25H519.6L695,201.32V910a25,25,0,0,1-25,25Z");
+}
+
+.chatlog__attachment-icon > .b {
+    fill: #7789c4;
+    d: path("M509.21,50,670,211.63V910H50V50H509.21M530,0H50A50,50,0,0,0,0,50V910a50,50,0,0,0,50,50H670a50,50,0,0,0,50-50h0V191Z");
+}
+
+.chatlog__attachment-icon > .c {
+    fill: #f4f5fb;
+    d: path("M530,215a25,25,0,0,1-25-25V50a25,25,0,0,1,16.23-23.41L693.41,198.77A25,25,0,0,1,670,215Z");
+}
+
+.chatlog__attachment-icon > .d {
+    fill: #7789c4;
+    d: path("M530,70.71,649.29,190H530V70.71M530,0a50,50,0,0,0-50,50V190a50,50,0,0,0,50,50H670a50,50,0,0,0,50-50Z");
+}
+
+.chatlog__attachment-filesize {
+    color: #72767d;
+    font-size: 12px;
+}
+
+.chatlog__attachment-filename {
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+
+.chatlog__embed {
+    display: flex;
+    margin-top: 0.3em;
+    max-width: 520px;
+}
+
+.chatlog__embed-color-pill {
+    flex-shrink: 0;
+    width: 0.25em;
+    border-top-left-radius: 3px;
+    border-bottom-left-radius: 3px;
+}
+
+.chatlog__embed-content-container {
+    display: flex;
+    flex-direction: column;
+    padding: 0.5em 0.6em;
+    border: 1px solid;
+    border-top-right-radius: 3px;
+    border-bottom-right-radius: 3px;
+}
+
+.chatlog__embed-content {
+    display: flex;
+    width: 100%;
+}
+
+.chatlog__embed-text {
+    flex: 1;
+}
+
+.chatlog__embed-author {
+    display: flex;
+    margin-bottom: 0.3em;
+    align-items: center;
+}
+
+.chatlog__embed-author-icon {
+    margin-right: 0.5em;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+}
+
+.chatlog__embed-author-name {
+    font-size: 0.875em;
+    font-weight: 600;
+}
+
+.chatlog__embed-title {
+    margin-bottom: 0.2em;
+    font-size: 0.875em;
+    font-weight: 600;
+}
+
+.chatlog__embed-description {
+    font-weight: 500;
+    font-size: 0.85em;
+}
+
+.chatlog__embed-fields {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.chatlog__embed-field {
+    flex: 0;
+    min-width: 100%;
+    max-width: 506px;
+    padding-top: 0.6em;
+    font-size: 0.875em;
+}
+
+.chatlog__embed-field--inline {
+    flex: 1;
+    flex-basis: auto;
+    min-width: 150px;
+}
+
+.chatlog__embed-field-name {
+    margin-bottom: 0.2em;
+    font-weight: 600;
+}
+
+.chatlog__embed-field-value {
+    font-weight: 500;
+}
+
+.chatlog__embed-thumbnail {
+    flex: 0;
+    margin-left: 1.2em;
+    max-width: 80px;
+    max-height: 80px;
+    border-radius: 3px;
+}
+
+.chatlog__embed-image-container {
+    margin-top: 0.6em;
+}
+
+.chatlog__embed-image {
+    max-width: 500px;
+    max-height: 400px;
+    border-radius: 3px;
+}
+
+.chatlog__embed-footer {
+    margin-top: 0.6em;
+}
+
+.chatlog__embed-footer-icon {
+    margin-right: 0.2em;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    vertical-align: middle;
+}
+
+.chatlog__embed-footer-text {
+    font-size: 0.75em;
+    font-weight: 500;
+}
+
+.chatlog__reactions {
+    display: flex;
+}
+
+.chatlog__reaction {
+    display: flex;
+    align-items: center;
+    margin: 0.35em 0.1em 0.1em 0.1em;
+    padding: 0.2em 0.35em;
+    border-radius: 3px;
+}
+
+.chatlog__reaction-count {
+    min-width: 9px;
+    margin-left: 0.35em;
+    font-size: 0.875em;
+}
+
+.chatlog__bot-tag {
+    position: relative;
+    top: -.2em;
+    margin-left: 0.3em;
+    padding: 0.05em 0.3em;
+    border-radius: 3px;
+    vertical-align: middle;
+    line-height: 1.3;
+    background: #7289da;
+    color: #ffffff;
+    font-size: 0.625em;
+    font-weight: 500;
+}
+
+/* Postamble */
+
+.postamble {
+    margin: 1.4em 0.3em 0.6em 0.3em;
+    padding: 1em;
+    border-top: 1px solid;
+}
+    </style>
+    <style>
+        /* General */
+
+body {
+    background-color: #36393e;
+    color: #dcddde;
+}
+
+a {
+    color: #0096cf;
+}
+
+.spoiler-text {
+    background-color: rgba(255, 255, 255, 0.1);
+}
+
+.spoiler--hidden .spoiler-text {
+    background-color: #202225;
+}
+
+.spoiler--hidden:hover .spoiler-text {
+    background-color: rgba(32, 34, 37, 0.8);
+}
+
+.quote {
+    border-color: #4f545c;
+}
+
+.pre {
+    background-color: #2f3136 !important;
+}
+
+.pre--multiline {
+    border-color: #282b30 !important;
+    color: #b9bbbe !important;
+}
+
+/* === Preamble === */
+
+.preamble__entry {
+    color: #ffffff;
+}
+
+/* Chatlog */
+
+.chatlog__message-group {
+    border-color: rgba(255, 255, 255, 0.1);
+}
+
+.chatlog__reference-symbol {
+    border-color: #4f545c;
+}
+
+.chatlog__reference {
+    color: #b5b6b8;
+}
+
+.chatlog__reference-link {
+    color: #b5b6b8;
+}
+
+.chatlog__reference-link:hover {
+    color: #ffffff;
+}
+
+.chatlog__reference-edited-timestamp {
+    color: rgba(255, 255, 255, 0.2);
+}
+
+.chatlog__author-name {
+    color: #ffffff;
+}
+
+.chatlog__timestamp {
+    color: rgba(255, 255, 255, 0.2);
+}
+
+.chatlog__message--highlighted {
+    background-color: rgba(114, 137, 218, 0.2) !important;
+}
+
+.chatlog__message--pinned {
+    background-color: rgba(249, 168, 37, 0.05);
+}
+
+.chatlog__attachment-container {
+    background-color: #2f3136;
+    border-color: #292b2f;
+}
+
+.chatlog__edited-timestamp {
+    color: rgba(255, 255, 255, 0.2);
+}
+
+.chatlog__embed-color-pill--default {
+    background-color: rgba(79, 84, 92, 1);
+}
+
+.chatlog__embed-content-container {
+    background-color: rgba(46, 48, 54, 0.3);
+    border-color: rgba(46, 48, 54, 0.6);
+}
+
+.chatlog__embed-author-name {
+    color: #ffffff;
+}
+
+.chatlog__embed-author-name-link {
+    color: #ffffff;
+}
+
+.chatlog__embed-title {
+    color: #ffffff;
+}
+
+.chatlog__embed-description {
+    color: rgba(255, 255, 255, 0.6);
+}
+
+.chatlog__embed-field-name {
+    color: #ffffff;
+}
+
+.chatlog__embed-field-value {
+    color: rgba(255, 255, 255, 0.6);
+}
+
+.chatlog__embed-footer {
+    color: rgba(255, 255, 255, 0.6);
+}
+
+.chatlog__reaction {
+    background-color: rgba(255, 255, 255, 0.05);
+}
+
+.chatlog__reaction-count {
+    color: rgba(255, 255, 255, 0.3);
+}
+
+/* Postamble */
+
+.postamble {
+    border-color: rgba(255, 255, 255, 0.1);
+}
+
+.postamble__entry {
+    color: #ffffff;
+}
+    </style>
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.6/styles/solarized-dark.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.6/highlight.min.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            document.querySelectorAll('.pre--multiline').forEach(block => hljs.highlightBlock(block));
+        });
+    </script>
+
+    <script>
+        function scrollToMessage(event, id) {
+            var element = document.getElementById('message-' + id);
+
+            if (element) {
+                event.preventDefault();
+
+                element.classList.add('chatlog__message--highlighted');
+
+                window.scrollTo({
+                    top: element.getBoundingClientRect().top - document.body.getBoundingClientRect().top - (window.innerHeight / 2),
+                    behavior: 'smooth'
+                });
+
+                window.setTimeout(function() {
+                    element.classList.remove('chatlog__message--highlighted');
+                }, 2000);
+            }
+        }
+
+        function showSpoiler(event, element) {
+            if (element && element.classList.contains('spoiler--hidden')) {
+                event.preventDefault();
+                element.classList.remove('spoiler--hidden');
+            }
+        }
+    </script>
+</head>
+<body>
+
+<div class="preamble">
+    <div class="preamble__guild-icon-container">
+        <img class="preamble__guild-icon" src="San%20Vooperisco%20Community%20Server%20-%20Government%20%F0%9F%8F%9B%20-%20legislature-floor%20%5B756506964753645579%5D.html_Files/c6fda7cc1a5415147ae5163060758deb-4751E.png" alt="Guild icon">
+    </div>
+    <div class="preamble__entries-container">
+        <div class="preamble__entry">San Vooperisco Community Server</div>
+        <div class="preamble__entry">Government &#127963; / legislature-floor</div>
+
+            <div class="preamble__entry preamble__entry--small">Legislature voting channel</div>
+
+    </div>
+</div>
+
+<div class="chatlog">
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="San%20Vooperisco%20Community%20Server%20-%20Government%20%F0%9F%8F%9B%20-%20legislature-floor%20%5B756506964753645579%5D.html_Files/765c3b1c668de93a71c2041966a338ac-F019B.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Pope Francis#0001" data-user-id="153555060926840833" style="color: rgb(255,112,0)">Pope | #TheGoldenDistrict</span>
+
+
+        <span class="chatlog__timestamp">18-Sep-20 05:47 PM</span>
+
+            <div class="chatlog__message " data-message-id="756556933699469442" id="message-756556933699469442">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><span class="mention" title="Bryan Miralda#8396">@Former Govenor Bryan</span> Since you are the governor (basically like the PM in Vooperia) you are in charge of organizing the legislature and such</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="756557034630938634" id="message-756557034630938634">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">Meaning you manage voting</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="756557087567249419" id="message-756557087567249419">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">Every Saturday you do the Legislature vote,</span>
+
+                                <span class="chatlog__edited-timestamp" title="18-Sep-20 05:47 PM">(edited)</span>
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="San%20Vooperisco%20Community%20Server%20-%20Government%20%F0%9F%8F%9B%20-%20legislature-floor%20%5B756506964753645579%5D.html_Files/304d23a63315a9fb744b3e89cfa12c8c-D68C9.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Shadow1200#9974" data-user-id="587775033208733717" style="color: rgb(255,188,0)">Attorney General Shadow</span>
+
+
+        <span class="chatlog__timestamp">18-Sep-20 05:48 PM</span>
+
+            <div class="chatlog__message " data-message-id="756557172732854283" id="message-756557172732854283">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">are we starting this week</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="San%20Vooperisco%20Community%20Server%20-%20Government%20%F0%9F%8F%9B%20-%20legislature-floor%20%5B756506964753645579%5D.html_Files/e1cd1f613f792719f98f555128d9daa6-F4821.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Bryan Miralda#8396" data-user-id="416708241582587904" style="color: rgb(255,216,0)">Former Govenor Bryan</span>
+
+
+        <span class="chatlog__timestamp">18-Sep-20 05:58 PM</span>
+
+            <div class="chatlog__message " data-message-id="756559902809260083" id="message-756559902809260083">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">k</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="756559930646986762" id="message-756559930646986762">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">k</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="San%20Vooperisco%20Community%20Server%20-%20Government%20%F0%9F%8F%9B%20-%20legislature-floor%20%5B756506964753645579%5D.html_Files/765c3b1c668de93a71c2041966a338ac-F019B.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Pope Francis#0001" data-user-id="153555060926840833" style="color: rgb(255,112,0)">Pope | #TheGoldenDistrict</span>
+
+
+        <span class="chatlog__timestamp">20-Sep-20 06:26 PM</span>
+
+            <div class="chatlog__message " data-message-id="757291505323999362" id="message-757291505323999362">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><strong>SNAP VOTE</strong>
+Have a public flag referendum? (To vote just do <img class="emoji " alt="yesvote" title="yesvote" src="https://cdn.discordapp.com/emojis/757290864476422184.png"> or <img class="emoji " alt="abvote" title="abvote" src="https://cdn.discordapp.com/emojis/757290864417439835.png"> or <img class="emoji " alt="novote" title="novote" src="https://cdn.discordapp.com/emojis/757290864459644988.png"> )</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="757291515000389732" id="message-757291515000389732">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><span class="mention" style="color: rgb(255, 216, 0); background-color: rgba(255, 216, 0, 0.1);">@Representative</span></span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="757291573573845092" id="message-757291573573845092">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><img class="emoji emoji--large" alt="yesvote" title="yesvote" src="https://cdn.discordapp.com/emojis/757290864476422184.png"></span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="San%20Vooperisco%20Community%20Server%20-%20Government%20%F0%9F%8F%9B%20-%20legislature-floor%20%5B756506964753645579%5D.html_Files/5a928d6466b17d7b130b59746366ff11-BE8A3.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Unusederas#6442" data-user-id="286636063928352769" style="color: rgb(149,255,89)">Former Rep. Unusederas</span>
+
+
+        <span class="chatlog__timestamp">20-Sep-20 06:26 PM</span>
+
+            <div class="chatlog__message " data-message-id="757291578464272534" id="message-757291578464272534">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><img class="emoji emoji--large" alt="yesvote" title="yesvote" src="https://cdn.discordapp.com/emojis/757290864476422184.png"></span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="San%20Vooperisco%20Community%20Server%20-%20Government%20%F0%9F%8F%9B%20-%20legislature-floor%20%5B756506964753645579%5D.html_Files/1527e8a5e16cf8e5d867c09c30e78475-EBB40.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Devin Last name not included#2688" data-user-id="461019778992046080" style="">Rep. Devin</span>
+
+
+        <span class="chatlog__timestamp">20-Sep-20 06:26 PM</span>
+
+            <div class="chatlog__message " data-message-id="757291609460310027" id="message-757291609460310027">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><img class="emoji emoji--large" alt="yesvote" title="yesvote" src="https://cdn.discordapp.com/emojis/757290864476422184.png"></span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="San%20Vooperisco%20Community%20Server%20-%20Government%20%F0%9F%8F%9B%20-%20legislature-floor%20%5B756506964753645579%5D.html_Files/feae8d363d4fae3c192cd8283c5138ff-A3ED5.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Izukei#4451" data-user-id="333341406771019777" style="color: rgb(255,167,0)">Izukei</span>
+
+
+        <span class="chatlog__timestamp">20-Sep-20 06:27 PM</span>
+
+            <div class="chatlog__message " data-message-id="757291890981994506" id="message-757291890981994506">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><img class="emoji " alt="☑" title="☑" src="https://twemoji.maxcdn.com/2/72x72/2611.png">️</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="757291910137249884" id="message-757291910137249884">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">Only noobs use green check box!</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="San%20Vooperisco%20Community%20Server%20-%20Government%20%F0%9F%8F%9B%20-%20legislature-floor%20%5B756506964753645579%5D.html_Files/f4c5750d99dbc036c9fd1e355b5caf33-CDC1C.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Niami#7504" data-user-id="333639017944055809" style="">Niami</span>
+
+
+        <span class="chatlog__timestamp">20-Sep-20 06:34 PM</span>
+
+            <div class="chatlog__message " data-message-id="757293508796088421" id="message-757293508796088421">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><img class="emoji emoji--large" alt="yesvote" title="yesvote" src="https://cdn.discordapp.com/emojis/757290864476422184.png"></span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="San%20Vooperisco%20Community%20Server%20-%20Government%20%F0%9F%8F%9B%20-%20legislature-floor%20%5B756506964753645579%5D.html_Files/785c8b5d690751e0aeb96ca8de015616-8B8E2.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="MinesomeMC#9053" data-user-id="264234472432599070" style="color: rgb(255,216,0)">Rep. MinesomeMC (CAD - SV)</span>
+
+
+        <span class="chatlog__timestamp">20-Sep-20 06:52 PM</span>
+
+            <div class="chatlog__message " data-message-id="757298107372273664" id="message-757298107372273664">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><img class="emoji emoji--large" alt="yesvote" title="yesvote" src="https://cdn.discordapp.com/emojis/757290864476422184.png"></span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="San%20Vooperisco%20Community%20Server%20-%20Government%20%F0%9F%8F%9B%20-%20legislature-floor%20%5B756506964753645579%5D.html_Files/cf06ac2932cd2b34ea4b8b7ef10372de-D1637.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="galactic gamer#9738" data-user-id="611234917162156048" style="color: rgb(0,144,255)">Galactic Gamer</span>
+
+
+        <span class="chatlog__timestamp">20-Sep-20 09:46 PM</span>
+
+            <div class="chatlog__message " data-message-id="757341825647509604" id="message-757341825647509604">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><img class="emoji emoji--large" alt="yesvote" title="yesvote" src="https://cdn.discordapp.com/emojis/757290864476422184.png"></span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="San%20Vooperisco%20Community%20Server%20-%20Government%20%F0%9F%8F%9B%20-%20legislature-floor%20%5B756506964753645579%5D.html_Files/8a33e4e25876728da335e1eaf5901235-BE127.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="PuffinGamer#0791" data-user-id="588897348252598292" style="color: rgb(255,139,0)">Chief Judge Puffin</span>
+
+
+        <span class="chatlog__timestamp">20-Sep-20 11:04 PM</span>
+
+            <div class="chatlog__message " data-message-id="757361559034134618" id="message-757361559034134618">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><strong>I declare this referendum fully within the rules of the constitution, you may proceed with the vote.</strong></span>
+
+                                <span class="chatlog__edited-timestamp" title="20-Sep-20 11:04 PM">(edited)</span>
+                        </div>
+                    </div>
+
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="757361584061415495" id="message-757361584061415495">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><a href="https://tenor.com/view/judge-gavel-hit-order-in-the-court-court-gif-7733506">https://tenor.com/view/judge-gavel-hit-order-in-the-court-court-gif-7733506</a></span>
+
+                        </div>
+                    </div>
+
+
+                    <div class="chatlog__embed">
+                            <div class="chatlog__embed-color-pill chatlog__embed-color-pill--default"></div>
+
+                        <div class="chatlog__embed-content-container">
+                            <div class="chatlog__embed-content">
+                                <div class="chatlog__embed-text">
+
+
+
+                                </div>
+
+                                    <div class="chatlog__embed-thumbnail-container">
+                                        <a class="chatlog__embed-thumbnail-link" href="San%20Vooperisco%20Community%20Server%20-%20Government%20%F0%9F%8F%9B%20-%20legislature-floor%20%5B756506964753645579%5D.html_Files/tenor-30010.png">
+                                            <img class="chatlog__embed-thumbnail" src="San%20Vooperisco%20Community%20Server%20-%20Government%20%F0%9F%8F%9B%20-%20legislature-floor%20%5B756506964753645579%5D.html_Files/tenor-30010.png" alt="Thumbnail">
+                                        </a>
+                                    </div>
+                            </div>
+
+
+                        </div>
+                    </div>
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="San%20Vooperisco%20Community%20Server%20-%20Government%20%F0%9F%8F%9B%20-%20legislature-floor%20%5B756506964753645579%5D.html_Files/765c3b1c668de93a71c2041966a338ac-F019B.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Pope Francis#0001" data-user-id="153555060926840833" style="color: rgb(255,112,0)">Pope | #TheGoldenDistrict</span>
+
+
+        <span class="chatlog__timestamp">20-Sep-20 11:16 PM</span>
+
+            <div class="chatlog__message " data-message-id="757364635996389408" id="message-757364635996389408">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">SEXY</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="San%20Vooperisco%20Community%20Server%20-%20Government%20%F0%9F%8F%9B%20-%20legislature-floor%20%5B756506964753645579%5D.html_Files/feae8d363d4fae3c192cd8283c5138ff-A3ED5.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Izukei#4451" data-user-id="333341406771019777" style="color: rgb(255,167,0)">Izukei</span>
+
+
+        <span class="chatlog__timestamp">20-Sep-20 11:46 PM</span>
+
+            <div class="chatlog__message " data-message-id="757372141611253840" id="message-757372141611253840">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">I vote we remove puffin and replace him with Dyno</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="San%20Vooperisco%20Community%20Server%20-%20Government%20%F0%9F%8F%9B%20-%20legislature-floor%20%5B756506964753645579%5D.html_Files/5a928d6466b17d7b130b59746366ff11-BE8A3.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Unusederas#6442" data-user-id="286636063928352769" style="color: rgb(149,255,89)">Former Rep. Unusederas</span>
+
+
+        <span class="chatlog__timestamp">21-Sep-20 03:40 AM</span>
+
+            <div class="chatlog__message " data-message-id="757431152050176140" id="message-757431152050176140">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">I concur</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="San%20Vooperisco%20Community%20Server%20-%20Government%20%F0%9F%8F%9B%20-%20legislature-floor%20%5B756506964753645579%5D.html_Files/785c8b5d690751e0aeb96ca8de015616-8B8E2.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="MinesomeMC#9053" data-user-id="264234472432599070" style="color: rgb(255,216,0)">Rep. MinesomeMC (CAD - SV)</span>
+
+
+        <span class="chatlog__timestamp">21-Sep-20 12:18 PM</span>
+
+            <div class="chatlog__message " data-message-id="757561290070949908" id="message-757561290070949908">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">I agree</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="San%20Vooperisco%20Community%20Server%20-%20Government%20%F0%9F%8F%9B%20-%20legislature-floor%20%5B756506964753645579%5D.html_Files/765c3b1c668de93a71c2041966a338ac-F019B.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Pope Francis#0001" data-user-id="153555060926840833" style="color: rgb(255,112,0)">Pope | #TheGoldenDistrict</span>
+
+
+        <span class="chatlog__timestamp">21-Sep-20 01:40 PM</span>
+
+            <div class="chatlog__message " data-message-id="757582122872602716" id="message-757582122872602716">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">yes</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="757582138370687046" id="message-757582138370687046">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">I second</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="757582334051483749" id="message-757582334051483749">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><span class="mention" style="color: rgb(255, 216, 0); background-color: rgba(255, 216, 0, 0.1);">@Representative</span> Voting has ended, we will be holding a flag referendum on Wednesday, September 23rd.</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="San%20Vooperisco%20Community%20Server%20-%20Government%20%F0%9F%8F%9B%20-%20legislature-floor%20%5B756506964753645579%5D.html_Files/e1cd1f613f792719f98f555128d9daa6-F4821.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Bryan Miralda#8396" data-user-id="416708241582587904" style="color: rgb(255,216,0)">Former Govenor Bryan</span>
+
+
+        <span class="chatlog__timestamp">21-Sep-20 01:45 PM</span>
+
+            <div class="chatlog__message " data-message-id="757583254244032542" id="message-757583254244032542">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">agree</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="San%20Vooperisco%20Community%20Server%20-%20Government%20%F0%9F%8F%9B%20-%20legislature-floor%20%5B756506964753645579%5D.html_Files/765c3b1c668de93a71c2041966a338ac-F019B.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Pope Francis#0001" data-user-id="153555060926840833" style="color: rgb(255,112,0)">Pope | #TheGoldenDistrict</span>
+
+
+        <span class="chatlog__timestamp">21-Sep-20 02:03 PM</span>
+
+            <div class="chatlog__message " data-message-id="757587882994040894" id="message-757587882994040894">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">lol.</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="San%20Vooperisco%20Community%20Server%20-%20Government%20%F0%9F%8F%9B%20-%20legislature-floor%20%5B756506964753645579%5D.html_Files/304d23a63315a9fb744b3e89cfa12c8c-D68C9.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Shadow1200#9974" data-user-id="587775033208733717" style="color: rgb(255,188,0)">Attorney General Shadow</span>
+
+
+        <span class="chatlog__timestamp">23-Sep-20 01:41 PM</span>
+
+            <div class="chatlog__message " data-message-id="758307137109360640" id="message-758307137109360640">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">nice</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="San%20Vooperisco%20Community%20Server%20-%20Government%20%F0%9F%8F%9B%20-%20legislature-floor%20%5B756506964753645579%5D.html_Files/e1cd1f613f792719f98f555128d9daa6-F4821.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Bryan Miralda#8396" data-user-id="416708241582587904" style="color: rgb(255,216,0)">Former Govenor Bryan</span>
+
+
+        <span class="chatlog__timestamp">26-Sep-20 06:43 PM</span>
+
+            <div class="chatlog__message " data-message-id="759470263061446706" id="message-759470263061446706">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><span class="mention" style="color: rgb(255, 216, 0); background-color: rgba(255, 216, 0, 0.1);">@Representative</span> Time to Vote on the Forestry and Fire Protection Act (To vote just do <img class="emoji " alt="yesvote" title="yesvote" src="https://cdn.discordapp.com/emojis/757290864476422184.png"> or <img class="emoji " alt="abvote" title="abvote" src="https://cdn.discordapp.com/emojis/757290864417439835.png"> or <img class="emoji " alt="novote" title="novote" src="https://cdn.discordapp.com/emojis/757290864459644988.png"> )</span>
+
+                                <span class="chatlog__edited-timestamp" title="26-Sep-20 06:44 PM">(edited)</span>
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="San%20Vooperisco%20Community%20Server%20-%20Government%20%F0%9F%8F%9B%20-%20legislature-floor%20%5B756506964753645579%5D.html_Files/f4c5750d99dbc036c9fd1e355b5caf33-CDC1C.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Niami#7504" data-user-id="333639017944055809" style="">Niami</span>
+
+
+        <span class="chatlog__timestamp">26-Sep-20 06:44 PM</span>
+
+            <div class="chatlog__message " data-message-id="759470498898772009" id="message-759470498898772009">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><img class="emoji emoji--large" alt="yesvote" title="yesvote" src="https://cdn.discordapp.com/emojis/757290864476422184.png"></span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="San%20Vooperisco%20Community%20Server%20-%20Government%20%F0%9F%8F%9B%20-%20legislature-floor%20%5B756506964753645579%5D.html_Files/5a928d6466b17d7b130b59746366ff11-BE8A3.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Unusederas#6442" data-user-id="286636063928352769" style="color: rgb(149,255,89)">Former Rep. Unusederas</span>
+
+
+        <span class="chatlog__timestamp">26-Sep-20 06:44 PM</span>
+
+            <div class="chatlog__message " data-message-id="759470564309073983" id="message-759470564309073983">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><img class="emoji emoji--large" alt="yesvote" title="yesvote" src="https://cdn.discordapp.com/emojis/757290864476422184.png"></span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="San%20Vooperisco%20Community%20Server%20-%20Government%20%F0%9F%8F%9B%20-%20legislature-floor%20%5B756506964753645579%5D.html_Files/785c8b5d690751e0aeb96ca8de015616-8B8E2.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="MinesomeMC#9053" data-user-id="264234472432599070" style="color: rgb(255,216,0)">Rep. MinesomeMC (CAD - SV)</span>
+
+
+        <span class="chatlog__timestamp">26-Sep-20 06:45 PM</span>
+
+            <div class="chatlog__message " data-message-id="759470698128211999" id="message-759470698128211999">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><img class="emoji emoji--large" alt="yesvote" title="yesvote" src="https://cdn.discordapp.com/emojis/757290864476422184.png"></span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="San%20Vooperisco%20Community%20Server%20-%20Government%20%F0%9F%8F%9B%20-%20legislature-floor%20%5B756506964753645579%5D.html_Files/e1cd1f613f792719f98f555128d9daa6-F4821.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Bryan Miralda#8396" data-user-id="416708241582587904" style="color: rgb(255,216,0)">Former Govenor Bryan</span>
+
+
+        <span class="chatlog__timestamp">26-Sep-20 06:47 PM</span>
+
+            <div class="chatlog__message " data-message-id="759471128602476544" id="message-759471128602476544">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><img class="emoji emoji--large" alt="yesvote" title="yesvote" src="https://cdn.discordapp.com/emojis/757290864476422184.png"></span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="San%20Vooperisco%20Community%20Server%20-%20Government%20%F0%9F%8F%9B%20-%20legislature-floor%20%5B756506964753645579%5D.html_Files/1527e8a5e16cf8e5d867c09c30e78475-EBB40.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Devin Last name not included#2688" data-user-id="461019778992046080" style="">Rep. Devin</span>
+
+
+        <span class="chatlog__timestamp">26-Sep-20 07:09 PM</span>
+
+            <div class="chatlog__message " data-message-id="759476870689062952" id="message-759476870689062952">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><img class="emoji emoji--large" alt="yesvote" title="yesvote" src="https://cdn.discordapp.com/emojis/757290864476422184.png"></span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="San%20Vooperisco%20Community%20Server%20-%20Government%20%F0%9F%8F%9B%20-%20legislature-floor%20%5B756506964753645579%5D.html_Files/e1cd1f613f792719f98f555128d9daa6-F4821.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Bryan Miralda#8396" data-user-id="416708241582587904" style="color: rgb(255,216,0)">Former Govenor Bryan</span>
+
+
+        <span class="chatlog__timestamp">26-Sep-20 07:51 PM</span>
+
+            <div class="chatlog__message " data-message-id="759487273556770826" id="message-759487273556770826">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><span class="mention" style="color: rgb(255, 216, 0); background-color: rgba(255, 216, 0, 0.1);">@Representative</span> The Forestry and Fire Protection Act  passed</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="San%20Vooperisco%20Community%20Server%20-%20Government%20%F0%9F%8F%9B%20-%20legislature-floor%20%5B756506964753645579%5D.html_Files/1527e8a5e16cf8e5d867c09c30e78475-EBB40.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Devin Last name not included#2688" data-user-id="461019778992046080" style="">Rep. Devin</span>
+
+
+        <span class="chatlog__timestamp">26-Sep-20 07:51 PM</span>
+
+            <div class="chatlog__message " data-message-id="759487384802295880" id="message-759487384802295880">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><img class="emoji emoji--large" alt="👏" title="👏" src="https://twemoji.maxcdn.com/2/72x72/1f44f.png"></span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="San%20Vooperisco%20Community%20Server%20-%20Government%20%F0%9F%8F%9B%20-%20legislature-floor%20%5B756506964753645579%5D.html_Files/765c3b1c668de93a71c2041966a338ac-F019B.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Pope Francis#0001" data-user-id="153555060926840833" style="color: rgb(255,112,0)">Pope | #TheGoldenDistrict</span>
+
+
+        <span class="chatlog__timestamp">26-Sep-20 08:05 PM</span>
+
+            <div class="chatlog__message " data-message-id="759490839839506503" id="message-759490839839506503">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><span class="mention" title="Bryan Miralda#8396">@Former Govenor Bryan</span> you&#39;re supposed to wait 24 hours!</span>
+
+                                <span class="chatlog__edited-timestamp" title="26-Sep-20 08:05 PM">(edited)</span>
+                        </div>
+                    </div>
+
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="759490907694694431" id="message-759490907694694431">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">lol</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="San%20Vooperisco%20Community%20Server%20-%20Government%20%F0%9F%8F%9B%20-%20legislature-floor%20%5B756506964753645579%5D.html_Files/e1cd1f613f792719f98f555128d9daa6-F4821.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Bryan Miralda#8396" data-user-id="416708241582587904" style="color: rgb(255,216,0)">Former Govenor Bryan</span>
+
+
+        <span class="chatlog__timestamp">26-Sep-20 08:06 PM</span>
+
+            <div class="chatlog__message " data-message-id="759490982403637249" id="message-759490982403637249">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">I saw that it said support</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="San%20Vooperisco%20Community%20Server%20-%20Government%20%F0%9F%8F%9B%20-%20legislature-floor%20%5B756506964753645579%5D.html_Files/feae8d363d4fae3c192cd8283c5138ff-A3ED5.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Izukei#4451" data-user-id="333341406771019777" style="color: rgb(255,167,0)">Izukei</span>
+
+
+        <span class="chatlog__timestamp">26-Sep-20 08:07 PM</span>
+
+            <div class="chatlog__message " data-message-id="759491330396520479" id="message-759491330396520479">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">Theres no reason to do 24hrs if its clear if it passes or fails</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="San%20Vooperisco%20Community%20Server%20-%20Government%20%F0%9F%8F%9B%20-%20legislature-floor%20%5B756506964753645579%5D.html_Files/e1cd1f613f792719f98f555128d9daa6-F4821.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Bryan Miralda#8396" data-user-id="416708241582587904" style="color: rgb(255,216,0)">Former Govenor Bryan</span>
+
+
+        <span class="chatlog__timestamp">26-Sep-20 08:17 PM</span>
+
+            <div class="chatlog__message " data-message-id="759493838527004722" id="message-759493838527004722">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">yeah</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="San%20Vooperisco%20Community%20Server%20-%20Government%20%F0%9F%8F%9B%20-%20legislature-floor%20%5B756506964753645579%5D.html_Files/765c3b1c668de93a71c2041966a338ac-F019B.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Pope Francis#0001" data-user-id="153555060926840833" style="color: rgb(255,112,0)">Pope | #TheGoldenDistrict</span>
+
+
+        <span class="chatlog__timestamp">26-Sep-20 08:21 PM</span>
+
+            <div class="chatlog__message " data-message-id="759494839988781076" id="message-759494839988781076">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><span class="mention" title="Izukei#4451">@Izukei</span> i didn&#39;t even get to vote lol</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="San%20Vooperisco%20Community%20Server%20-%20Government%20%F0%9F%8F%9B%20-%20legislature-floor%20%5B756506964753645579%5D.html_Files/feae8d363d4fae3c192cd8283c5138ff-A3ED5.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Izukei#4451" data-user-id="333341406771019777" style="color: rgb(255,167,0)">Izukei</span>
+
+
+        <span class="chatlog__timestamp">26-Sep-20 08:21 PM</span>
+
+            <div class="chatlog__message " data-message-id="759494882132754452" id="message-759494882132754452">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">&#175;\<em>(ツ)\</em>/&#175;</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="San%20Vooperisco%20Community%20Server%20-%20Government%20%F0%9F%8F%9B%20-%20legislature-floor%20%5B756506964753645579%5D.html_Files/1527e8a5e16cf8e5d867c09c30e78475-EBB40.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Devin Last name not included#2688" data-user-id="461019778992046080" style="">Rep. Devin</span>
+
+
+        <span class="chatlog__timestamp">26-Sep-20 09:39 PM</span>
+
+            <div class="chatlog__message " data-message-id="759514515829161984" id="message-759514515829161984">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">It’s an emergency bill anyway</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="759514550919495760" id="message-759514550919495760">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">Considering the state is burning down</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="San%20Vooperisco%20Community%20Server%20-%20Government%20%F0%9F%8F%9B%20-%20legislature-floor%20%5B756506964753645579%5D.html_Files/765c3b1c668de93a71c2041966a338ac-F019B.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Pope Francis#0001" data-user-id="153555060926840833" style="color: rgb(255,112,0)">Pope | #TheGoldenDistrict</span>
+
+
+        <span class="chatlog__timestamp">26-Sep-20 11:46 PM</span>
+
+            <div class="chatlog__message " data-message-id="759546380955418624" id="message-759546380955418624">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">No</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="759546432297369601" id="message-759546432297369601">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">It&#39;s a bill that&#39;s gonna put in place these new things.</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="San%20Vooperisco%20Community%20Server%20-%20Government%20%F0%9F%8F%9B%20-%20legislature-floor%20%5B756506964753645579%5D.html_Files/cf06ac2932cd2b34ea4b8b7ef10372de-D1637.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="galactic gamer#9738" data-user-id="611234917162156048" style="color: rgb(0,144,255)">Galactic Gamer</span>
+
+
+        <span class="chatlog__timestamp">27-Sep-20 12:33 AM</span>
+
+            <div class="chatlog__message " data-message-id="759558279210467338" id="message-759558279210467338">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><img class="emoji emoji--large" alt="yesvote" title="yesvote" src="https://cdn.discordapp.com/emojis/757290864476422184.png"></span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="759558337770946600" id="message-759558337770946600">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">i vote yes but you did not wait</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="759558354396774460" id="message-759558354396774460">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">sooooooooooooooooo</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="San%20Vooperisco%20Community%20Server%20-%20Government%20%F0%9F%8F%9B%20-%20legislature-floor%20%5B756506964753645579%5D.html_Files/8a33e4e25876728da335e1eaf5901235-BE127.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="PuffinGamer#0791" data-user-id="588897348252598292" style="color: rgb(255,139,0)">Chief Judge Puffin</span>
+
+
+        <span class="chatlog__timestamp">27-Sep-20 04:35 AM</span>
+
+            <div class="chatlog__message " data-message-id="759619204600037397" id="message-759619204600037397">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><strong>I declare this bill fully within the rules of the constitution, you may proceed with the vote.</strong></span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="759619237680775168" id="message-759619237680775168">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><a href="https://tenor.com/view/judge-gavel-hit-order-in-the-court-court-gif-7733506">https://tenor.com/view/judge-gavel-hit-order-in-the-court-court-gif-7733506</a></span>
+
+                        </div>
+                    </div>
+
+
+                    <div class="chatlog__embed">
+                            <div class="chatlog__embed-color-pill chatlog__embed-color-pill--default"></div>
+
+                        <div class="chatlog__embed-content-container">
+                            <div class="chatlog__embed-content">
+                                <div class="chatlog__embed-text">
+
+
+
+                                </div>
+
+                                    <div class="chatlog__embed-thumbnail-container">
+                                        <a class="chatlog__embed-thumbnail-link" href="San%20Vooperisco%20Community%20Server%20-%20Government%20%F0%9F%8F%9B%20-%20legislature-floor%20%5B756506964753645579%5D.html_Files/tenor-30010.png">
+                                            <img class="chatlog__embed-thumbnail" src="San%20Vooperisco%20Community%20Server%20-%20Government%20%F0%9F%8F%9B%20-%20legislature-floor%20%5B756506964753645579%5D.html_Files/tenor-30010.png" alt="Thumbnail">
+                                        </a>
+                                    </div>
+                            </div>
+
+
+                        </div>
+                    </div>
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="San%20Vooperisco%20Community%20Server%20-%20Government%20%F0%9F%8F%9B%20-%20legislature-floor%20%5B756506964753645579%5D.html_Files/e1cd1f613f792719f98f555128d9daa6-F4821.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Bryan Miralda#8396" data-user-id="416708241582587904" style="color: rgb(255,216,0)">Former Govenor Bryan</span>
+
+
+        <span class="chatlog__timestamp">05-Oct-20 01:01 AM</span>
+
+            <div class="chatlog__message " data-message-id="762464460833030154" id="message-762464460833030154">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><span class="mention" style="color: rgb(255, 216, 0); background-color: rgba(255, 216, 0, 0.1);">@Representative</span> Time to Vote on San Vooperisco Police Standards Act, (SVPSA) (To vote just do <img class="emoji " alt="yesvote" title="yesvote" src="https://cdn.discordapp.com/emojis/757290864476422184.png"> or <img class="emoji " alt="abvote" title="abvote" src="https://cdn.discordapp.com/emojis/757290864417439835.png"> or <img class="emoji " alt="novote" title="novote" src="https://cdn.discordapp.com/emojis/757290864459644988.png"> )</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="San%20Vooperisco%20Community%20Server%20-%20Government%20%F0%9F%8F%9B%20-%20legislature-floor%20%5B756506964753645579%5D.html_Files/5a928d6466b17d7b130b59746366ff11-BE8A3.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Unusederas#6442" data-user-id="286636063928352769" style="color: rgb(149,255,89)">Former Rep. Unusederas</span>
+
+
+        <span class="chatlog__timestamp">05-Oct-20 01:02 AM</span>
+
+            <div class="chatlog__message " data-message-id="762464591044411412" id="message-762464591044411412">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">✅</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="San%20Vooperisco%20Community%20Server%20-%20Government%20%F0%9F%8F%9B%20-%20legislature-floor%20%5B756506964753645579%5D.html_Files/e1cd1f613f792719f98f555128d9daa6-F4821.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Bryan Miralda#8396" data-user-id="416708241582587904" style="color: rgb(255,216,0)">Former Govenor Bryan</span>
+
+
+        <span class="chatlog__timestamp">05-Oct-20 01:02 AM</span>
+
+            <div class="chatlog__message " data-message-id="762464821500968961" id="message-762464821500968961">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><img class="emoji emoji--large" alt="yesvote" title="yesvote" src="https://cdn.discordapp.com/emojis/757290864476422184.png"></span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="San%20Vooperisco%20Community%20Server%20-%20Government%20%F0%9F%8F%9B%20-%20legislature-floor%20%5B756506964753645579%5D.html_Files/785c8b5d690751e0aeb96ca8de015616-8B8E2.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="MinesomeMC#9053" data-user-id="264234472432599070" style="color: rgb(255,216,0)">Rep. MinesomeMC (CAD - SV)</span>
+
+
+        <span class="chatlog__timestamp">05-Oct-20 01:03 AM</span>
+
+            <div class="chatlog__message " data-message-id="762464825829621771" id="message-762464825829621771">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><img class="emoji emoji--large" alt="yesvote" title="yesvote" src="https://cdn.discordapp.com/emojis/757290864476422184.png"></span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="San%20Vooperisco%20Community%20Server%20-%20Government%20%F0%9F%8F%9B%20-%20legislature-floor%20%5B756506964753645579%5D.html_Files/765c3b1c668de93a71c2041966a338ac-F019B.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Pope Francis#0001" data-user-id="153555060926840833" style="color: rgb(255,112,0)">Pope | #TheGoldenDistrict</span>
+
+
+        <span class="chatlog__timestamp">05-Oct-20 03:20 AM</span>
+
+            <div class="chatlog__message " data-message-id="762499551038013491" id="message-762499551038013491">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><img class="emoji emoji--large" alt="yesvote" title="yesvote" src="https://cdn.discordapp.com/emojis/730861648985981020.png"></span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="San%20Vooperisco%20Community%20Server%20-%20Government%20%F0%9F%8F%9B%20-%20legislature-floor%20%5B756506964753645579%5D.html_Files/cf06ac2932cd2b34ea4b8b7ef10372de-D1637.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="galactic gamer#9738" data-user-id="611234917162156048" style="color: rgb(0,144,255)">Galactic Gamer</span>
+
+
+        <span class="chatlog__timestamp">05-Oct-20 03:22 AM</span>
+
+            <div class="chatlog__message " data-message-id="762499995051884544" id="message-762499995051884544">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><img class="emoji emoji--large" alt="yesvote" title="yesvote" src="https://cdn.discordapp.com/emojis/757290864476422184.png"></span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="San%20Vooperisco%20Community%20Server%20-%20Government%20%F0%9F%8F%9B%20-%20legislature-floor%20%5B756506964753645579%5D.html_Files/f4c5750d99dbc036c9fd1e355b5caf33-CDC1C.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Niami#7504" data-user-id="333639017944055809" style="">Niami</span>
+
+
+        <span class="chatlog__timestamp">05-Oct-20 07:03 AM</span>
+
+            <div class="chatlog__message " data-message-id="762555631071657984" id="message-762555631071657984">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><img class="emoji emoji--large" alt="yesvote" title="yesvote" src="https://cdn.discordapp.com/emojis/757290864476422184.png"></span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="San%20Vooperisco%20Community%20Server%20-%20Government%20%F0%9F%8F%9B%20-%20legislature-floor%20%5B756506964753645579%5D.html_Files/1527e8a5e16cf8e5d867c09c30e78475-EBB40.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Devin Last name not included#2688" data-user-id="461019778992046080" style="">Rep. Devin</span>
+
+
+        <span class="chatlog__timestamp">05-Oct-20 01:07 PM</span>
+
+            <div class="chatlog__message " data-message-id="762647186097569842" id="message-762647186097569842">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><img class="emoji emoji--large" alt="yesvote" title="yesvote" src="https://cdn.discordapp.com/emojis/757290864476422184.png"></span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="San%20Vooperisco%20Community%20Server%20-%20Government%20%F0%9F%8F%9B%20-%20legislature-floor%20%5B756506964753645579%5D.html_Files/e1cd1f613f792719f98f555128d9daa6-F4821.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Bryan Miralda#8396" data-user-id="416708241582587904" style="color: rgb(255,216,0)">Former Govenor Bryan</span>
+
+
+        <span class="chatlog__timestamp">05-Oct-20 03:42 PM</span>
+
+            <div class="chatlog__message " data-message-id="762686046973591572" id="message-762686046973591572">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><span class="mention" style="color: rgb(255, 216, 0); background-color: rgba(255, 216, 0, 0.1);">@Representative</span> The San Vooperisco Police Standards Act, (SVPSA) passed</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="San%20Vooperisco%20Community%20Server%20-%20Government%20%F0%9F%8F%9B%20-%20legislature-floor%20%5B756506964753645579%5D.html_Files/765c3b1c668de93a71c2041966a338ac-F019B.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Pope Francis#0001" data-user-id="153555060926840833" style="color: rgb(255,112,0)">Pope | #TheGoldenDistrict</span>
+
+
+        <span class="chatlog__timestamp">05-Oct-20 03:44 PM</span>
+
+            <div class="chatlog__message " data-message-id="762686778846609418" id="message-762686778846609418">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><em><strong>SVPSA</strong></em>
+<em>Signed,
+Senator Pope Francis
+October 5th, 2020</em></span>
+
+                                <span class="chatlog__edited-timestamp" title="05-Oct-20 03:45 PM">(edited)</span>
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="San%20Vooperisco%20Community%20Server%20-%20Government%20%F0%9F%8F%9B%20-%20legislature-floor%20%5B756506964753645579%5D.html_Files/e1cd1f613f792719f98f555128d9daa6-F4821.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Bryan Miralda#8396" data-user-id="416708241582587904" style="color: rgb(255,216,0)">Former Govenor Bryan</span>
+
+
+        <span class="chatlog__timestamp">05-Oct-20 03:47 PM</span>
+
+            <div class="chatlog__message " data-message-id="762687327872090183" id="message-762687327872090183">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><strong>SVPSA</strong>                                                                                                        
+<em>Signed,
+Gov. Bryan Miralda
+October 5th, 2020</em></span>
+
+                                <span class="chatlog__edited-timestamp" title="05-Oct-20 03:47 PM">(edited)</span>
+                        </div>
+                    </div>
+
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="762687537499471894" id="message-762687537499471894">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><strong>FFPA</strong>                                                                                                        
+<em>Signed,
+Gov. Bryan Miralda
+October 5th, 2020</em></span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="San%20Vooperisco%20Community%20Server%20-%20Government%20%F0%9F%8F%9B%20-%20legislature-floor%20%5B756506964753645579%5D.html_Files/765c3b1c668de93a71c2041966a338ac-F019B.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Pope Francis#0001" data-user-id="153555060926840833" style="color: rgb(255,112,0)">Pope | #TheGoldenDistrict</span>
+
+
+        <span class="chatlog__timestamp">05-Oct-20 03:48 PM</span>
+
+            <div class="chatlog__message " data-message-id="762687645422977054" id="message-762687645422977054">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><em><strong>FFPA</strong></em>
+<em>Signed,
+Senator Pope Francis
+October 5th, 2020</em></span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="San%20Vooperisco%20Community%20Server%20-%20Government%20%F0%9F%8F%9B%20-%20legislature-floor%20%5B756506964753645579%5D.html_Files/e1cd1f613f792719f98f555128d9daa6-F4821.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Bryan Miralda#8396" data-user-id="416708241582587904" style="color: rgb(255,216,0)">Former Govenor Bryan</span>
+
+
+        <span class="chatlog__timestamp">05-Oct-20 04:13 PM</span>
+
+            <div class="chatlog__message " data-message-id="762693976498110545" id="message-762693976498110545">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">The Chair will now propose to adjourn for the day.</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="San%20Vooperisco%20Community%20Server%20-%20Government%20%F0%9F%8F%9B%20-%20legislature-floor%20%5B756506964753645579%5D.html_Files/765c3b1c668de93a71c2041966a338ac-F019B.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Pope Francis#0001" data-user-id="153555060926840833" style="color: rgb(255,112,0)">Pope | #TheGoldenDistrict</span>
+
+
+        <span class="chatlog__timestamp">05-Oct-20 04:15 PM</span>
+
+            <div class="chatlog__message " data-message-id="762694470440845412" id="message-762694470440845412">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><span class="mention" style="color: rgb(255, 216, 0); background-color: rgba(255, 216, 0, 0.1);">@Representative</span>
+Without objection, so ordered. The Legislature will reconvene on October 10th, 2020.</span>
+
+                                <span class="chatlog__edited-timestamp" title="05-Oct-20 04:34 PM">(edited)</span>
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="San%20Vooperisco%20Community%20Server%20-%20Government%20%F0%9F%8F%9B%20-%20legislature-floor%20%5B756506964753645579%5D.html_Files/785c8b5d690751e0aeb96ca8de015616-8B8E2.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="MinesomeMC#9053" data-user-id="264234472432599070" style="color: rgb(255,216,0)">Rep. MinesomeMC (CAD - SV)</span>
+
+
+        <span class="chatlog__timestamp">10-Nov-20 10:09 PM</span>
+
+            <div class="chatlog__message " data-message-id="775844656373170206" id="message-775844656373170206">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><span class="mention" style="color: rgb(255, 216, 0); background-color: rgba(255, 216, 0, 0.1);">@Representative</span> Time to Vote on Being Active Again because Queensland overtook us in population
+(To vote just do <img class="emoji " alt="yesvote" title="yesvote" src="https://cdn.discordapp.com/emojis/757290864476422184.png"> or <img class="emoji " alt="abvote" title="abvote" src="https://cdn.discordapp.com/emojis/757290864417439835.png"> or <img class="emoji " alt="novote" title="novote" src="https://cdn.discordapp.com/emojis/757290864459644988.png"> )</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="775844701735223337" id="message-775844701735223337">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><img class="emoji emoji--large" alt="novote" title="novote" src="https://cdn.discordapp.com/emojis/757290864459644988.png"></span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="San%20Vooperisco%20Community%20Server%20-%20Government%20%F0%9F%8F%9B%20-%20legislature-floor%20%5B756506964753645579%5D.html_Files/435334250a4bf3d8d403e26cf6b6ee91-7BB85.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Devin Last Name Not Included#0646" data-user-id="694205837367050340" style="color: rgb(0,148,188)">Devin #popeisstilldope</span>
+
+
+        <span class="chatlog__timestamp">10-Nov-20 10:47 PM</span>
+
+            <div class="chatlog__message " data-message-id="775854169276940319" id="message-775854169276940319">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><img class="emoji emoji--large" alt="yesvote" title="yesvote" src="https://cdn.discordapp.com/emojis/757290864476422184.png"></span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="San%20Vooperisco%20Community%20Server%20-%20Government%20%F0%9F%8F%9B%20-%20legislature-floor%20%5B756506964753645579%5D.html_Files/765c3b1c668de93a71c2041966a338ac-F019B.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Pope Francis#0001" data-user-id="153555060926840833" style="color: rgb(255,112,0)">Pope | #TheGoldenDistrict</span>
+
+
+        <span class="chatlog__timestamp">10-Nov-20 11:38 PM</span>
+
+            <div class="chatlog__message " data-message-id="775867096001019935" id="message-775867096001019935">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><img class="emoji emoji--large" alt="yesvote" title="yesvote" src="https://cdn.discordapp.com/emojis/730861648985981020.png"></span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="San%20Vooperisco%20Community%20Server%20-%20Government%20%F0%9F%8F%9B%20-%20legislature-floor%20%5B756506964753645579%5D.html_Files/765c3b1c668de93a71c2041966a338ac-F019B.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Pope Francis#0001" data-user-id="153555060926840833" style="color: rgb(255,112,0)">Pope | #TheGoldenDistrict</span>
+
+
+        <span class="chatlog__timestamp">11-Nov-20 09:38 PM</span>
+
+            <div class="chatlog__message " data-message-id="776199317169504267" id="message-776199317169504267">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><span class="mention" style="color: rgb(255, 216, 0); background-color: rgba(255, 216, 0, 0.1);">@Representative</span> Approve this as the Official Seal of the District of San Vooperisco?</span>
+
+                        </div>
+                    </div>
+
+                    <div class="chatlog__attachment">
+                        <div class="" onclick="">
+                            <div class="">
+                                    <a href="San%20Vooperisco%20Community%20Server%20-%20Government%20%F0%9F%8F%9B%20-%20legislature-floor%20%5B756506964753645579%5D.html_Files/The_Seal_of_the_District_of_San_Vooperisco-833BA.png">
+                                        <img class="chatlog__attachment-thumbnail" src="San%20Vooperisco%20Community%20Server%20-%20Government%20%F0%9F%8F%9B%20-%20legislature-floor%20%5B756506964753645579%5D.html_Files/The_Seal_of_the_District_of_San_Vooperisco-833BA.png" alt="Image attachment" title="Image: The_Seal_of_the_District_of_San_Vooperisco4x.png (1.8 MB)">
+                                    </a>
+                            </div>
+                        </div>
+                    </div>
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="776199397201543198" id="message-776199397201543198">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><img class="emoji " alt="yesvote" title="yesvote" src="https://cdn.discordapp.com/emojis/757290864476422184.png">
+<strong>Vote on the Official Seal of the District of San Vooperisco</strong>
+<em>Signed,
+Prime Minister &amp; Senator Pope Francis
+November 12th, 2020</em></span>
+
+                                <span class="chatlog__edited-timestamp" title="12-Nov-20 09:30 PM">(edited)</span>
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="San%20Vooperisco%20Community%20Server%20-%20Government%20%F0%9F%8F%9B%20-%20legislature-floor%20%5B756506964753645579%5D.html_Files/f4c5750d99dbc036c9fd1e355b5caf33-CDC1C.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Niami#7504" data-user-id="333639017944055809" style="">Niami</span>
+
+
+        <span class="chatlog__timestamp">11-Nov-20 09:39 PM</span>
+
+            <div class="chatlog__message " data-message-id="776199532291686400" id="message-776199532291686400">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><img class="emoji emoji--large" alt="yesvote" title="yesvote" src="https://cdn.discordapp.com/emojis/757290864476422184.png"></span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="San%20Vooperisco%20Community%20Server%20-%20Government%20%F0%9F%8F%9B%20-%20legislature-floor%20%5B756506964753645579%5D.html_Files/435334250a4bf3d8d403e26cf6b6ee91-7BB85.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Devin Last Name Not Included#0646" data-user-id="694205837367050340" style="color: rgb(0,148,188)">Devin #popeisstilldope</span>
+
+
+        <span class="chatlog__timestamp">11-Nov-20 09:44 PM</span>
+
+            <div class="chatlog__message " data-message-id="776200600492572703" id="message-776200600492572703">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">Hell yes I do! That looks sick as fuck!</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="776200617717792828" id="message-776200617717792828">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><img class="emoji emoji--large" alt="yesvote" title="yesvote" src="https://cdn.discordapp.com/emojis/757290864476422184.png"></span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="San%20Vooperisco%20Community%20Server%20-%20Government%20%F0%9F%8F%9B%20-%20legislature-floor%20%5B756506964753645579%5D.html_Files/785c8b5d690751e0aeb96ca8de015616-8B8E2.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="MinesomeMC#9053" data-user-id="264234472432599070" style="color: rgb(255,216,0)">Rep. MinesomeMC (CAD - SV)</span>
+
+
+        <span class="chatlog__timestamp">11-Nov-20 09:55 PM</span>
+
+            <div class="chatlog__message " data-message-id="776203526027345928" id="message-776203526027345928">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><img class="emoji emoji--large" alt="yesvote" title="yesvote" src="https://cdn.discordapp.com/emojis/757290864476422184.png"></span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="San%20Vooperisco%20Community%20Server%20-%20Government%20%F0%9F%8F%9B%20-%20legislature-floor%20%5B756506964753645579%5D.html_Files/feae8d363d4fae3c192cd8283c5138ff-A3ED5.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Izukei#4451" data-user-id="333341406771019777" style="color: rgb(255,167,0)">Izukei</span>
+
+
+        <span class="chatlog__timestamp">11-Nov-20 10:08 PM</span>
+
+            <div class="chatlog__message " data-message-id="776206872143200297" id="message-776206872143200297">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">✅</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="San%20Vooperisco%20Community%20Server%20-%20Government%20%F0%9F%8F%9B%20-%20legislature-floor%20%5B756506964753645579%5D.html_Files/765c3b1c668de93a71c2041966a338ac-F019B.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Pope Francis#0001" data-user-id="153555060926840833" style="color: rgb(255,112,0)">Pope | #TheGoldenDistrict</span>
+
+
+        <span class="chatlog__timestamp">12-Nov-20 04:52 PM</span>
+
+            <div class="chatlog__message " data-message-id="776489564256206860" id="message-776489564256206860">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">Okay it passes. The official Seal of San Vooperisco is officially official!</span>
+
+                                <span class="chatlog__edited-timestamp" title="12-Nov-20 06:50 PM">(edited)</span>
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="San%20Vooperisco%20Community%20Server%20-%20Government%20%F0%9F%8F%9B%20-%20legislature-floor%20%5B756506964753645579%5D.html_Files/304d23a63315a9fb744b3e89cfa12c8c-D68C9.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Shadow1200#9974" data-user-id="587775033208733717" style="color: rgb(255,188,0)">Attorney General Shadow</span>
+
+
+        <span class="chatlog__timestamp">12-Nov-20 06:44 PM</span>
+
+            <div class="chatlog__message " data-message-id="776517715576881152" id="message-776517715576881152">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">cool</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="San%20Vooperisco%20Community%20Server%20-%20Government%20%F0%9F%8F%9B%20-%20legislature-floor%20%5B756506964753645579%5D.html_Files/765c3b1c668de93a71c2041966a338ac-F019B.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Pope Francis#0001" data-user-id="153555060926840833" style="color: rgb(255,112,0)">Pope | #TheGoldenDistrict</span>
+
+
+        <span class="chatlog__timestamp">12-Nov-20 09:10 PM</span>
+
+            <div class="chatlog__message " data-message-id="776554511304491028" id="message-776554511304491028">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><span class="mention" style="color: rgb(255, 216, 0); background-color: rgba(255, 216, 0, 0.1);">@Representative</span> make the following change to the District Constitution.</span>
+
+                        </div>
+                    </div>
+
+                    <div class="chatlog__attachment">
+                        <div class="" onclick="">
+                            <div class="">
+                                    <a href="San%20Vooperisco%20Community%20Server%20-%20Government%20%F0%9F%8F%9B%20-%20legislature-floor%20%5B756506964753645579%5D.html_Files/Screen_Shot_2020-11-12_at_4.10.06_PM-902B6.png">
+                                        <img class="chatlog__attachment-thumbnail" src="San%20Vooperisco%20Community%20Server%20-%20Government%20%F0%9F%8F%9B%20-%20legislature-floor%20%5B756506964753645579%5D.html_Files/Screen_Shot_2020-11-12_at_4.10.06_PM-902B6.png" alt="Image attachment" title="Image: Screen_Shot_2020-11-12_at_4.10.06_PM.png (58.31 KB)">
+                                    </a>
+                            </div>
+                        </div>
+                    </div>
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="776554525171253248" id="message-776554525171253248">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><img class="emoji emoji--large" alt="yesvote" title="yesvote" src="https://cdn.discordapp.com/emojis/757290864476422184.png"></span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="San%20Vooperisco%20Community%20Server%20-%20Government%20%F0%9F%8F%9B%20-%20legislature-floor%20%5B756506964753645579%5D.html_Files/f4c5750d99dbc036c9fd1e355b5caf33-CDC1C.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Niami#7504" data-user-id="333639017944055809" style="">Niami</span>
+
+
+        <span class="chatlog__timestamp">12-Nov-20 09:11 PM</span>
+
+            <div class="chatlog__message " data-message-id="776554688283410484" id="message-776554688283410484">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><img class="emoji emoji--large" alt="yesvote" title="yesvote" src="https://cdn.discordapp.com/emojis/757290864476422184.png"></span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="San%20Vooperisco%20Community%20Server%20-%20Government%20%F0%9F%8F%9B%20-%20legislature-floor%20%5B756506964753645579%5D.html_Files/435334250a4bf3d8d403e26cf6b6ee91-7BB85.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Devin Last Name Not Included#0646" data-user-id="694205837367050340" style="color: rgb(0,148,188)">Devin #popeisstilldope</span>
+
+
+        <span class="chatlog__timestamp">12-Nov-20 09:13 PM</span>
+
+            <div class="chatlog__message " data-message-id="776555366765821962" id="message-776555366765821962">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><img class="emoji emoji--large" alt="yesvote" title="yesvote" src="https://cdn.discordapp.com/emojis/757290864476422184.png"></span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="San%20Vooperisco%20Community%20Server%20-%20Government%20%F0%9F%8F%9B%20-%20legislature-floor%20%5B756506964753645579%5D.html_Files/785c8b5d690751e0aeb96ca8de015616-8B8E2.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="MinesomeMC#9053" data-user-id="264234472432599070" style="color: rgb(255,216,0)">Rep. MinesomeMC (CAD - SV)</span>
+
+
+        <span class="chatlog__timestamp">12-Nov-20 09:27 PM</span>
+
+            <div class="chatlog__message " data-message-id="776558867110297631" id="message-776558867110297631">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><img class="emoji emoji--large" alt="novote" title="novote" src="https://cdn.discordapp.com/emojis/757290864459644988.png"></span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="San%20Vooperisco%20Community%20Server%20-%20Government%20%F0%9F%8F%9B%20-%20legislature-floor%20%5B756506964753645579%5D.html_Files/feae8d363d4fae3c192cd8283c5138ff-A3ED5.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Izukei#4451" data-user-id="333341406771019777" style="color: rgb(255,167,0)">Izukei</span>
+
+
+        <span class="chatlog__timestamp">12-Nov-20 09:31 PM</span>
+
+            <div class="chatlog__message " data-message-id="776559769376915456" id="message-776559769376915456">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><img class="emoji emoji--large" alt="abvote" title="abvote" src="https://cdn.discordapp.com/emojis/757290864417439835.png"></span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="San%20Vooperisco%20Community%20Server%20-%20Government%20%F0%9F%8F%9B%20-%20legislature-floor%20%5B756506964753645579%5D.html_Files/8a33e4e25876728da335e1eaf5901235-BE127.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="PuffinGamer#0791" data-user-id="588897348252598292" style="color: rgb(255,139,0)">Chief Judge Puffin</span>
+
+
+        <span class="chatlog__timestamp">13-Nov-20 12:51 AM</span>
+
+            <div class="chatlog__message " data-message-id="776610077628432395" id="message-776610077628432395">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><strong>I declare this bill fully within the rules of the constitution, you may proceed with the vote.</strong></span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="776610168988631050" id="message-776610168988631050">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><a href="https://tenor.com/view/judge-gavel-hit-order-in-the-court-court-gif-7733506">https://tenor.com/view/judge-gavel-hit-order-in-the-court-court-gif-7733506</a></span>
+
+                        </div>
+                    </div>
+
+
+                    <div class="chatlog__embed">
+                            <div class="chatlog__embed-color-pill chatlog__embed-color-pill--default"></div>
+
+                        <div class="chatlog__embed-content-container">
+                            <div class="chatlog__embed-content">
+                                <div class="chatlog__embed-text">
+
+
+
+                                </div>
+
+                                    <div class="chatlog__embed-thumbnail-container">
+                                        <a class="chatlog__embed-thumbnail-link" href="San%20Vooperisco%20Community%20Server%20-%20Government%20%F0%9F%8F%9B%20-%20legislature-floor%20%5B756506964753645579%5D.html_Files/tenor-30010.png">
+                                            <img class="chatlog__embed-thumbnail" src="San%20Vooperisco%20Community%20Server%20-%20Government%20%F0%9F%8F%9B%20-%20legislature-floor%20%5B756506964753645579%5D.html_Files/tenor-30010.png" alt="Thumbnail">
+                                        </a>
+                                    </div>
+                            </div>
+
+
+                        </div>
+                    </div>
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="San%20Vooperisco%20Community%20Server%20-%20Government%20%F0%9F%8F%9B%20-%20legislature-floor%20%5B756506964753645579%5D.html_Files/765c3b1c668de93a71c2041966a338ac-F019B.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Pope Francis#0001" data-user-id="153555060926840833" style="color: rgb(255,112,0)">Pope | #TheGoldenDistrict</span>
+
+
+        <span class="chatlog__timestamp">14-Nov-20 05:51 PM</span>
+
+            <div class="chatlog__message " data-message-id="777229327116271656" id="message-777229327116271656">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">It passes, with 3 Ayes, 1 N/V and 1 Nay. (3/4ths)</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="777229664003293206" id="message-777229664003293206">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><strong>Vote on a Amendment to the Constitution the District of San Vooperisco</strong>
+<em>Signed,
+Prime Minister &amp; Senator Pope Francis
+November 12th, 2020</em>
+<strong>EMERGENCY APPROVAL GRANTED, GOVERNOR SIGNATURE NOT NEEDED</strong></span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="San%20Vooperisco%20Community%20Server%20-%20Government%20%F0%9F%8F%9B%20-%20legislature-floor%20%5B756506964753645579%5D.html_Files/feae8d363d4fae3c192cd8283c5138ff-A3ED5.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Izukei#4451" data-user-id="333341406771019777" style="color: rgb(255,167,0)">Izukei</span>
+
+
+        <span class="chatlog__timestamp">21-Nov-20 06:34 PM</span>
+
+            <div class="chatlog__message " data-message-id="779776805963169813" id="message-779776805963169813">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><span class="mention" style="color: rgb(255, 216, 0); background-color: rgba(255, 216, 0, 0.1);">@Representative</span> With the drought starting to take its toll, I would like for the Government to implement water rationing to conserve water as much as possible. Do you approve of this action?</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="San%20Vooperisco%20Community%20Server%20-%20Government%20%F0%9F%8F%9B%20-%20legislature-floor%20%5B756506964753645579%5D.html_Files/435334250a4bf3d8d403e26cf6b6ee91-7BB85.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Devin Last Name Not Included#0646" data-user-id="694205837367050340" style="color: rgb(0,148,188)">Devin #popeisstilldope</span>
+
+
+        <span class="chatlog__timestamp">21-Nov-20 06:34 PM</span>
+
+            <div class="chatlog__message " data-message-id="779776877745012786" id="message-779776877745012786">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><img class="emoji emoji--large" alt="yesvote" title="yesvote" src="https://cdn.discordapp.com/emojis/757290864476422184.png"></span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="San%20Vooperisco%20Community%20Server%20-%20Government%20%F0%9F%8F%9B%20-%20legislature-floor%20%5B756506964753645579%5D.html_Files/bcefed1762cab8642105af3c4b07e841-143FF.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="TheScarlettMaid#0001" data-user-id="730702814426431519" style="color: rgb(255,216,0)">TheScarlettMaid</span>
+
+
+        <span class="chatlog__timestamp">21-Nov-20 06:35 PM</span>
+
+            <div class="chatlog__message " data-message-id="779777007965569054" id="message-779777007965569054">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><img class="emoji emoji--large" alt="yesvote" title="yesvote" src="https://cdn.discordapp.com/emojis/757290864476422184.png"></span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="San%20Vooperisco%20Community%20Server%20-%20Government%20%F0%9F%8F%9B%20-%20legislature-floor%20%5B756506964753645579%5D.html_Files/f4c5750d99dbc036c9fd1e355b5caf33-CDC1C.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Niami#7504" data-user-id="333639017944055809" style="">Niami</span>
+
+
+        <span class="chatlog__timestamp">21-Nov-20 06:35 PM</span>
+
+            <div class="chatlog__message " data-message-id="779777023898943548" id="message-779777023898943548">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><img class="emoji emoji--large" alt="yesvote" title="yesvote" src="https://cdn.discordapp.com/emojis/757290864476422184.png"></span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="San%20Vooperisco%20Community%20Server%20-%20Government%20%F0%9F%8F%9B%20-%20legislature-floor%20%5B756506964753645579%5D.html_Files/feae8d363d4fae3c192cd8283c5138ff-A3ED5.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Izukei#4451" data-user-id="333341406771019777" style="color: rgb(255,167,0)">Izukei</span>
+
+
+        <span class="chatlog__timestamp">21-Nov-20 06:52 PM</span>
+
+            <div class="chatlog__message " data-message-id="779781212780494899" id="message-779781212780494899">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><em>Heck wheres Pope and Puffin</em></span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="San%20Vooperisco%20Community%20Server%20-%20Government%20%F0%9F%8F%9B%20-%20legislature-floor%20%5B756506964753645579%5D.html_Files/765c3b1c668de93a71c2041966a338ac-F019B.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Pope Francis#0001" data-user-id="153555060926840833" style="color: rgb(255,112,0)">Pope | #TheGoldenDistrict</span>
+
+
+        <span class="chatlog__timestamp">21-Nov-20 06:58 PM</span>
+
+            <div class="chatlog__message " data-message-id="779782891118002186" id="message-779782891118002186">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><img class="emoji emoji--large" alt="yesvote" title="yesvote" src="https://cdn.discordapp.com/emojis/730861648985981020.png"></span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="San%20Vooperisco%20Community%20Server%20-%20Government%20%F0%9F%8F%9B%20-%20legislature-floor%20%5B756506964753645579%5D.html_Files/785c8b5d690751e0aeb96ca8de015616-8B8E2.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="MinesomeMC#9053" data-user-id="264234472432599070" style="color: rgb(255,216,0)">Rep. MinesomeMC (CAD - SV)</span>
+
+
+        <span class="chatlog__timestamp">21-Nov-20 08:10 PM</span>
+
+            <div class="chatlog__message " data-message-id="779800821008826378" id="message-779800821008826378">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><img class="emoji emoji--large" alt="novote" title="novote" src="https://cdn.discordapp.com/emojis/757290864459644988.png"></span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="San%20Vooperisco%20Community%20Server%20-%20Government%20%F0%9F%8F%9B%20-%20legislature-floor%20%5B756506964753645579%5D.html_Files/765c3b1c668de93a71c2041966a338ac-F019B.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Pope Francis#0001" data-user-id="153555060926840833" style="color: rgb(255,112,0)">Pope | #TheGoldenDistrict</span>
+
+
+        <span class="chatlog__timestamp">21-Nov-20 11:21 PM</span>
+
+            <div class="chatlog__message " data-message-id="779848909978730527" id="message-779848909978730527">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><span class="mention" style="color: rgb(255, 216, 0); background-color: rgba(255, 216, 0, 0.1);">@Representative</span> let&#39;s get voting on this,</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="779848913409802240" id="message-779848913409802240">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><a href="https://docs.google.com/document/d/1fooZjxlM2nGstFcYpqU_0MQIQu2VyfaTwBF_WU9g4eY/edit?usp=sharing">https://docs.google.com/document/d/1fooZjxlM2nGstFcYpqU_0MQIQu2VyfaTwBF_WU9g4eY/edit?usp=sharing</a></span>
+
+                        </div>
+                    </div>
+
+
+                    <div class="chatlog__embed">
+                            <div class="chatlog__embed-color-pill chatlog__embed-color-pill--default"></div>
+
+                        <div class="chatlog__embed-content-container">
+                            <div class="chatlog__embed-content">
+                                <div class="chatlog__embed-text">
+
+                                        <div class="chatlog__embed-title">
+                                                <a class="chatlog__embed-title-link" href="https://docs.google.com/document/d/1fooZjxlM2nGstFcYpqU_0MQIQu2VyfaTwBF_WU9g4eY/edit?usp=sharing">
+                                                    <div class="markdown preserve-whitespace">District Symbolism Act</div>
+                                                </a>
+                                        </div>
+
+                                        <div class="chatlog__embed-description">
+                                            <div class="markdown preserve-whitespace">2nd SESSION OF THE LEGISLATURE OF THE DISTRICT OF SAN VOOPERISCO  IN THE LEGISLATURE  November 11th, 2020  District Symbolism Act Created by Prime Minister Pope Francis    TITLE I — DISTRICT SYMBOLISM ACT SEC. 1. SHORT NAME DSA  SEC. 2. INFORMATION  (a) (1) SUMMARY OF THIS ACT.—  Provide Symbo...</div>
+                                        </div>
+
+                                </div>
+
+                                    <div class="chatlog__embed-thumbnail-container">
+                                        <a class="chatlog__embed-thumbnail-link" href="San%20Vooperisco%20Community%20Server%20-%20Government%20%F0%9F%8F%9B%20-%20legislature-floor%20%5B756506964753645579%5D.html_Files/cTXGubeHxUq2IJN0n11jc1_EshoJYgk1f_fJ1ZUZG6-677B2">
+                                            <img class="chatlog__embed-thumbnail" src="San%20Vooperisco%20Community%20Server%20-%20Government%20%F0%9F%8F%9B%20-%20legislature-floor%20%5B756506964753645579%5D.html_Files/cTXGubeHxUq2IJN0n11jc1_EshoJYgk1f_fJ1ZUZG6-677B2" alt="Thumbnail">
+                                        </a>
+                                    </div>
+                            </div>
+
+
+                        </div>
+                    </div>
+
+            </div>
+            <div class="chatlog__message " data-message-id="779848924289957888" id="message-779848924289957888">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><img class="emoji emoji--large" alt="yesvote" title="yesvote" src="https://cdn.discordapp.com/emojis/730861648985981020.png"></span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="San%20Vooperisco%20Community%20Server%20-%20Government%20%F0%9F%8F%9B%20-%20legislature-floor%20%5B756506964753645579%5D.html_Files/f4c5750d99dbc036c9fd1e355b5caf33-CDC1C.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Niami#7504" data-user-id="333639017944055809" style="">Niami</span>
+
+
+        <span class="chatlog__timestamp">21-Nov-20 11:21 PM</span>
+
+            <div class="chatlog__message " data-message-id="779848998982123570" id="message-779848998982123570">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><img class="emoji emoji--large" alt="yesvote" title="yesvote" src="https://cdn.discordapp.com/emojis/757290864476422184.png"></span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="San%20Vooperisco%20Community%20Server%20-%20Government%20%F0%9F%8F%9B%20-%20legislature-floor%20%5B756506964753645579%5D.html_Files/435334250a4bf3d8d403e26cf6b6ee91-7BB85.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Devin Last Name Not Included#0646" data-user-id="694205837367050340" style="color: rgb(0,148,188)">Devin #popeisstilldope</span>
+
+
+        <span class="chatlog__timestamp">21-Nov-20 11:22 PM</span>
+
+            <div class="chatlog__message " data-message-id="779849265555308584" id="message-779849265555308584">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><img class="emoji emoji--large" alt="yesvote" title="yesvote" src="https://cdn.discordapp.com/emojis/757290864476422184.png"></span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="San%20Vooperisco%20Community%20Server%20-%20Government%20%F0%9F%8F%9B%20-%20legislature-floor%20%5B756506964753645579%5D.html_Files/785c8b5d690751e0aeb96ca8de015616-8B8E2.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="MinesomeMC#9053" data-user-id="264234472432599070" style="color: rgb(255,216,0)">Rep. MinesomeMC (CAD - SV)</span>
+
+
+        <span class="chatlog__timestamp">21-Nov-20 11:29 PM</span>
+
+            <div class="chatlog__message " data-message-id="779850909726277632" id="message-779850909726277632">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><img class="emoji emoji--large" alt="yesvote" title="yesvote" src="https://cdn.discordapp.com/emojis/757290864476422184.png"></span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="San%20Vooperisco%20Community%20Server%20-%20Government%20%F0%9F%8F%9B%20-%20legislature-floor%20%5B756506964753645579%5D.html_Files/bcefed1762cab8642105af3c4b07e841-143FF.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="TheScarlettMaid#0001" data-user-id="730702814426431519" style="color: rgb(255,216,0)">TheScarlettMaid</span>
+
+
+        <span class="chatlog__timestamp">21-Nov-20 11:33 PM</span>
+
+            <div class="chatlog__message " data-message-id="779851916476809216" id="message-779851916476809216">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><img class="emoji emoji--large" alt="yesvote" title="yesvote" src="https://cdn.discordapp.com/emojis/757290864476422184.png"></span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="San%20Vooperisco%20Community%20Server%20-%20Government%20%F0%9F%8F%9B%20-%20legislature-floor%20%5B756506964753645579%5D.html_Files/8a33e4e25876728da335e1eaf5901235-BE127.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="PuffinGamer#0791" data-user-id="588897348252598292" style="color: rgb(255,139,0)">Chief Judge Puffin</span>
+
+
+        <span class="chatlog__timestamp">21-Nov-20 11:48 PM</span>
+
+            <div class="chatlog__message " data-message-id="779855694525628466" id="message-779855694525628466">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><img class="emoji emoji--large" alt="yesvote" title="yesvote" src="https://cdn.discordapp.com/emojis/757290864476422184.png"></span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="San%20Vooperisco%20Community%20Server%20-%20Government%20%F0%9F%8F%9B%20-%20legislature-floor%20%5B756506964753645579%5D.html_Files/304d23a63315a9fb744b3e89cfa12c8c-D68C9.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Shadow1200#9974" data-user-id="587775033208733717" style="color: rgb(255,188,0)">Attorney General Shadow</span>
+
+
+        <span class="chatlog__timestamp">22-Nov-20 12:09 AM</span>
+
+            <div class="chatlog__message " data-message-id="779860993055916043" id="message-779860993055916043">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><img class="emoji emoji--large" alt="yesvote" title="yesvote" src="https://cdn.discordapp.com/emojis/757290864476422184.png"></span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="San%20Vooperisco%20Community%20Server%20-%20Government%20%F0%9F%8F%9B%20-%20legislature-floor%20%5B756506964753645579%5D.html_Files/bcefed1762cab8642105af3c4b07e841-143FF.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="TheScarlettMaid#0001" data-user-id="730702814426431519" style="color: rgb(255,216,0)">TheScarlettMaid</span>
+
+
+        <span class="chatlog__timestamp">22-Nov-20 12:52 AM</span>
+
+            <div class="chatlog__message " data-message-id="779871871927582762" id="message-779871871927582762">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">&lt; <em>everyone liked that</em> &gt;
+
+Achievement Unlocked</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="San%20Vooperisco%20Community%20Server%20-%20Government%20%F0%9F%8F%9B%20-%20legislature-floor%20%5B756506964753645579%5D.html_Files/765c3b1c668de93a71c2041966a338ac-F019B.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Pope Francis#0001" data-user-id="153555060926840833" style="color: rgb(255,112,0)">Pope | #TheGoldenDistrict</span>
+
+
+        <span class="chatlog__timestamp">22-Nov-20 01:24 AM</span>
+
+            <div class="chatlog__message " data-message-id="779880025896779816" id="message-779880025896779816">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">LMAO</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="San%20Vooperisco%20Community%20Server%20-%20Government%20%F0%9F%8F%9B%20-%20legislature-floor%20%5B756506964753645579%5D.html_Files/765c3b1c668de93a71c2041966a338ac-F019B.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Pope Francis#0001" data-user-id="153555060926840833" style="color: rgb(255,112,0)">Pope | #TheGoldenDistrict</span>
+
+
+        <span class="chatlog__timestamp">22-Nov-20 02:08 AM</span>
+
+            <div class="chatlog__message " data-message-id="779891028873576458" id="message-779891028873576458">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">The Motion Passes</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="779891494505021451" id="message-779891494505021451">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><strong>Vote on a Bill</strong>
+<em>Signed,
+Prime Minister &amp; Senator Pope Francis
+November 21st, 2020</em></span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="779891969274675242" id="message-779891969274675242">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><span class="mention" style="color: rgb(255, 216, 0); background-color: rgba(255, 216, 0, 0.1);">@Representative</span> Make the following changes to the Constitution, adding to Art. II and adding Sec. 9</span>
+
+                        </div>
+                    </div>
+
+                    <div class="chatlog__attachment">
+                        <div class="" onclick="">
+                            <div class="">
+                                    <a href="San%20Vooperisco%20Community%20Server%20-%20Government%20%F0%9F%8F%9B%20-%20legislature-floor%20%5B756506964753645579%5D.html_Files/unknown-01D94.png">
+                                        <img class="chatlog__attachment-thumbnail" src="San%20Vooperisco%20Community%20Server%20-%20Government%20%F0%9F%8F%9B%20-%20legislature-floor%20%5B756506964753645579%5D.html_Files/unknown-01D94.png" alt="Image attachment" title="Image: unknown.png (8.19 KB)">
+                                    </a>
+                            </div>
+                        </div>
+                    </div>
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="779892046840070194" id="message-779892046840070194">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><img class="emoji emoji--large" alt="yesvote" title="yesvote" src="https://cdn.discordapp.com/emojis/757290864476422184.png"></span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="San%20Vooperisco%20Community%20Server%20-%20Government%20%F0%9F%8F%9B%20-%20legislature-floor%20%5B756506964753645579%5D.html_Files/f4c5750d99dbc036c9fd1e355b5caf33-CDC1C.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Niami#7504" data-user-id="333639017944055809" style="">Niami</span>
+
+
+        <span class="chatlog__timestamp">22-Nov-20 02:12 AM</span>
+
+            <div class="chatlog__message " data-message-id="779892078620442655" id="message-779892078620442655">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><img class="emoji emoji--large" alt="yesvote" title="yesvote" src="https://cdn.discordapp.com/emojis/757290864476422184.png"></span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="San%20Vooperisco%20Community%20Server%20-%20Government%20%F0%9F%8F%9B%20-%20legislature-floor%20%5B756506964753645579%5D.html_Files/435334250a4bf3d8d403e26cf6b6ee91-7BB85.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Devin Last Name Not Included#0646" data-user-id="694205837367050340" style="color: rgb(0,148,188)">Devin #popeisstilldope</span>
+
+
+        <span class="chatlog__timestamp">22-Nov-20 02:16 AM</span>
+
+            <div class="chatlog__message " data-message-id="779893026016329728" id="message-779893026016329728">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><img class="emoji emoji--large" alt="yesvote" title="yesvote" src="https://cdn.discordapp.com/emojis/757290864476422184.png"></span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="San%20Vooperisco%20Community%20Server%20-%20Government%20%F0%9F%8F%9B%20-%20legislature-floor%20%5B756506964753645579%5D.html_Files/785c8b5d690751e0aeb96ca8de015616-8B8E2.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="MinesomeMC#9053" data-user-id="264234472432599070" style="color: rgb(255,216,0)">Rep. MinesomeMC (CAD - SV)</span>
+
+
+        <span class="chatlog__timestamp">22-Nov-20 02:20 AM</span>
+
+            <div class="chatlog__message " data-message-id="779893974655172618" id="message-779893974655172618">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><img class="emoji emoji--large" alt="yesvote" title="yesvote" src="https://cdn.discordapp.com/emojis/757290864476422184.png"></span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="San%20Vooperisco%20Community%20Server%20-%20Government%20%F0%9F%8F%9B%20-%20legislature-floor%20%5B756506964753645579%5D.html_Files/765c3b1c668de93a71c2041966a338ac-F019B.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Pope Francis#0001" data-user-id="153555060926840833" style="color: rgb(255,112,0)">Pope | #TheGoldenDistrict</span>
+
+
+        <span class="chatlog__timestamp">22-Nov-20 02:28 AM</span>
+
+            <div class="chatlog__message " data-message-id="779896106745724958" id="message-779896106745724958">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">That&#39;s a majority!</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="779896127063326738" id="message-779896127063326738">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">I&#39;m calling the vote</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="779896146533416960" id="message-779896146533416960">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><strong>Vote on a Amendment to the Constitution the District of San Vooperisco</strong>
+<em>Signed,
+Prime Minister &amp; Senator Pope Francis
+November 21st, 2020</em>
+<strong>EMERGENCY APPROVAL GRANTED, GOVERNOR SIGNATURE NOT NEEDED</strong></span>
+
+                                <span class="chatlog__edited-timestamp" title="22-Nov-20 02:29 AM">(edited)</span>
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="San%20Vooperisco%20Community%20Server%20-%20Government%20%F0%9F%8F%9B%20-%20legislature-floor%20%5B756506964753645579%5D.html_Files/765c3b1c668de93a71c2041966a338ac-F019B.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Pope Francis#0001" data-user-id="153555060926840833" style="color: rgb(255,112,0)">Pope | #TheGoldenDistrict</span>
+
+
+        <span class="chatlog__timestamp">22-Nov-20 02:40 AM</span>
+
+            <div class="chatlog__message " data-message-id="779899105786069044" id="message-779899105786069044">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">I just made this quick little change</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="779899111213760522" id="message-779899111213760522">
+
+                    <div class="chatlog__attachment">
+                        <div class="" onclick="">
+                            <div class="">
+                                    <a href="San%20Vooperisco%20Community%20Server%20-%20Government%20%F0%9F%8F%9B%20-%20legislature-floor%20%5B756506964753645579%5D.html_Files/unknown-6650D.png">
+                                        <img class="chatlog__attachment-thumbnail" src="San%20Vooperisco%20Community%20Server%20-%20Government%20%F0%9F%8F%9B%20-%20legislature-floor%20%5B756506964753645579%5D.html_Files/unknown-6650D.png" alt="Image attachment" title="Image: unknown.png (9.04 KB)">
+                                    </a>
+                            </div>
+                        </div>
+                    </div>
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="779899137474691072" id="message-779899137474691072">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">if anyone objects just let your objection be heard <span class="mention" style="color: rgb(255, 216, 0); background-color: rgba(255, 216, 0, 0.1);">@Representative</span></span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="779899199285493829" id="message-779899199285493829">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">if not, without objection the motion passes.</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="San%20Vooperisco%20Community%20Server%20-%20Government%20%F0%9F%8F%9B%20-%20legislature-floor%20%5B756506964753645579%5D.html_Files/bcefed1762cab8642105af3c4b07e841-143FF.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="TheScarlettMaid#0001" data-user-id="730702814426431519" style="color: rgb(255,216,0)">TheScarlettMaid</span>
+
+
+        <span class="chatlog__timestamp">22-Nov-20 02:41 AM</span>
+
+            <div class="chatlog__message " data-message-id="779899244513198110" id="message-779899244513198110">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">None from me.</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+        <div class="chatlog__reference-symbol">
+        </div>
+        <div class="chatlog__reference">
+                <img class="chatlog__reference-avatar" src="San%20Vooperisco%20Community%20Server%20-%20Government%20%F0%9F%8F%9B%20-%20legislature-floor%20%5B756506964753645579%5D.html_Files/bcefed1762cab8642105af3c4b07e841-143FF.png" alt="Avatar">
+                <span class="chatlog__reference-name" title="TheScarlettMaid#0001" style="color: rgb(255,216,0)">TheScarlettMaid</span>
+                <a class="chatlog__reference-link" href="#" onclick="scrollToMessage(event, &#39;779899244513198110&#39;)">
+                    <span class="chatlog__reference-content">
+None from me.                    </span>
+
+                </a>
+        </div>
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="San%20Vooperisco%20Community%20Server%20-%20Government%20%F0%9F%8F%9B%20-%20legislature-floor%20%5B756506964753645579%5D.html_Files/765c3b1c668de93a71c2041966a338ac-F019B.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Pope Francis#0001" data-user-id="153555060926840833" style="color: rgb(255,112,0)">Pope | #TheGoldenDistrict</span>
+
+
+        <span class="chatlog__timestamp">22-Nov-20 02:41 AM</span>
+
+            <div class="chatlog__message " data-message-id="779899277153009684" id="message-779899277153009684">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">Thank you.</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="San%20Vooperisco%20Community%20Server%20-%20Government%20%F0%9F%8F%9B%20-%20legislature-floor%20%5B756506964753645579%5D.html_Files/435334250a4bf3d8d403e26cf6b6ee91-7BB85.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Devin Last Name Not Included#0646" data-user-id="694205837367050340" style="color: rgb(0,148,188)">Devin #popeisstilldope</span>
+
+
+        <span class="chatlog__timestamp">22-Nov-20 02:41 AM</span>
+
+            <div class="chatlog__message " data-message-id="779899285147090944" id="message-779899285147090944">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">No objection</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="San%20Vooperisco%20Community%20Server%20-%20Government%20%F0%9F%8F%9B%20-%20legislature-floor%20%5B756506964753645579%5D.html_Files/785c8b5d690751e0aeb96ca8de015616-8B8E2.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="MinesomeMC#9053" data-user-id="264234472432599070" style="color: rgb(255,216,0)">Rep. MinesomeMC (CAD - SV)</span>
+
+
+        <span class="chatlog__timestamp">22-Nov-20 02:49 AM</span>
+
+            <div class="chatlog__message " data-message-id="779901455816851457" id="message-779901455816851457">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">i object</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="779901493255602186" id="message-779901493255602186">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">should be exist</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="San%20Vooperisco%20Community%20Server%20-%20Government%20%F0%9F%8F%9B%20-%20legislature-floor%20%5B756506964753645579%5D.html_Files/785c8b5d690751e0aeb96ca8de015616-8B8E2.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="MinesomeMC#9053" data-user-id="264234472432599070" style="color: rgb(255,216,0)">Rep. MinesomeMC (CAD - SV)</span>
+
+
+        <span class="chatlog__timestamp">23-Nov-20 01:52 AM</span>
+
+            <div class="chatlog__message " data-message-id="780249400530173952" id="message-780249400530173952">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><span class="mention" style="color: rgb(255, 216, 0); background-color: rgba(255, 216, 0, 0.1);">@Representative</span> since Pope dead let’s vote on this <a href="https://docs.google.com/document/d/1tJpJlb23wdfW9ZSTZ7jteENI7evFrR9X3TpwOhtMrhE/edit?usp=sharing">https://docs.google.com/document/d/1tJpJlb23wdfW9ZSTZ7jteENI7evFrR9X3TpwOhtMrhE/edit?usp=sharing</a></span>
+
+                        </div>
+                    </div>
+
+
+                    <div class="chatlog__embed">
+                            <div class="chatlog__embed-color-pill chatlog__embed-color-pill--default"></div>
+
+                        <div class="chatlog__embed-content-container">
+                            <div class="chatlog__embed-content">
+                                <div class="chatlog__embed-text">
+
+                                        <div class="chatlog__embed-title">
+                                                <a class="chatlog__embed-title-link" href="https://docs.google.com/document/d/1tJpJlb23wdfW9ZSTZ7jteENI7evFrR9X3TpwOhtMrhE/edit?usp=sharing">
+                                                    <div class="markdown preserve-whitespace">“Department of Urban Capital” Establishment Act</div>
+                                                </a>
+                                        </div>
+
+                                        <div class="chatlog__embed-description">
+                                            <div class="markdown preserve-whitespace">2nd SESSION OF THE LEGISLATURE OF THE DISTRICT OF SAN VOOPERISCO  IN THE LEGISLATURE  November 21st, 2020  “Department of Urban Capital” Establishment Act Created by Representative MinesomeMC    TITLE I — “Department of Urban Capital” Establishment Act SEC. 1. SHORT NAME DoUC EA  SEC. 2. INFOR...</div>
+                                        </div>
+
+                                </div>
+
+                                    <div class="chatlog__embed-thumbnail-container">
+                                        <a class="chatlog__embed-thumbnail-link" href="San%20Vooperisco%20Community%20Server%20-%20Government%20%F0%9F%8F%9B%20-%20legislature-floor%20%5B756506964753645579%5D.html_Files/VDWYw5GChS-9OW0EgMbi3TbNHHXucm4o_DAmlIrDhZ-C3D89">
+                                            <img class="chatlog__embed-thumbnail" src="San%20Vooperisco%20Community%20Server%20-%20Government%20%F0%9F%8F%9B%20-%20legislature-floor%20%5B756506964753645579%5D.html_Files/VDWYw5GChS-9OW0EgMbi3TbNHHXucm4o_DAmlIrDhZ-C3D89" alt="Thumbnail">
+                                        </a>
+                                    </div>
+                            </div>
+
+
+                        </div>
+                    </div>
+
+            </div>
+            <div class="chatlog__message " data-message-id="780249445555241010" id="message-780249445555241010">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><img class="emoji emoji--large" alt="yesvote" title="yesvote" src="https://cdn.discordapp.com/emojis/730861648985981020.png"></span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="San%20Vooperisco%20Community%20Server%20-%20Government%20%F0%9F%8F%9B%20-%20legislature-floor%20%5B756506964753645579%5D.html_Files/435334250a4bf3d8d403e26cf6b6ee91-7BB85.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Devin Last Name Not Included#0646" data-user-id="694205837367050340" style="color: rgb(0,148,188)">Devin #popeisstilldope</span>
+
+
+        <span class="chatlog__timestamp">23-Nov-20 01:57 AM</span>
+
+            <div class="chatlog__message " data-message-id="780250614592176138" id="message-780250614592176138">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">I believe we arent in session yet</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="780250770221301780" id="message-780250770221301780">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">eh whatever</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="780250789545377812" id="message-780250789545377812">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><img class="emoji emoji--large" alt="yesvote" title="yesvote" src="https://cdn.discordapp.com/emojis/757290864476422184.png"></span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="San%20Vooperisco%20Community%20Server%20-%20Government%20%F0%9F%8F%9B%20-%20legislature-floor%20%5B756506964753645579%5D.html_Files/bcefed1762cab8642105af3c4b07e841-143FF.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="TheScarlettMaid#0001" data-user-id="730702814426431519" style="color: rgb(255,216,0)">TheScarlettMaid</span>
+
+
+        <span class="chatlog__timestamp">23-Nov-20 02:13 AM</span>
+
+            <div class="chatlog__message " data-message-id="780254718194221067" id="message-780254718194221067">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><img class="emoji emoji--large" alt="yesvote" title="yesvote" src="https://cdn.discordapp.com/emojis/757290864476422184.png"></span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="San%20Vooperisco%20Community%20Server%20-%20Government%20%F0%9F%8F%9B%20-%20legislature-floor%20%5B756506964753645579%5D.html_Files/feae8d363d4fae3c192cd8283c5138ff-A3ED5.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Izukei#4451" data-user-id="333341406771019777" style="color: rgb(255,167,0)">Izukei</span>
+
+
+        <span class="chatlog__timestamp">23-Nov-20 02:19 AM</span>
+
+            <div class="chatlog__message " data-message-id="780256299136188417" id="message-780256299136188417">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><img class="emoji " alt="novote" title="novote" src="https://cdn.discordapp.com/emojis/757290864459644988.png"> No reason for this to happen as of yet. Also it is my recommendation that the government strongly avoids doing this. No extra bureaucracy, and no disrupting the economy.</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="San%20Vooperisco%20Community%20Server%20-%20Government%20%F0%9F%8F%9B%20-%20legislature-floor%20%5B756506964753645579%5D.html_Files/feae8d363d4fae3c192cd8283c5138ff-A3ED5.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Izukei#4451" data-user-id="333341406771019777" style="color: rgb(255,167,0)">Izukei</span>
+
+
+        <span class="chatlog__timestamp">23-Nov-20 02:28 AM</span>
+
+            <div class="chatlog__message " data-message-id="780258373181505556" id="message-780258373181505556">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">Also, can we try to hold future bills until a session?</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="San%20Vooperisco%20Community%20Server%20-%20Government%20%F0%9F%8F%9B%20-%20legislature-floor%20%5B756506964753645579%5D.html_Files/765c3b1c668de93a71c2041966a338ac-F019B.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Pope Francis#0001" data-user-id="153555060926840833" style="color: rgb(255,112,0)">Pope | #TheGoldenDistrict</span>
+
+
+        <span class="chatlog__timestamp">23-Nov-20 05:13 AM</span>
+
+            <div class="chatlog__message " data-message-id="780300021303738389" id="message-780300021303738389">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">no</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="San%20Vooperisco%20Community%20Server%20-%20Government%20%F0%9F%8F%9B%20-%20legislature-floor%20%5B756506964753645579%5D.html_Files/feae8d363d4fae3c192cd8283c5138ff-A3ED5.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Izukei#4451" data-user-id="333341406771019777" style="color: rgb(255,167,0)">Izukei</span>
+
+
+        <span class="chatlog__timestamp">24-Nov-20 05:47 PM</span>
+
+            <div class="chatlog__message " data-message-id="780852073305473025" id="message-780852073305473025">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">Now it&#39;s time for the quick bits 
+<span class="mention" style="color: rgb(255, 216, 0); background-color: rgba(255, 216, 0, 0.1);">@Representative</span> 
+Request to build Water tanks or Desalination plant 
+<img class="emoji " alt="yesvote" title="yesvote" src="https://cdn.discordapp.com/emojis/757290864476422184.png"> for Water Tank <img class="emoji " alt="novote" title="novote" src="https://cdn.discordapp.com/emojis/757290864459644988.png"> for Desalination Plants , <img class="emoji " alt="abvote" title="abvote" src="https://cdn.discordapp.com/emojis/757290864417439835.png"> for neither.</span>
+
+                                <span class="chatlog__edited-timestamp" title="24-Nov-20 08:35 PM">(edited)</span>
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="San%20Vooperisco%20Community%20Server%20-%20Government%20%F0%9F%8F%9B%20-%20legislature-floor%20%5B756506964753645579%5D.html_Files/765c3b1c668de93a71c2041966a338ac-F019B.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Pope Francis#0001" data-user-id="153555060926840833" style="color: rgb(255,112,0)">Pope | #TheGoldenDistrict</span>
+
+
+        <span class="chatlog__timestamp">24-Nov-20 05:47 PM</span>
+
+            <div class="chatlog__message " data-message-id="780852185415548948" id="message-780852185415548948">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">Aye | <img class="emoji " alt="yesvote" title="yesvote" src="https://cdn.discordapp.com/emojis/730861648985981020.png"></span>
+
+                                <span class="chatlog__edited-timestamp" title="24-Nov-20 05:48 PM">(edited)</span>
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="San%20Vooperisco%20Community%20Server%20-%20Government%20%F0%9F%8F%9B%20-%20legislature-floor%20%5B756506964753645579%5D.html_Files/435334250a4bf3d8d403e26cf6b6ee91-7BB85.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Devin Last Name Not Included#0646" data-user-id="694205837367050340" style="color: rgb(0,148,188)">Devin #popeisstilldope</span>
+
+
+        <span class="chatlog__timestamp">24-Nov-20 05:48 PM</span>
+
+            <div class="chatlog__message " data-message-id="780852293561614347" id="message-780852293561614347">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><img class="emoji emoji--large" alt="yesvote" title="yesvote" src="https://cdn.discordapp.com/emojis/757290864476422184.png"></span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="San%20Vooperisco%20Community%20Server%20-%20Government%20%F0%9F%8F%9B%20-%20legislature-floor%20%5B756506964753645579%5D.html_Files/feae8d363d4fae3c192cd8283c5138ff-A3ED5.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Izukei#4451" data-user-id="333341406771019777" style="color: rgb(255,167,0)">Izukei</span>
+
+
+        <span class="chatlog__timestamp">24-Nov-20 05:48 PM</span>
+
+            <div class="chatlog__message " data-message-id="780852411836661800" id="message-780852411836661800">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><img class="emoji emoji--large" alt="novote" title="novote" src="https://cdn.discordapp.com/emojis/757290864459644988.png"></span>
+
+                                <span class="chatlog__edited-timestamp" title="25-Nov-20 01:13 AM">(edited)</span>
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="San%20Vooperisco%20Community%20Server%20-%20Government%20%F0%9F%8F%9B%20-%20legislature-floor%20%5B756506964753645579%5D.html_Files/f4c5750d99dbc036c9fd1e355b5caf33-CDC1C.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Niami#7504" data-user-id="333639017944055809" style="">Niami</span>
+
+
+        <span class="chatlog__timestamp">24-Nov-20 05:51 PM</span>
+
+            <div class="chatlog__message " data-message-id="780853166315929650" id="message-780853166315929650">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><img class="emoji emoji--large" alt="yesvote" title="yesvote" src="https://cdn.discordapp.com/emojis/757290864476422184.png"></span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="San%20Vooperisco%20Community%20Server%20-%20Government%20%F0%9F%8F%9B%20-%20legislature-floor%20%5B756506964753645579%5D.html_Files/bcefed1762cab8642105af3c4b07e841-143FF.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="TheScarlettMaid#0001" data-user-id="730702814426431519" style="color: rgb(255,216,0)">TheScarlettMaid</span>
+
+
+        <span class="chatlog__timestamp">24-Nov-20 07:28 PM</span>
+
+            <div class="chatlog__message " data-message-id="780877583289810944" id="message-780877583289810944">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><img class="emoji " alt="yesvote" title="yesvote" src="https://cdn.discordapp.com/emojis/757290864476422184.png"> water tanks seem like a very intelligent decision.</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="780877714713215007" id="message-780877714713215007">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">The desalination plants would be very costly.</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="San%20Vooperisco%20Community%20Server%20-%20Government%20%F0%9F%8F%9B%20-%20legislature-floor%20%5B756506964753645579%5D.html_Files/785c8b5d690751e0aeb96ca8de015616-8B8E2.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="MinesomeMC#9053" data-user-id="264234472432599070" style="color: rgb(255,216,0)">Rep. MinesomeMC (CAD - SV)</span>
+
+
+        <span class="chatlog__timestamp">24-Nov-20 07:54 PM</span>
+
+            <div class="chatlog__message " data-message-id="780884068220928000" id="message-780884068220928000">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">I’m gonna hold on voting until you clear shit up</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="780884131101540352" id="message-780884131101540352">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">You say “Build Tanks or Desalination Plants”</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="780884237347586058" id="message-780884237347586058">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">But only let us vote for Water Tanks <span class="mention" title="Izukei#4451">@Izukei</span></span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="San%20Vooperisco%20Community%20Server%20-%20Government%20%F0%9F%8F%9B%20-%20legislature-floor%20%5B756506964753645579%5D.html_Files/feae8d363d4fae3c192cd8283c5138ff-A3ED5.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Izukei#4451" data-user-id="333341406771019777" style="color: rgb(255,167,0)">Izukei</span>
+
+
+        <span class="chatlog__timestamp">24-Nov-20 08:35 PM</span>
+
+            <div class="chatlog__message " data-message-id="780894469548539985" id="message-780894469548539985">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">X was meant for Desalination plants, my bad.</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="San%20Vooperisco%20Community%20Server%20-%20Government%20%F0%9F%8F%9B%20-%20legislature-floor%20%5B756506964753645579%5D.html_Files/785c8b5d690751e0aeb96ca8de015616-8B8E2.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="MinesomeMC#9053" data-user-id="264234472432599070" style="color: rgb(255,216,0)">Rep. MinesomeMC (CAD - SV)</span>
+
+
+        <span class="chatlog__timestamp">24-Nov-20 11:40 PM</span>
+
+            <div class="chatlog__message " data-message-id="780940880789635102" id="message-780940880789635102">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><img class="emoji emoji--large" alt="novote" title="novote" src="https://cdn.discordapp.com/emojis/757290864459644988.png"></span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="San%20Vooperisco%20Community%20Server%20-%20Government%20%F0%9F%8F%9B%20-%20legislature-floor%20%5B756506964753645579%5D.html_Files/765c3b1c668de93a71c2041966a338ac-F019B.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Pope Francis#0001" data-user-id="153555060926840833" style="color: rgb(255,112,0)">Pope | #TheGoldenDistrict</span>
+
+
+        <span class="chatlog__timestamp">07-Dec-20 04:35 AM</span>
+
+            <div class="chatlog__message " data-message-id="785363777247641621" id="message-785363777247641621">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><span class="mention" style="color: rgb(255, 216, 0); background-color: rgba(255, 216, 0, 0.1);">@Representative</span> Make the following changes to the Constitution, adding to Art. I and adding Sec. 13</span>
+
+                        </div>
+                    </div>
+
+                    <div class="chatlog__attachment">
+                        <div class="" onclick="">
+                            <div class="">
+                                    <a href="San%20Vooperisco%20Community%20Server%20-%20Government%20%F0%9F%8F%9B%20-%20legislature-floor%20%5B756506964753645579%5D.html_Files/Screen_Shot_2020-12-06_at_11.35.07_PM-64937.png">
+                                        <img class="chatlog__attachment-thumbnail" src="San%20Vooperisco%20Community%20Server%20-%20Government%20%F0%9F%8F%9B%20-%20legislature-floor%20%5B756506964753645579%5D.html_Files/Screen_Shot_2020-12-06_at_11.35.07_PM-64937.png" alt="Image attachment" title="Image: Screen_Shot_2020-12-06_at_11.35.07_PM.png (62.42 KB)">
+                                    </a>
+                            </div>
+                        </div>
+                    </div>
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="785363796314030080" id="message-785363796314030080">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><img class="emoji emoji--large" alt="yesvote" title="yesvote" src="https://cdn.discordapp.com/emojis/757290864476422184.png"></span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="San%20Vooperisco%20Community%20Server%20-%20Government%20%F0%9F%8F%9B%20-%20legislature-floor%20%5B756506964753645579%5D.html_Files/8a33e4e25876728da335e1eaf5901235-BE127.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="PuffinGamer#0791" data-user-id="588897348252598292" style="color: rgb(255,139,0)">Chief Judge Puffin</span>
+
+
+        <span class="chatlog__timestamp">07-Dec-20 04:36 AM</span>
+
+            <div class="chatlog__message " data-message-id="785364096312803348" id="message-785364096312803348">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><strong>I declare this bill fully within the rules of the constitution, you may proceed with the vote.</strong></span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="785364117312765973" id="message-785364117312765973">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><a href="https://tenor.com/view/judge-gavel-hit-order-in-the-court-court-gif-7733506">https://tenor.com/view/judge-gavel-hit-order-in-the-court-court-gif-7733506</a></span>
+
+                        </div>
+                    </div>
+
+
+                    <div class="chatlog__embed">
+                            <div class="chatlog__embed-color-pill chatlog__embed-color-pill--default"></div>
+
+                        <div class="chatlog__embed-content-container">
+                            <div class="chatlog__embed-content">
+                                <div class="chatlog__embed-text">
+
+
+
+                                </div>
+
+                                    <div class="chatlog__embed-thumbnail-container">
+                                        <a class="chatlog__embed-thumbnail-link" href="San%20Vooperisco%20Community%20Server%20-%20Government%20%F0%9F%8F%9B%20-%20legislature-floor%20%5B756506964753645579%5D.html_Files/tenor-30010.png">
+                                            <img class="chatlog__embed-thumbnail" src="San%20Vooperisco%20Community%20Server%20-%20Government%20%F0%9F%8F%9B%20-%20legislature-floor%20%5B756506964753645579%5D.html_Files/tenor-30010.png" alt="Thumbnail">
+                                        </a>
+                                    </div>
+                            </div>
+
+
+                        </div>
+                    </div>
+
+            </div>
+            <div class="chatlog__message " data-message-id="785364135214972938" id="message-785364135214972938">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">heh</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="San%20Vooperisco%20Community%20Server%20-%20Government%20%F0%9F%8F%9B%20-%20legislature-floor%20%5B756506964753645579%5D.html_Files/765c3b1c668de93a71c2041966a338ac-F019B.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Pope Francis#0001" data-user-id="153555060926840833" style="color: rgb(255,112,0)">Pope | #TheGoldenDistrict</span>
+
+
+        <span class="chatlog__timestamp">07-Dec-20 04:36 AM</span>
+
+            <div class="chatlog__message " data-message-id="785364186221248534" id="message-785364186221248534">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">heh</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="San%20Vooperisco%20Community%20Server%20-%20Government%20%F0%9F%8F%9B%20-%20legislature-floor%20%5B756506964753645579%5D.html_Files/bcefed1762cab8642105af3c4b07e841-143FF.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="TheScarlettMaid#0001" data-user-id="730702814426431519" style="color: rgb(255,216,0)">TheScarlettMaid</span>
+
+
+        <span class="chatlog__timestamp">07-Dec-20 04:41 AM</span>
+
+            <div class="chatlog__message " data-message-id="785365438804393985" id="message-785365438804393985">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">I like<img class="emoji " alt="yesvote" title="yesvote" src="https://cdn.discordapp.com/emojis/757290864476422184.png"> <img class="emoji " alt="yesvote" title="yesvote" src="https://cdn.discordapp.com/emojis/757290864476422184.png"></span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="San%20Vooperisco%20Community%20Server%20-%20Government%20%F0%9F%8F%9B%20-%20legislature-floor%20%5B756506964753645579%5D.html_Files/feae8d363d4fae3c192cd8283c5138ff-A3ED5.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Izukei#4451" data-user-id="333341406771019777" style="color: rgb(255,167,0)">Izukei</span>
+
+
+        <span class="chatlog__timestamp">07-Dec-20 04:44 AM</span>
+
+            <div class="chatlog__message " data-message-id="785366200296275968" id="message-785366200296275968">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><img class="emoji emoji--large" alt="abvote" title="abvote" src="https://cdn.discordapp.com/emojis/757290864417439835.png"></span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="San%20Vooperisco%20Community%20Server%20-%20Government%20%F0%9F%8F%9B%20-%20legislature-floor%20%5B756506964753645579%5D.html_Files/785c8b5d690751e0aeb96ca8de015616-8B8E2.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="MinesomeMC#9053" data-user-id="264234472432599070" style="color: rgb(255,216,0)">Rep. MinesomeMC (CAD - SV)</span>
+
+
+        <span class="chatlog__timestamp">07-Dec-20 07:25 AM</span>
+
+            <div class="chatlog__message " data-message-id="785406559533793281" id="message-785406559533793281">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><img class="emoji emoji--large" alt="yesvote" title="yesvote" src="https://cdn.discordapp.com/emojis/757290864476422184.png"></span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="San%20Vooperisco%20Community%20Server%20-%20Government%20%F0%9F%8F%9B%20-%20legislature-floor%20%5B756506964753645579%5D.html_Files/765c3b1c668de93a71c2041966a338ac-F019B.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Pope Francis#0001" data-user-id="153555060926840833" style="color: rgb(255,112,0)">Pope | #TheGoldenDistrict</span>
+
+
+        <span class="chatlog__timestamp">07-Dec-20 07:25 PM</span>
+
+            <div class="chatlog__message " data-message-id="785587934123655231" id="message-785587934123655231">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><span class="mention" title="Shadow1200#9974">@Attorney General Shadow</span> hello can you vote</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="San%20Vooperisco%20Community%20Server%20-%20Government%20%F0%9F%8F%9B%20-%20legislature-floor%20%5B756506964753645579%5D.html_Files/f4c5750d99dbc036c9fd1e355b5caf33-CDC1C.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Niami#7504" data-user-id="333639017944055809" style="">Niami</span>
+
+
+        <span class="chatlog__timestamp">07-Dec-20 07:26 PM</span>
+
+            <div class="chatlog__message " data-message-id="785587995600224316" id="message-785587995600224316">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><img class="emoji emoji--large" alt="yesvote" title="yesvote" src="https://cdn.discordapp.com/emojis/757290864476422184.png"></span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="785588048418963518" id="message-785588048418963518">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><span class="spoiler spoiler--hidden" onclick="showSpoiler(event, this)"><span class="spoiler-text">forgot about this oops</span></span></span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="San%20Vooperisco%20Community%20Server%20-%20Government%20%F0%9F%8F%9B%20-%20legislature-floor%20%5B756506964753645579%5D.html_Files/765c3b1c668de93a71c2041966a338ac-F019B.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Pope Francis#0001" data-user-id="153555060926840833" style="color: rgb(255,112,0)">Pope | #TheGoldenDistrict</span>
+
+
+        <span class="chatlog__timestamp">07-Dec-20 07:31 PM</span>
+
+            <div class="chatlog__message " data-message-id="785589252821090355" id="message-785589252821090355">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">it&#39;s all good</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="San%20Vooperisco%20Community%20Server%20-%20Government%20%F0%9F%8F%9B%20-%20legislature-floor%20%5B756506964753645579%5D.html_Files/304d23a63315a9fb744b3e89cfa12c8c-D68C9.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Shadow1200#9974" data-user-id="587775033208733717" style="color: rgb(255,188,0)">Attorney General Shadow</span>
+
+
+        <span class="chatlog__timestamp">07-Dec-20 08:46 PM</span>
+
+            <div class="chatlog__message " data-message-id="785608287805898792" id="message-785608287805898792">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><img class="emoji emoji--large" alt="yesvote" title="yesvote" src="https://cdn.discordapp.com/emojis/757290864476422184.png"></span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="San%20Vooperisco%20Community%20Server%20-%20Government%20%F0%9F%8F%9B%20-%20legislature-floor%20%5B756506964753645579%5D.html_Files/765c3b1c668de93a71c2041966a338ac-F019B.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Pope Francis#0001" data-user-id="153555060926840833" style="color: rgb(255,112,0)">Pope | #TheGoldenDistrict</span>
+
+
+        <span class="chatlog__timestamp">07-Dec-20 08:47 PM</span>
+
+            <div class="chatlog__message " data-message-id="785608338825281597" id="message-785608338825281597">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">We have reached a majority!</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="785608428198297702" id="message-785608428198297702">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><strong>Vote on a Amendment to the Constitution the District of San Vooperisco</strong>
+<em>Signed,
+Prime Minister &amp; Senator Pope Francis
+December 7th, 2020</em>
+<strong>EMERGENCY APPROVAL GRANTED, GOVERNOR SIGNATURE NOT NEEDED</strong></span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="San%20Vooperisco%20Community%20Server%20-%20Government%20%F0%9F%8F%9B%20-%20legislature-floor%20%5B756506964753645579%5D.html_Files/765c3b1c668de93a71c2041966a338ac-F019B.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Pope Francis#0001" data-user-id="153555060926840833" style="color: rgb(255,112,0)">Pope | #TheGoldenDistrict</span>
+
+
+        <span class="chatlog__timestamp">08-Dec-20 01:49 AM</span>
+
+            <div class="chatlog__message " data-message-id="785684474197311488" id="message-785684474197311488">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><span class="mention" style="color: rgb(255, 216, 0); background-color: rgba(255, 216, 0, 0.1);">@Representative</span> Let&#39;s vote on this,
+<a href="https://docs.google.com/document/d/1bj0irrmgPTwKHQ4L1Xnc9gFF0OVc86WCSoPDZ0Zgb6I/edit?usp=sharing">https://docs.google.com/document/d/1bj0irrmgPTwKHQ4L1Xnc9gFF0OVc86WCSoPDZ0Zgb6I/edit?usp=sharing</a></span>
+
+                        </div>
+                    </div>
+
+
+                    <div class="chatlog__embed">
+                            <div class="chatlog__embed-color-pill chatlog__embed-color-pill--default"></div>
+
+                        <div class="chatlog__embed-content-container">
+                            <div class="chatlog__embed-content">
+                                <div class="chatlog__embed-text">
+
+                                        <div class="chatlog__embed-title">
+                                                <a class="chatlog__embed-title-link" href="https://docs.google.com/document/d/1bj0irrmgPTwKHQ4L1Xnc9gFF0OVc86WCSoPDZ0Zgb6I/edit?usp=sharing">
+                                                    <div class="markdown preserve-whitespace">Government Salary Act</div>
+                                                </a>
+                                        </div>
+
+                                        <div class="chatlog__embed-description">
+                                            <div class="markdown preserve-whitespace">2nd SESSION OF THE LEGISLATURE OF THE DISTRICT OF SAN VOOPERISCO  IN THE LEGISLATURE  December 7th, 2020  Government Salary Act Created by Representative Niami    TITLE I — GOVERNMENT SALARY ACT SEC. 1. SHORT NAME GSA  SEC. 2. INFORMATION  (a) (1) SUMMARY OF THIS ACT.—  Provide Guidelines on ...</div>
+                                        </div>
+
+                                </div>
+
+                                    <div class="chatlog__embed-thumbnail-container">
+                                        <a class="chatlog__embed-thumbnail-link" href="San%20Vooperisco%20Community%20Server%20-%20Government%20%F0%9F%8F%9B%20-%20legislature-floor%20%5B756506964753645579%5D.html_Files/79pokvufGVaUmHZRYZsFXx9QvzuUw1uU08Mp4V0mZF-167F9">
+                                            <img class="chatlog__embed-thumbnail" src="San%20Vooperisco%20Community%20Server%20-%20Government%20%F0%9F%8F%9B%20-%20legislature-floor%20%5B756506964753645579%5D.html_Files/79pokvufGVaUmHZRYZsFXx9QvzuUw1uU08Mp4V0mZF-167F9" alt="Thumbnail">
+                                        </a>
+                                    </div>
+                            </div>
+
+
+                        </div>
+                    </div>
+
+            </div>
+            <div class="chatlog__message " data-message-id="785684490281943090" id="message-785684490281943090">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><img class="emoji emoji--large" alt="yesvote" title="yesvote" src="https://cdn.discordapp.com/emojis/757290864476422184.png"></span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="San%20Vooperisco%20Community%20Server%20-%20Government%20%F0%9F%8F%9B%20-%20legislature-floor%20%5B756506964753645579%5D.html_Files/feae8d363d4fae3c192cd8283c5138ff-A3ED5.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Izukei#4451" data-user-id="333341406771019777" style="color: rgb(255,167,0)">Izukei</span>
+
+
+        <span class="chatlog__timestamp">08-Dec-20 01:50 AM</span>
+
+            <div class="chatlog__message " data-message-id="785684595626606652" id="message-785684595626606652">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><img class="emoji emoji--large" alt="yesvote" title="yesvote" src="https://cdn.discordapp.com/emojis/757290864476422184.png"></span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="San%20Vooperisco%20Community%20Server%20-%20Government%20%F0%9F%8F%9B%20-%20legislature-floor%20%5B756506964753645579%5D.html_Files/47a1852938fc11f051778ef9babbc031-B1748.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="AJMbear#7746" data-user-id="302941877588459520" style="color: rgb(255,216,0)">AJMbear</span>
+
+
+        <span class="chatlog__timestamp">08-Dec-20 01:50 AM</span>
+
+            <div class="chatlog__message " data-message-id="785684742318063666" id="message-785684742318063666">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><img class="emoji emoji--large" alt="yesvote" title="yesvote" src="https://cdn.discordapp.com/emojis/757290864476422184.png"></span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="San%20Vooperisco%20Community%20Server%20-%20Government%20%F0%9F%8F%9B%20-%20legislature-floor%20%5B756506964753645579%5D.html_Files/bcefed1762cab8642105af3c4b07e841-143FF.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="TheScarlettMaid#0001" data-user-id="730702814426431519" style="color: rgb(255,216,0)">TheScarlettMaid</span>
+
+
+        <span class="chatlog__timestamp">08-Dec-20 01:54 AM</span>
+
+            <div class="chatlog__message " data-message-id="785685707288084550" id="message-785685707288084550">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><img class="emoji emoji--large" alt="yesvote" title="yesvote" src="https://cdn.discordapp.com/emojis/757290864476422184.png"></span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="San%20Vooperisco%20Community%20Server%20-%20Government%20%F0%9F%8F%9B%20-%20legislature-floor%20%5B756506964753645579%5D.html_Files/785c8b5d690751e0aeb96ca8de015616-8B8E2.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="MinesomeMC#9053" data-user-id="264234472432599070" style="color: rgb(255,216,0)">Rep. MinesomeMC (CAD - SV)</span>
+
+
+        <span class="chatlog__timestamp">08-Dec-20 01:54 AM</span>
+
+            <div class="chatlog__message " data-message-id="785685733239029771" id="message-785685733239029771">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><img class="emoji emoji--large" alt="yesvote" title="yesvote" src="https://cdn.discordapp.com/emojis/757290864476422184.png"></span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="San%20Vooperisco%20Community%20Server%20-%20Government%20%F0%9F%8F%9B%20-%20legislature-floor%20%5B756506964753645579%5D.html_Files/e1cd1f613f792719f98f555128d9daa6-F4821.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Bryan Miralda#8396" data-user-id="416708241582587904" style="color: rgb(255,216,0)">Former Govenor Bryan</span>
+
+
+        <span class="chatlog__timestamp">08-Dec-20 02:05 AM</span>
+
+            <div class="chatlog__message " data-message-id="785688495943188490" id="message-785688495943188490">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><img class="emoji emoji--large" alt="yesvote" title="yesvote" src="https://cdn.discordapp.com/emojis/757290864476422184.png"></span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="San%20Vooperisco%20Community%20Server%20-%20Government%20%F0%9F%8F%9B%20-%20legislature-floor%20%5B756506964753645579%5D.html_Files/f4c5750d99dbc036c9fd1e355b5caf33-CDC1C.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Niami#7504" data-user-id="333639017944055809" style="">Niami</span>
+
+
+        <span class="chatlog__timestamp">08-Dec-20 06:55 AM</span>
+
+            <div class="chatlog__message " data-message-id="785761416358920232" id="message-785761416358920232">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><img class="emoji emoji--large" alt="yesvote" title="yesvote" src="https://cdn.discordapp.com/emojis/757290864476422184.png"></span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="San%20Vooperisco%20Community%20Server%20-%20Government%20%F0%9F%8F%9B%20-%20legislature-floor%20%5B756506964753645579%5D.html_Files/765c3b1c668de93a71c2041966a338ac-F019B.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Pope Francis#0001" data-user-id="153555060926840833" style="color: rgb(255,112,0)">Pope | #TheGoldenDistrict</span>
+
+
+        <span class="chatlog__timestamp">12-Dec-20 07:18 PM</span>
+
+            <div class="chatlog__message " data-message-id="787397943531536405" id="message-787397943531536405">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">The vote has ended.</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="San%20Vooperisco%20Community%20Server%20-%20Government%20%F0%9F%8F%9B%20-%20legislature-floor%20%5B756506964753645579%5D.html_Files/765c3b1c668de93a71c2041966a338ac-F019B.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Pope Francis#0001" data-user-id="153555060926840833" style="color: rgb(255,112,0)">Pope | #TheGoldenDistrict</span>
+
+
+        <span class="chatlog__timestamp">19-Dec-20 06:59 PM</span>
+
+            <div class="chatlog__message " data-message-id="789930037847654421" id="message-789930037847654421">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><strong>Vote on the GSA</strong>
+<em>Signed,
+Prime Minister &amp; Senator Pope Francis
+December 19th, 2020</em></span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="789930061011746877" id="message-789930061011746877">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><span class="mention" title="Izukei#4451">@Izukei</span> Sign it?</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+</div>
+
+<div class="postamble">
+    <div class="postamble__entry">Exported 175 message(s)</div>
+</div>
+
+</body>
+
+</html>

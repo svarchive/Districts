@@ -1,0 +1,3099 @@
+
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>Queensland - welcome</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width">
+
+    <style>
+        /* General */
+
+@font-face {
+    font-family: Whitney;
+    src: url(https://cdn.jsdelivr.net/gh/Tyrrrz/DiscordFonts@master/whitney-300.woff);
+    font-weight: 300;
+}
+
+@font-face {
+    font-family: Whitney;
+    src: url(https://cdn.jsdelivr.net/gh/Tyrrrz/DiscordFonts@master/whitney-400.woff);
+    font-weight: 400;
+}
+
+@font-face {
+    font-family: Whitney;
+    src: url(https://cdn.jsdelivr.net/gh/Tyrrrz/DiscordFonts@master/whitney-500.woff);
+    font-weight: 500;
+}
+
+@font-face {
+    font-family: Whitney;
+    src: url(https://cdn.jsdelivr.net/gh/Tyrrrz/DiscordFonts@master/whitney-600.woff);
+    font-weight: 600;
+}
+
+@font-face {
+    font-family: Whitney;
+    src: url(https://cdn.jsdelivr.net/gh/Tyrrrz/DiscordFonts@master/whitney-700.woff);
+    font-weight: 700;
+}
+
+body {
+    font-family: "Whitney", "Helvetica Neue", Helvetica, Arial, sans-serif;
+    font-size: 17px;
+}
+
+a {
+    text-decoration: none;
+}
+
+a:hover {
+    text-decoration: underline;
+}
+
+img {
+    object-fit: contain;
+}
+
+.markdown {
+    max-width: 100%;
+    line-height: 1.3;
+    overflow-wrap: break-word;
+}
+
+.preserve-whitespace {
+    white-space: pre-wrap;
+}
+
+.spoiler {
+    /* width: fit-content; */
+    display: inline-block;
+    /* This is more consistent across browsers, the old attribute worked well under Chrome but not FireFox. */
+}
+
+.spoiler--hidden {
+    cursor: pointer;
+}
+
+.spoiler-text {
+    border-radius: 3px;
+}
+
+.spoiler--hidden .spoiler-text {
+    color: rgba(0, 0, 0, 0);
+}
+
+.spoiler--hidden .spoiler-text::selection {
+    color: rgba(0, 0, 0, 0);
+}
+
+.spoiler-image {
+    position: relative;
+    overflow: hidden;
+    border-radius: 3px;
+}
+
+.spoiler--hidden .spoiler-image {
+    box-shadow: 0 0 1px 1px rgba(0, 0, 0, 0.1);
+}
+
+.spoiler--hidden .spoiler-image * {
+    filter: blur(44px);
+}
+
+.spoiler--hidden .spoiler-image:after {
+    content: "SPOILER";
+    color: #dcddde;
+    background-color: rgba(0, 0, 0, 0.6);
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    font-weight: 600;
+    padding: 100%;
+    border-radius: 20px;
+    letter-spacing: 0.05em;
+    font-size: 0.9em;
+}
+
+.spoiler--hidden:hover .spoiler-image:after {
+    color: #fff;
+    background-color: rgba(0, 0, 0, 0.9);
+}
+
+.quote {
+    margin: 0.1em 0;
+    padding-left: 0.6em;
+    border-left: 4px solid;
+    border-radius: 3px;
+}
+
+.pre {
+    font-family: "Consolas", "Courier New", Courier, monospace;
+}
+
+.pre--multiline {
+    margin-top: 0.25em;
+    padding: 0.5em;
+    border: 2px solid;
+    border-radius: 5px;
+}
+
+.pre--inline {
+    padding: 2px;
+    border-radius: 3px;
+    font-size: 0.85em;
+}
+
+.mention {
+    border-radius: 3px;
+    padding: 0 2px;
+    color: #7289da;
+    background: rgba(114, 137, 218, .1);
+    font-weight: 500;
+}
+
+.emoji {
+    width: 1.25em;
+    height: 1.25em;
+    margin: 0 0.06em;
+    vertical-align: -0.4em;
+}
+
+.emoji--small {
+    width: 1em;
+    height: 1em;
+}
+
+.emoji--large {
+    width: 2.8em;
+    height: 2.8em;
+}
+
+/* Preamble */
+
+.preamble {
+    display: grid;
+    margin: 0 0.3em 0.6em 0.3em;
+    max-width: 100%;
+    grid-template-columns: auto 1fr;
+}
+
+.preamble__guild-icon-container {
+    grid-column: 1;
+}
+
+.preamble__guild-icon {
+    max-width: 88px;
+    max-height: 88px;
+}
+
+.preamble__entries-container {
+    grid-column: 2;
+    margin-left: 0.6em;
+}
+
+.preamble__entry {
+    font-size: 1.4em;
+}
+
+.preamble__entry--small {
+    font-size: 1em;
+}
+
+/* Chatlog */
+
+.chatlog {
+    max-width: 100%;
+}
+
+.chatlog__message-group {
+    display: grid;
+    margin: 0 0.6em;
+    padding: 0.9em 0;
+    border-top: 1px solid;
+    grid-template-columns: auto 1fr;
+}
+
+.chatlog__reference-symbol {
+    grid-column: 1;
+    border-style: solid;
+    border-width: 2px 0 0 2px;
+    border-radius: 8px 0 0 0;
+    margin-left: 16px;
+    margin-top: 8px;
+}
+
+.chatlog__reference {
+    display: flex;
+    grid-column: 2;
+    margin-left: 1.2em;
+    margin-bottom: 0.25em;
+    font-size: 0.875em;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    align-items: center;
+}
+
+.chatlog__reference-avatar {
+    border-radius: 50%;
+    height: 16px;
+    width: 16px;
+    margin-right: 0.25em;
+}
+
+.chatlog__reference-name {
+    margin-right: 0.25em;
+    font-weight: 600;
+}
+
+.chatlog__reference-link {
+    flex-grow: 1;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.chatlog__reference-link:hover {
+    text-decoration: none;
+}
+
+.chatlog__reference-content > * {
+    display: inline;
+}
+
+.chatlog__reference-edited-timestamp {
+    margin-left: 0.25em;
+    font-size: 0.8em;
+}
+
+.chatlog__author-avatar-container {
+    grid-column: 1;
+    width: 40px;
+    height: 40px;
+}
+
+.chatlog__author-avatar {
+    border-radius: 50%;
+    height: 40px;
+    width: 40px;
+}
+
+.chatlog__messages {
+    grid-column: 2;
+    margin-left: 1.2em;
+    min-width: 50%;
+}
+
+.chatlog__author-name {
+    font-weight: 500;
+}
+
+.chatlog__timestamp {
+    margin-left: 0.3em;
+    font-size: 0.75em;
+}
+
+.chatlog__message {
+    padding: 0.1em 0.3em;
+    margin: 0 -0.3em;
+    background-color: transparent;
+    transition: background-color 1s ease;
+}
+
+.chatlog__content {
+    font-size: 0.95em;
+    word-wrap: break-word;
+}
+
+.chatlog__edited-timestamp {
+    margin-left: 0.15em;
+    font-size: 0.8em;
+}
+
+.chatlog__attachment {
+    margin-top: 0.3em;
+}
+
+.chatlog__attachment-thumbnail {
+    vertical-align: top;
+    max-width: 45vw;
+    max-height: 500px;
+    border-radius: 3px;
+}
+
+.chatlog__attachment-container {
+    height: 40px;
+    width: 100%;
+    max-width: 520px;
+    padding: 10px;
+    border: 1px solid;
+    border-radius: 3px;
+    overflow: hidden;
+}
+
+.chatlog__attachment-icon {
+    float: left;
+    height: 100%;
+    margin-right: 10px;
+}
+
+.chatlog__attachment-icon > .a {
+    fill: #f4f5fb;
+    d: path("M50,935a25,25,0,0,1-25-25V50A25,25,0,0,1,50,25H519.6L695,201.32V910a25,25,0,0,1-25,25Z");
+}
+
+.chatlog__attachment-icon > .b {
+    fill: #7789c4;
+    d: path("M509.21,50,670,211.63V910H50V50H509.21M530,0H50A50,50,0,0,0,0,50V910a50,50,0,0,0,50,50H670a50,50,0,0,0,50-50h0V191Z");
+}
+
+.chatlog__attachment-icon > .c {
+    fill: #f4f5fb;
+    d: path("M530,215a25,25,0,0,1-25-25V50a25,25,0,0,1,16.23-23.41L693.41,198.77A25,25,0,0,1,670,215Z");
+}
+
+.chatlog__attachment-icon > .d {
+    fill: #7789c4;
+    d: path("M530,70.71,649.29,190H530V70.71M530,0a50,50,0,0,0-50,50V190a50,50,0,0,0,50,50H670a50,50,0,0,0,50-50Z");
+}
+
+.chatlog__attachment-filesize {
+    color: #72767d;
+    font-size: 12px;
+}
+
+.chatlog__attachment-filename {
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+
+.chatlog__embed {
+    display: flex;
+    margin-top: 0.3em;
+    max-width: 520px;
+}
+
+.chatlog__embed-color-pill {
+    flex-shrink: 0;
+    width: 0.25em;
+    border-top-left-radius: 3px;
+    border-bottom-left-radius: 3px;
+}
+
+.chatlog__embed-content-container {
+    display: flex;
+    flex-direction: column;
+    padding: 0.5em 0.6em;
+    border: 1px solid;
+    border-top-right-radius: 3px;
+    border-bottom-right-radius: 3px;
+}
+
+.chatlog__embed-content {
+    display: flex;
+    width: 100%;
+}
+
+.chatlog__embed-text {
+    flex: 1;
+}
+
+.chatlog__embed-author {
+    display: flex;
+    margin-bottom: 0.3em;
+    align-items: center;
+}
+
+.chatlog__embed-author-icon {
+    margin-right: 0.5em;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+}
+
+.chatlog__embed-author-name {
+    font-size: 0.875em;
+    font-weight: 600;
+}
+
+.chatlog__embed-title {
+    margin-bottom: 0.2em;
+    font-size: 0.875em;
+    font-weight: 600;
+}
+
+.chatlog__embed-description {
+    font-weight: 500;
+    font-size: 0.85em;
+}
+
+.chatlog__embed-fields {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.chatlog__embed-field {
+    flex: 0;
+    min-width: 100%;
+    max-width: 506px;
+    padding-top: 0.6em;
+    font-size: 0.875em;
+}
+
+.chatlog__embed-field--inline {
+    flex: 1;
+    flex-basis: auto;
+    min-width: 150px;
+}
+
+.chatlog__embed-field-name {
+    margin-bottom: 0.2em;
+    font-weight: 600;
+}
+
+.chatlog__embed-field-value {
+    font-weight: 500;
+}
+
+.chatlog__embed-thumbnail {
+    flex: 0;
+    margin-left: 1.2em;
+    max-width: 80px;
+    max-height: 80px;
+    border-radius: 3px;
+}
+
+.chatlog__embed-image-container {
+    margin-top: 0.6em;
+}
+
+.chatlog__embed-image {
+    max-width: 500px;
+    max-height: 400px;
+    border-radius: 3px;
+}
+
+.chatlog__embed-footer {
+    margin-top: 0.6em;
+}
+
+.chatlog__embed-footer-icon {
+    margin-right: 0.2em;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    vertical-align: middle;
+}
+
+.chatlog__embed-footer-text {
+    font-size: 0.75em;
+    font-weight: 500;
+}
+
+.chatlog__reactions {
+    display: flex;
+}
+
+.chatlog__reaction {
+    display: flex;
+    align-items: center;
+    margin: 0.35em 0.1em 0.1em 0.1em;
+    padding: 0.2em 0.35em;
+    border-radius: 3px;
+}
+
+.chatlog__reaction-count {
+    min-width: 9px;
+    margin-left: 0.35em;
+    font-size: 0.875em;
+}
+
+.chatlog__bot-tag {
+    position: relative;
+    top: -.2em;
+    margin-left: 0.3em;
+    padding: 0.05em 0.3em;
+    border-radius: 3px;
+    vertical-align: middle;
+    line-height: 1.3;
+    background: #7289da;
+    color: #ffffff;
+    font-size: 0.625em;
+    font-weight: 500;
+}
+
+/* Postamble */
+
+.postamble {
+    margin: 1.4em 0.3em 0.6em 0.3em;
+    padding: 1em;
+    border-top: 1px solid;
+}
+    </style>
+    <style>
+        /* General */
+
+body {
+    background-color: #36393e;
+    color: #dcddde;
+}
+
+a {
+    color: #0096cf;
+}
+
+.spoiler-text {
+    background-color: rgba(255, 255, 255, 0.1);
+}
+
+.spoiler--hidden .spoiler-text {
+    background-color: #202225;
+}
+
+.spoiler--hidden:hover .spoiler-text {
+    background-color: rgba(32, 34, 37, 0.8);
+}
+
+.quote {
+    border-color: #4f545c;
+}
+
+.pre {
+    background-color: #2f3136 !important;
+}
+
+.pre--multiline {
+    border-color: #282b30 !important;
+    color: #b9bbbe !important;
+}
+
+/* === Preamble === */
+
+.preamble__entry {
+    color: #ffffff;
+}
+
+/* Chatlog */
+
+.chatlog__message-group {
+    border-color: rgba(255, 255, 255, 0.1);
+}
+
+.chatlog__reference-symbol {
+    border-color: #4f545c;
+}
+
+.chatlog__reference {
+    color: #b5b6b8;
+}
+
+.chatlog__reference-link {
+    color: #b5b6b8;
+}
+
+.chatlog__reference-link:hover {
+    color: #ffffff;
+}
+
+.chatlog__reference-edited-timestamp {
+    color: rgba(255, 255, 255, 0.2);
+}
+
+.chatlog__author-name {
+    color: #ffffff;
+}
+
+.chatlog__timestamp {
+    color: rgba(255, 255, 255, 0.2);
+}
+
+.chatlog__message--highlighted {
+    background-color: rgba(114, 137, 218, 0.2) !important;
+}
+
+.chatlog__message--pinned {
+    background-color: rgba(249, 168, 37, 0.05);
+}
+
+.chatlog__attachment-container {
+    background-color: #2f3136;
+    border-color: #292b2f;
+}
+
+.chatlog__edited-timestamp {
+    color: rgba(255, 255, 255, 0.2);
+}
+
+.chatlog__embed-color-pill--default {
+    background-color: rgba(79, 84, 92, 1);
+}
+
+.chatlog__embed-content-container {
+    background-color: rgba(46, 48, 54, 0.3);
+    border-color: rgba(46, 48, 54, 0.6);
+}
+
+.chatlog__embed-author-name {
+    color: #ffffff;
+}
+
+.chatlog__embed-author-name-link {
+    color: #ffffff;
+}
+
+.chatlog__embed-title {
+    color: #ffffff;
+}
+
+.chatlog__embed-description {
+    color: rgba(255, 255, 255, 0.6);
+}
+
+.chatlog__embed-field-name {
+    color: #ffffff;
+}
+
+.chatlog__embed-field-value {
+    color: rgba(255, 255, 255, 0.6);
+}
+
+.chatlog__embed-footer {
+    color: rgba(255, 255, 255, 0.6);
+}
+
+.chatlog__reaction {
+    background-color: rgba(255, 255, 255, 0.05);
+}
+
+.chatlog__reaction-count {
+    color: rgba(255, 255, 255, 0.3);
+}
+
+/* Postamble */
+
+.postamble {
+    border-color: rgba(255, 255, 255, 0.1);
+}
+
+.postamble__entry {
+    color: #ffffff;
+}
+    </style>
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.6/styles/solarized-dark.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.6/highlight.min.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            document.querySelectorAll('.pre--multiline').forEach(block => hljs.highlightBlock(block));
+        });
+    </script>
+
+    <script>
+        function scrollToMessage(event, id) {
+            var element = document.getElementById('message-' + id);
+
+            if (element) {
+                event.preventDefault();
+
+                element.classList.add('chatlog__message--highlighted');
+
+                window.scrollTo({
+                    top: element.getBoundingClientRect().top - document.body.getBoundingClientRect().top - (window.innerHeight / 2),
+                    behavior: 'smooth'
+                });
+
+                window.setTimeout(function() {
+                    element.classList.remove('chatlog__message--highlighted');
+                }, 2000);
+            }
+        }
+
+        function showSpoiler(event, element) {
+            if (element && element.classList.contains('spoiler--hidden')) {
+                event.preventDefault();
+                element.classList.remove('spoiler--hidden');
+            }
+        }
+    </script>
+</head>
+<body>
+
+<div class="preamble">
+    <div class="preamble__guild-icon-container">
+        <img class="preamble__guild-icon" src="Queensland%20-%20Information%20-%20welcome%20%5B767103069703897138%5D.html_Files/3b66834b809fe0cd630bdfbcb6174f82-62FA9.png" alt="Guild icon">
+    </div>
+    <div class="preamble__entries-container">
+        <div class="preamble__entry">Queensland</div>
+        <div class="preamble__entry">Information / welcome</div>
+
+
+    </div>
+</div>
+
+<div class="chatlog">
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Queensland%20-%20Information%20-%20welcome%20%5B767103069703897138%5D.html_Files/22fc1d872ddfed10d6c80c767aa7f75d-AA07E.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Phantomfighter#6248" data-user-id="528986354281873410" style="color: rgb(55,255,0)">Phantomfighter</span>
+
+
+        <span class="chatlog__timestamp">17-Oct-20 08:31 PM</span>
+
+            <div class="chatlog__message " data-message-id="767107577489260574" id="message-767107577489260574">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">Joined the server.</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Queensland%20-%20Information%20-%20welcome%20%5B767103069703897138%5D.html_Files/c21616b26585bed66d2e69ce28b411ae-EA65E.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="xboy#1580" data-user-id="440936933015814155" style="color: rgb(7,185,0)">xboy</span>
+
+
+        <span class="chatlog__timestamp">17-Oct-20 08:33 PM</span>
+
+            <div class="chatlog__message " data-message-id="767107947397513216" id="message-767107947397513216">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">Joined the server.</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Queensland%20-%20Information%20-%20welcome%20%5B767103069703897138%5D.html_Files/b50adff099924dd5e6b72d13f77eb9d7-A48AE.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="MEE6#4876" data-user-id="159985870458322944" style="color: rgb(52,152,219)">MEE6</span>
+
+            <span class="chatlog__bot-tag">BOT</span>
+
+        <span class="chatlog__timestamp">17-Oct-20 08:35 PM</span>
+
+            <div class="chatlog__message " data-message-id="767108531865255976" id="message-767108531865255976">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">Joined the server.</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Queensland%20-%20Information%20-%20welcome%20%5B767103069703897138%5D.html_Files/8fa8258b2c4744bafdad10bd46ae935a-49F17.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Disney-Chris1#2518" data-user-id="627325976380047360" style="color: rgb(0,255,255)">Disney-Chris1</span>
+
+
+        <span class="chatlog__timestamp">17-Oct-20 08:41 PM</span>
+
+            <div class="chatlog__message " data-message-id="767109973641265174" id="message-767109973641265174">
+
+                    <div class="chatlog__attachment">
+                        <div class="" onclick="">
+                            <div class="">
+                                    <a href="Queensland%20-%20Information%20-%20welcome%20%5B767103069703897138%5D.html_Files/Autumns_the_mellow_time._2-98E84.png">
+                                        <img class="chatlog__attachment-thumbnail" src="Queensland%20-%20Information%20-%20welcome%20%5B767103069703897138%5D.html_Files/Autumns_the_mellow_time._2-98E84.png" alt="Image attachment" title="Image: Autumns_the_mellow_time._2.png (2.5 MB)">
+                                    </a>
+                            </div>
+                        </div>
+                    </div>
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Queensland%20-%20Information%20-%20welcome%20%5B767103069703897138%5D.html_Files/62712309be428a1e01615bd00c85dd60-7ECBE.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="cake#3557" data-user-id="709865920557744198" style="color: rgb(247,0,243)">cake</span>
+
+
+        <span class="chatlog__timestamp">17-Oct-20 09:00 PM</span>
+
+            <div class="chatlog__message " data-message-id="767114921329819688" id="message-767114921329819688">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">Joined the server.</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Queensland%20-%20Information%20-%20welcome%20%5B767103069703897138%5D.html_Files/f4c5750d99dbc036c9fd1e355b5caf33-CDC1C.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Niami#7504" data-user-id="333639017944055809" style="">Niami</span>
+
+
+        <span class="chatlog__timestamp">17-Oct-20 10:54 PM</span>
+
+            <div class="chatlog__message " data-message-id="767143614131339294" id="message-767143614131339294">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">Joined the server.</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Queensland%20-%20Information%20-%20welcome%20%5B767103069703897138%5D.html_Files/f4c5750d99dbc036c9fd1e355b5caf33-CDC1C.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Niami#7504" data-user-id="333639017944055809" style="">Niami</span>
+
+
+        <span class="chatlog__timestamp">17-Oct-20 11:06 PM</span>
+
+            <div class="chatlog__message " data-message-id="767146633187295242" id="message-767146633187295242">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">Joined the server.</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Queensland%20-%20Information%20-%20welcome%20%5B767103069703897138%5D.html_Files/f4c5750d99dbc036c9fd1e355b5caf33-CDC1C.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Niami#7504" data-user-id="333639017944055809" style="">Niami</span>
+
+
+        <span class="chatlog__timestamp">17-Oct-20 11:20 PM</span>
+
+            <div class="chatlog__message " data-message-id="767150147431432222" id="message-767150147431432222">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">Joined the server.</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="767151429823103016" id="message-767151429823103016">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">Joined the server.</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="767152800651149412" id="message-767152800651149412">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">Joined the server.</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Queensland%20-%20Information%20-%20welcome%20%5B767103069703897138%5D.html_Files/f4c5750d99dbc036c9fd1e355b5caf33-CDC1C.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Niami#7504" data-user-id="333639017944055809" style="">Niami</span>
+
+
+        <span class="chatlog__timestamp">17-Oct-20 11:43 PM</span>
+
+            <div class="chatlog__message " data-message-id="767155736584519700" id="message-767155736584519700">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">Joined the server.</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="767156114054971402" id="message-767156114054971402">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">Joined the server.</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="767156321324761098" id="message-767156321324761098">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">Joined the server.</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="767156372650459166" id="message-767156372650459166">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">Joined the server.</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="767156675667951616" id="message-767156675667951616">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">Joined the server.</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Queensland%20-%20Information%20-%20welcome%20%5B767103069703897138%5D.html_Files/dbdffdad8225a917cad88ec74612d26b-C79E2.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="fintanb12#8711" data-user-id="432947583153864724" style="">fintanb12</span>
+
+
+        <span class="chatlog__timestamp">18-Oct-20 12:15 PM</span>
+
+            <div class="chatlog__message " data-message-id="767345063793393664" id="message-767345063793393664">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">Joined the server.</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Queensland%20-%20Information%20-%20welcome%20%5B767103069703897138%5D.html_Files/0e25d39ecaaac7c022d6f2d8d3af4b8b-23BE4.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="alskfx1#0413" data-user-id="382703213260046336" style="color: rgb(255,0,0)">alskfx1</span>
+
+
+        <span class="chatlog__timestamp">18-Oct-20 03:49 PM</span>
+
+            <div class="chatlog__message " data-message-id="767399031936647238" id="message-767399031936647238">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">Joined the server.</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Queensland%20-%20Information%20-%20welcome%20%5B767103069703897138%5D.html_Files/161f6a28041310cf0075c95695cec0c7-53A7F.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="superjacobl#8277" data-user-id="259004891148582914" style="color: rgb(247,0,243)">superjacobl</span>
+
+
+        <span class="chatlog__timestamp">18-Oct-20 07:44 PM</span>
+
+            <div class="chatlog__message " data-message-id="767458068740046868" id="message-767458068740046868">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">Joined the server.</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Queensland%20-%20Information%20-%20welcome%20%5B767103069703897138%5D.html_Files/4361ee6273bc1728d00591037a6ed037-FB999.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Reed202#6217" data-user-id="356192181595406349" style="color: rgb(0,255,255)">Reed202</span>
+
+
+        <span class="chatlog__timestamp">20-Oct-20 06:43 AM</span>
+
+            <div class="chatlog__message " data-message-id="767986250065379348" id="message-767986250065379348">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">Joined the server.</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Queensland%20-%20Information%20-%20welcome%20%5B767103069703897138%5D.html_Files/f4875b07696ea19405700aaa67029fe9-55F4C.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Caesar#3953" data-user-id="468932644210475009" style="color: rgb(52,206,21)">Caesar The Train</span>
+
+
+        <span class="chatlog__timestamp">20-Oct-20 03:01 PM</span>
+
+            <div class="chatlog__message " data-message-id="768111689911500850" id="message-768111689911500850">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">Joined the server.</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Queensland%20-%20Information%20-%20welcome%20%5B767103069703897138%5D.html_Files/cb3ca419b04b493191450b99cbc18f1b-D28F1.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="ThomasWiltherford#6414" data-user-id="527522870646145053" style="">ThomasWiltherford</span>
+
+
+        <span class="chatlog__timestamp">21-Oct-20 02:01 AM</span>
+
+            <div class="chatlog__message " data-message-id="768277677319651348" id="message-768277677319651348">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">Joined the server.</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Queensland%20-%20Information%20-%20welcome%20%5B767103069703897138%5D.html_Files/f4c5750d99dbc036c9fd1e355b5caf33-CDC1C.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Niami#7504" data-user-id="333639017944055809" style="">Niami</span>
+
+
+        <span class="chatlog__timestamp">29-Oct-20 12:49 PM</span>
+
+            <div class="chatlog__message " data-message-id="771355111686668308" id="message-771355111686668308">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">Joined the server.</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="771355401870508042" id="message-771355401870508042">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">Joined the server.</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Queensland%20-%20Information%20-%20welcome%20%5B767103069703897138%5D.html_Files/f4c5750d99dbc036c9fd1e355b5caf33-CDC1C.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Niami#7504" data-user-id="333639017944055809" style="">Niami</span>
+
+
+        <span class="chatlog__timestamp">29-Oct-20 12:58 PM</span>
+
+            <div class="chatlog__message " data-message-id="771357368217894942" id="message-771357368217894942">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">Joined the server.</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Queensland%20-%20Information%20-%20welcome%20%5B767103069703897138%5D.html_Files/f4c5750d99dbc036c9fd1e355b5caf33-CDC1C.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Niami#7504" data-user-id="333639017944055809" style="">Niami</span>
+
+
+        <span class="chatlog__timestamp">29-Oct-20 09:06 PM</span>
+
+            <div class="chatlog__message " data-message-id="771480213573206046" id="message-771480213573206046">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">Joined the server.</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Queensland%20-%20Information%20-%20welcome%20%5B767103069703897138%5D.html_Files/f12d042afc0d24a96c33fb6a3d9f746b-6C885.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="asdia#1556" data-user-id="470203136771096596" style="">asdia</span>
+
+
+        <span class="chatlog__timestamp">05-Nov-20 03:42 PM</span>
+
+            <div class="chatlog__message " data-message-id="773935303072677888" id="message-773935303072677888">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">Joined the server.</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Queensland%20-%20Information%20-%20welcome%20%5B767103069703897138%5D.html_Files/12e00a90ceabee73edbd00f35745328f-162CB.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Merope Mastermind#1808" data-user-id="757624552762376263" style="">Merope Mastermind</span>
+
+            <span class="chatlog__bot-tag">BOT</span>
+
+        <span class="chatlog__timestamp">05-Nov-20 03:42 PM</span>
+
+            <div class="chatlog__message " data-message-id="773935325583376395" id="message-773935325583376395">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">no</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Queensland%20-%20Information%20-%20welcome%20%5B767103069703897138%5D.html_Files/77f3d716a48be4a28cf0ac45bdd72090-B85F0.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Topc200#9141" data-user-id="703249801227010078" style="color: rgb(52,206,21)">Topc200</span>
+
+
+        <span class="chatlog__timestamp">05-Nov-20 03:42 PM</span>
+
+            <div class="chatlog__message " data-message-id="773935364757913610" id="message-773935364757913610">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">What</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Queensland%20-%20Information%20-%20welcome%20%5B767103069703897138%5D.html_Files/22fc1d872ddfed10d6c80c767aa7f75d-AA07E.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Phantomfighter#6248" data-user-id="528986354281873410" style="color: rgb(55,255,0)">Phantomfighter</span>
+
+
+        <span class="chatlog__timestamp">05-Nov-20 03:50 PM</span>
+
+            <div class="chatlog__message " data-message-id="773937393375772722" id="message-773937393375772722">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">bruh</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Queensland%20-%20Information%20-%20welcome%20%5B767103069703897138%5D.html_Files/f12d042afc0d24a96c33fb6a3d9f746b-6C885.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="asdia#1556" data-user-id="470203136771096596" style="">asdia</span>
+
+
+        <span class="chatlog__timestamp">05-Nov-20 03:51 PM</span>
+
+            <div class="chatlog__message " data-message-id="773937457401167873" id="message-773937457401167873">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">no</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Queensland%20-%20Information%20-%20welcome%20%5B767103069703897138%5D.html_Files/12e00a90ceabee73edbd00f35745328f-162CB.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Merope Mastermind#1808" data-user-id="757624552762376263" style="">Merope Mastermind</span>
+
+            <span class="chatlog__bot-tag">BOT</span>
+
+        <span class="chatlog__timestamp">05-Nov-20 03:51 PM</span>
+
+            <div class="chatlog__message " data-message-id="773937458299535390" id="message-773937458299535390">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">no</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Queensland%20-%20Information%20-%20welcome%20%5B767103069703897138%5D.html_Files/a_c10709f2386e44555d874f85ca9dce6e-A2CDA.gif" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="D.J.Z.#2016" data-user-id="481008005706547201" style="color: rgb(247,0,243)">D.J.Z.</span>
+
+
+        <span class="chatlog__timestamp">06-Nov-20 10:48 PM</span>
+
+            <div class="chatlog__message " data-message-id="774404921910624267" id="message-774404921910624267">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">Joined the server.</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Queensland%20-%20Information%20-%20welcome%20%5B767103069703897138%5D.html_Files/5328df66b286c325a25b6929885eeeb9-B9847.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Est.Chicago#8435" data-user-id="701944872843739257" style="color: rgb(247,0,243)">Est.Chicago</span>
+
+
+        <span class="chatlog__timestamp">06-Nov-20 11:11 PM</span>
+
+            <div class="chatlog__message " data-message-id="774410648066195486" id="message-774410648066195486">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">Joined the server.</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Queensland%20-%20Information%20-%20welcome%20%5B767103069703897138%5D.html_Files/20ca68ec222367813d21a04c76c271f2-E61A6.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="luckyjm6 yt#6430" data-user-id="761701382331695136" style="color: rgb(0,255,255)">luckyjm6 yt</span>
+
+
+        <span class="chatlog__timestamp">06-Nov-20 11:57 PM</span>
+
+            <div class="chatlog__message " data-message-id="774422276258136114" id="message-774422276258136114">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">Joined the server.</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Queensland%20-%20Information%20-%20welcome%20%5B767103069703897138%5D.html_Files/b96350c64c37956f81aebda03acd5270-E9DD0.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Potato#9080" data-user-id="255862808493817857" style="color: rgb(255,0,0)">Potato</span>
+
+
+        <span class="chatlog__timestamp">07-Nov-20 01:22 AM</span>
+
+            <div class="chatlog__message " data-message-id="774443574245982248" id="message-774443574245982248">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">Joined the server.</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Queensland%20-%20Information%20-%20welcome%20%5B767103069703897138%5D.html_Files/64282fde58ec83a62f69f0c929d638dc-ED348.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="bloodknight890 [Zarma]#3246" data-user-id="562283142900219915" style="color: rgb(0,255,255)">bloodknight890 [Zarma]</span>
+
+
+        <span class="chatlog__timestamp">07-Nov-20 02:06 AM</span>
+
+            <div class="chatlog__message " data-message-id="774454804595605534" id="message-774454804595605534">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">Joined the server.</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Queensland%20-%20Information%20-%20welcome%20%5B767103069703897138%5D.html_Files/8463cfb2a0763f8599a7dc7664f336a9-6AFDE.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="opius_the_bushman#4982" data-user-id="651234763868340265" style="">opius_the_bushman</span>
+
+
+        <span class="chatlog__timestamp">07-Nov-20 02:56 AM</span>
+
+            <div class="chatlog__message " data-message-id="774467364128686101" id="message-774467364128686101">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">Joined the server.</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Queensland%20-%20Information%20-%20welcome%20%5B767103069703897138%5D.html_Files/974c65960bc168c648868b0e7a8e8d4e-0938B.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Guardian_d_slayer737#3336" data-user-id="745360464447275068" style="">Guardian_d_slayer737</span>
+
+
+        <span class="chatlog__timestamp">07-Nov-20 03:20 AM</span>
+
+            <div class="chatlog__message " data-message-id="774473357063356423" id="message-774473357063356423">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">Joined the server.</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Queensland%20-%20Information%20-%20welcome%20%5B767103069703897138%5D.html_Files/202136c8fd9e9dc185eecc6f7e798ba4-73892.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Coca162#1419" data-user-id="388454632835514380" style="color: rgb(247,0,243)">Coca162</span>
+
+
+        <span class="chatlog__timestamp">07-Nov-20 04:18 AM</span>
+
+            <div class="chatlog__message " data-message-id="774488017053155328" id="message-774488017053155328">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">Joined the server.</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Queensland%20-%20Information%20-%20welcome%20%5B767103069703897138%5D.html_Files/923dabe09b27ccc277b3d6a5c99c501a-A497E.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="LukaPlayz#5212" data-user-id="400795110394036224" style="color: rgb(247,0,243)">LukaPlayz</span>
+
+
+        <span class="chatlog__timestamp">07-Nov-20 04:28 AM</span>
+
+            <div class="chatlog__message " data-message-id="774490328450596874" id="message-774490328450596874">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">Joined the server.</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Queensland%20-%20Information%20-%20welcome%20%5B767103069703897138%5D.html_Files/fe6e92ed701b0bbcec7df6547596432d-E8178.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Mand&#39;alor the Scooper#9397" data-user-id="598569536890994688" style="color: rgb(0,255,255)">Mand&#39;alor the Scooper</span>
+
+
+        <span class="chatlog__timestamp">07-Nov-20 05:24 PM</span>
+
+            <div class="chatlog__message " data-message-id="774685654532489237" id="message-774685654532489237">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">Joined the server.</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Queensland%20-%20Information%20-%20welcome%20%5B767103069703897138%5D.html_Files/498b35250541ac287c45fa9ab8b39a05-69028.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="StreetLamp#6257" data-user-id="677117165458948108" style="color: rgb(0,255,255)">HAY I FRIKEN DIED,OK</span>
+
+
+        <span class="chatlog__timestamp">07-Nov-20 11:50 PM</span>
+
+            <div class="chatlog__message " data-message-id="774782784362905640" id="message-774782784362905640">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">Joined the server.</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Queensland%20-%20Information%20-%20welcome%20%5B767103069703897138%5D.html_Files/923dabe09b27ccc277b3d6a5c99c501a-A497E.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="LukaPlayz#5212" data-user-id="400795110394036224" style="color: rgb(247,0,243)">LukaPlayz</span>
+
+
+        <span class="chatlog__timestamp">08-Nov-20 12:00 AM</span>
+
+            <div class="chatlog__message " data-message-id="774785499617427466" id="message-774785499617427466">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">Joined the server.</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Queensland%20-%20Information%20-%20welcome%20%5B767103069703897138%5D.html_Files/1d2c2d8895b6396edbcb50eca5796d15-36FF1.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Omega#3662" data-user-id="604729608763473921" style="color: rgb(0,255,255)">Omega</span>
+
+
+        <span class="chatlog__timestamp">08-Nov-20 12:36 AM</span>
+
+            <div class="chatlog__message " data-message-id="774794487100211210" id="message-774794487100211210">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">Joined the server.</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Queensland%20-%20Information%20-%20welcome%20%5B767103069703897138%5D.html_Files/498b35250541ac287c45fa9ab8b39a05-69028.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="StreetLamp#6257" data-user-id="677117165458948108" style="color: rgb(0,255,255)">HAY I FRIKEN DIED,OK</span>
+
+
+        <span class="chatlog__timestamp">08-Nov-20 12:36 AM</span>
+
+            <div class="chatlog__message " data-message-id="774794522408255548" id="message-774794522408255548">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">hi</span>
+
+                        </div>
+                    </div>
+
+
+
+                    <div class="chatlog__reactions">
+                            <div class="chatlog__reaction">
+                                <img class="emoji emoji--small" alt="&#128077;" title="&#128077;" src="Queensland%20-%20Information%20-%20welcome%20%5B767103069703897138%5D.html_Files/1f44d-1485B.png">
+                                <span class="chatlog__reaction-count">2</span>
+                            </div>
+                    </div>
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Queensland%20-%20Information%20-%20welcome%20%5B767103069703897138%5D.html_Files/836ca84f703daccc38e9530b102f30df-6449F.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Delitokyo#0209" data-user-id="632158104770838528" style="color: rgb(52,152,219)">Delitokyo</span>
+
+
+        <span class="chatlog__timestamp">08-Nov-20 02:03 AM</span>
+
+            <div class="chatlog__message " data-message-id="774816279474470922" id="message-774816279474470922">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">Joined the server.</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Queensland%20-%20Information%20-%20welcome%20%5B767103069703897138%5D.html_Files/5eb7b4afc28781037dd6ae9fd256dc6e-DB3AB.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Flubzy1#6311" data-user-id="420376667006042112" style="color: rgb(0,255,255)">Flubzy1</span>
+
+
+        <span class="chatlog__timestamp">09-Nov-20 08:31 PM</span>
+
+            <div class="chatlog__message " data-message-id="775457476363419698" id="message-775457476363419698">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">Joined the server.</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Queensland%20-%20Information%20-%20welcome%20%5B767103069703897138%5D.html_Files/9d7fc48ab98f27a21f0cb45c1ee7e85f-8E16F.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Kazerkazerk#7047" data-user-id="707763461391777834" style="color: rgb(6,95,32)">Kazerkazerk</span>
+
+
+        <span class="chatlog__timestamp">09-Nov-20 09:44 PM</span>
+
+            <div class="chatlog__message " data-message-id="775476046110785587" id="message-775476046110785587">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">Joined the server.</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Queensland%20-%20Information%20-%20welcome%20%5B767103069703897138%5D.html_Files/9336730beb3e7f9a4d7558a17a0bbfc6-1A144.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Catto#9002" data-user-id="261228937206562817" style="">Catto</span>
+
+
+        <span class="chatlog__timestamp">09-Nov-20 10:50 PM</span>
+
+            <div class="chatlog__message " data-message-id="775492503025614888" id="message-775492503025614888">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">Joined the server.</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Queensland%20-%20Information%20-%20welcome%20%5B767103069703897138%5D.html_Files/0-EB806.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="calvin downey i think#9450" data-user-id="737373088395558982" style="color: rgb(247,0,243)">calvin downey i think</span>
+
+
+        <span class="chatlog__timestamp">09-Nov-20 10:50 PM</span>
+
+            <div class="chatlog__message " data-message-id="775492552027275305" id="message-775492552027275305">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">Joined the server.</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Queensland%20-%20Information%20-%20welcome%20%5B767103069703897138%5D.html_Files/d31465a715d6fb85ef4e543b3ddae836-3838E.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="beany#6666" data-user-id="335764237227917312" style="">beany</span>
+
+
+        <span class="chatlog__timestamp">09-Nov-20 10:50 PM</span>
+
+            <div class="chatlog__message " data-message-id="775492601594904576" id="message-775492601594904576">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">Joined the server.</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Queensland%20-%20Information%20-%20welcome%20%5B767103069703897138%5D.html_Files/b8bfdfb9c6e85d695dc8689fc2a84d88-85EE3.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Trevor#0741" data-user-id="545001855495831563" style="">Trevor</span>
+
+
+        <span class="chatlog__timestamp">09-Nov-20 10:54 PM</span>
+
+            <div class="chatlog__message " data-message-id="775493647550513212" id="message-775493647550513212">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">Joined the server.</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Queensland%20-%20Information%20-%20welcome%20%5B767103069703897138%5D.html_Files/923dabe09b27ccc277b3d6a5c99c501a-A497E.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="LukaPlayz#5212" data-user-id="400795110394036224" style="color: rgb(247,0,243)">LukaPlayz</span>
+
+
+        <span class="chatlog__timestamp">10-Nov-20 02:47 PM</span>
+
+            <div class="chatlog__message " data-message-id="775733481300295680" id="message-775733481300295680">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">Joined the server.</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Queensland%20-%20Information%20-%20welcome%20%5B767103069703897138%5D.html_Files/b50b9bb071d8f3ec50fabc72bca1ed32-DC5C3.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="ripsaw#2935" data-user-id="706040165021384775" style="color: rgb(0,255,255)">ripsaw</span>
+
+
+        <span class="chatlog__timestamp">10-Nov-20 10:03 PM</span>
+
+            <div class="chatlog__message " data-message-id="775842984784166932" id="message-775842984784166932">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">Joined the server.</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Queensland%20-%20Information%20-%20welcome%20%5B767103069703897138%5D.html_Files/10f7317ae9e8b80080589b5cdffa15b4-C04FF.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="zach_#0677" data-user-id="401592161315061761" style="color: rgb(0,255,255)">zach_</span>
+
+
+        <span class="chatlog__timestamp">11-Nov-20 12:32 AM</span>
+
+            <div class="chatlog__message " data-message-id="775880671763628052" id="message-775880671763628052">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">Joined the server.</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Queensland%20-%20Information%20-%20welcome%20%5B767103069703897138%5D.html_Files/fd9b6ac2de4996ec3538f18e70ebb0ed-146F9.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="quelfboy99#4292" data-user-id="540634307585376279" style="color: rgb(255,0,0)">quelfboy99</span>
+
+
+        <span class="chatlog__timestamp">11-Nov-20 04:31 PM</span>
+
+            <div class="chatlog__message " data-message-id="776121818292813894" id="message-776121818292813894">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">Joined the server.</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Queensland%20-%20Information%20-%20welcome%20%5B767103069703897138%5D.html_Files/034ec7893af8db38914e70bddde7cd96-A275B.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="hellodan#0001" data-user-id="323485542366969856" style="color: rgb(247,0,243)">hellodan</span>
+
+
+        <span class="chatlog__timestamp">11-Nov-20 04:50 PM</span>
+
+            <div class="chatlog__message " data-message-id="776126839919607839" id="message-776126839919607839">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">Joined the server.</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Queensland%20-%20Information%20-%20welcome%20%5B767103069703897138%5D.html_Files/0f803817ebe082aa9235c7af0fdf1cbb-B9F92.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="DarkShadow#0588" data-user-id="730584203825250346" style="color: rgb(0,255,255)">DarkShadow</span>
+
+
+        <span class="chatlog__timestamp">11-Nov-20 08:07 PM</span>
+
+            <div class="chatlog__message " data-message-id="776176211222462514" id="message-776176211222462514">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">Joined the server.</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Queensland%20-%20Information%20-%20welcome%20%5B767103069703897138%5D.html_Files/3366c6ffc08d480a4be700d97b74167a-904AA.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Space World#9729" data-user-id="428273321608740895" style="color: rgb(0,255,255)">Space World</span>
+
+
+        <span class="chatlog__timestamp">11-Nov-20 08:29 PM</span>
+
+            <div class="chatlog__message " data-message-id="776181812363264050" id="message-776181812363264050">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">Joined the server.</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Queensland%20-%20Information%20-%20welcome%20%5B767103069703897138%5D.html_Files/93fb1712976a537cc84917ec66d6047f-50912.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Drokles21#6999" data-user-id="419539331397713931" style="">Drokles21</span>
+
+
+        <span class="chatlog__timestamp">11-Nov-20 08:42 PM</span>
+
+            <div class="chatlog__message " data-message-id="776185096687714344" id="message-776185096687714344">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">Joined the server.</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Queensland%20-%20Information%20-%20welcome%20%5B767103069703897138%5D.html_Files/2403cf4c53d0a22306ecfa7b973692d3-EDAA5.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="A Person#2303" data-user-id="550482802567544852" style="color: rgb(247,0,243)">A Person</span>
+
+
+        <span class="chatlog__timestamp">11-Nov-20 09:10 PM</span>
+
+            <div class="chatlog__message " data-message-id="776192055574790144" id="message-776192055574790144">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">Joined the server.</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Queensland%20-%20Information%20-%20welcome%20%5B767103069703897138%5D.html_Files/d5d2b1a4b451d4336383eb20e3d87df6-B69E3.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="L00ti#2383" data-user-id="431739904112721930" style="color: rgb(0,255,255)">L00ti</span>
+
+
+        <span class="chatlog__timestamp">11-Nov-20 09:28 PM</span>
+
+            <div class="chatlog__message " data-message-id="776196585382084608" id="message-776196585382084608">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">Joined the server.</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Queensland%20-%20Information%20-%20welcome%20%5B767103069703897138%5D.html_Files/8d290cdb42115bbeb36d90088e934e29-9314D.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="jet fighter#1353" data-user-id="776183120721608704" style="">jet fighter</span>
+
+
+        <span class="chatlog__timestamp">11-Nov-20 09:48 PM</span>
+
+            <div class="chatlog__message " data-message-id="776201717951758336" id="message-776201717951758336">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">Joined the server.</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Queensland%20-%20Information%20-%20welcome%20%5B767103069703897138%5D.html_Files/2090e5a2ac962a52dc5876aa2a00dee3-2A9F4.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="EE#4080" data-user-id="685629818720878627" style="">EE</span>
+
+
+        <span class="chatlog__timestamp">13-Nov-20 11:44 PM</span>
+
+            <div class="chatlog__message " data-message-id="776955636470251560" id="message-776955636470251560">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">Joined the server.</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Queensland%20-%20Information%20-%20welcome%20%5B767103069703897138%5D.html_Files/2f4e63bdc091fee2f7d273ea41545005-8C45E.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Comrade Chris#9088" data-user-id="544816262128336906" style="color: rgb(247,0,243)">Comrade Chris</span>
+
+
+        <span class="chatlog__timestamp">16-Nov-20 02:42 PM</span>
+
+            <div class="chatlog__message " data-message-id="777906413031784477" id="message-777906413031784477">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">Joined the server.</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Queensland%20-%20Information%20-%20welcome%20%5B767103069703897138%5D.html_Files/ed1cdf23fd06868301878be9c682bc84-9CD97.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="CHUBZ GENIJ#4191" data-user-id="617196529983422465" style="">CHUBZ GENIJ</span>
+
+
+        <span class="chatlog__timestamp">17-Nov-20 10:01 PM</span>
+
+            <div class="chatlog__message " data-message-id="778379320833605693" id="message-778379320833605693">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">Joined the server.</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Queensland%20-%20Information%20-%20welcome%20%5B767103069703897138%5D.html_Files/175491effc4a83e9ed4a4d8c5a3118a3-F246C.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="King Micheal The 1st Of Romania#2956" data-user-id="700144398276755507" style="color: rgb(0,255,255)">King Micheal The 1st Of Romania</span>
+
+
+        <span class="chatlog__timestamp">18-Nov-20 12:07 AM</span>
+
+            <div class="chatlog__message " data-message-id="778410979025092618" id="message-778410979025092618">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">Joined the server.</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Queensland%20-%20Information%20-%20welcome%20%5B767103069703897138%5D.html_Files/c3335e988086b3b9e2537eaffa519138-DB674.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Salty_Cole#9497" data-user-id="622041347196715008" style="color: rgb(255,202,0)">Salty_Cole</span>
+
+
+        <span class="chatlog__timestamp">19-Nov-20 01:25 AM</span>
+
+            <div class="chatlog__message " data-message-id="778792973613006870" id="message-778792973613006870">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">Joined the server.</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Queensland%20-%20Information%20-%20welcome%20%5B767103069703897138%5D.html_Files/91c43afea1b3e6f5faa01f489c48b73e-433AA.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Disney-Chris?#5526" data-user-id="778794870382919711" style="color: rgb(247,0,243)">Disney-Chris?</span>
+
+
+        <span class="chatlog__timestamp">19-Nov-20 01:49 AM</span>
+
+            <div class="chatlog__message " data-message-id="778799181800013824" id="message-778799181800013824">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">Joined the server.</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Queensland%20-%20Information%20-%20welcome%20%5B767103069703897138%5D.html_Files/8041fe35dda23a2ea8baa24b2433ec86-4417F.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Disney-Chris#7683" data-user-id="778801954775105566" style="color: rgb(0,255,255)">Disney-Chris</span>
+
+
+        <span class="chatlog__timestamp">19-Nov-20 02:05 AM</span>
+
+            <div class="chatlog__message " data-message-id="778803174369787914" id="message-778803174369787914">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">Joined the server.</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Queensland%20-%20Information%20-%20welcome%20%5B767103069703897138%5D.html_Files/c339a3316d8cf0065377d8b54dafe59a-8075F.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="donia#9423" data-user-id="290616424953544704" style="color: rgb(247,0,243)">donia</span>
+
+
+        <span class="chatlog__timestamp">21-Nov-20 11:15 PM</span>
+
+            <div class="chatlog__message " data-message-id="779847590049087488" id="message-779847590049087488">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">Joined the server.</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Queensland%20-%20Information%20-%20welcome%20%5B767103069703897138%5D.html_Files/b77f22d3ee5d4ac5521f80fc154db8b6-45069.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Vooperia Card Trading#0389" data-user-id="767351238676709408" style="color: rgb(52,152,219)">Vooperia Card Trading</span>
+
+            <span class="chatlog__bot-tag">BOT</span>
+
+        <span class="chatlog__timestamp">21-Nov-20 11:40 PM</span>
+
+            <div class="chatlog__message " data-message-id="779853741103775744" id="message-779853741103775744">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">Joined the server.</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Queensland%20-%20Information%20-%20welcome%20%5B767103069703897138%5D.html_Files/159b7db96b45941c204fceeb064126d5-5515B.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="blueviper10#7486" data-user-id="477124835231662091" style="color: rgb(247,0,243)">blueviper10</span>
+
+
+        <span class="chatlog__timestamp">26-Nov-20 12:42 AM</span>
+
+            <div class="chatlog__message " data-message-id="781318906715308042" id="message-781318906715308042">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">Joined the server.</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Queensland%20-%20Information%20-%20welcome%20%5B767103069703897138%5D.html_Files/b7e3f140e69b8ba731ca668e97061bad-24C5C.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Cowboy#7668" data-user-id="595784672676675585" style="color: rgb(255,202,0)">Cowboy</span>
+
+
+        <span class="chatlog__timestamp">26-Nov-20 11:54 AM</span>
+
+            <div class="chatlog__message " data-message-id="781487969491746836" id="message-781487969491746836">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">Joined the server.</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Queensland%20-%20Information%20-%20welcome%20%5B767103069703897138%5D.html_Files/bac5e26241afa06f5481ac6698af124d-63F43.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Shadow726#9894" data-user-id="603831960145494049" style="color: rgb(0,255,255)">Shadow726</span>
+
+
+        <span class="chatlog__timestamp">27-Nov-20 11:56 PM</span>
+
+            <div class="chatlog__message " data-message-id="782032198383435776" id="message-782032198383435776">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">Joined the server.</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Queensland%20-%20Information%20-%20welcome%20%5B767103069703897138%5D.html_Files/b28bf917090fcf82b62ff381b52074eb-A52D0.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="✠ Red_Kaiser ✠#7719" data-user-id="438508633903595542" style="color: rgb(247,0,243)">✠ Red_Kaiser ✠</span>
+
+
+        <span class="chatlog__timestamp">29-Nov-20 04:03 AM</span>
+
+            <div class="chatlog__message " data-message-id="782456706889547776" id="message-782456706889547776">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">Joined the server.</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Queensland%20-%20Information%20-%20welcome%20%5B767103069703897138%5D.html_Files/0c483d26d86e32bc2c20c6385c02b703-BA987.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Ross#4529" data-user-id="601172250393051146" style="">Ross</span>
+
+
+        <span class="chatlog__timestamp">29-Nov-20 04:46 PM</span>
+
+            <div class="chatlog__message " data-message-id="782648784345104395" id="message-782648784345104395">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">Joined the server.</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Queensland%20-%20Information%20-%20welcome%20%5B767103069703897138%5D.html_Files/9298c8ef5f131c9d2e050b37e6649aa0-607AC.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Tyco#0410" data-user-id="339896226122301440" style="color: rgb(247,0,243)">Tyco</span>
+
+
+        <span class="chatlog__timestamp">29-Nov-20 04:49 PM</span>
+
+            <div class="chatlog__message " data-message-id="782649470240030770" id="message-782649470240030770">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">Joined the server.</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Queensland%20-%20Information%20-%20welcome%20%5B767103069703897138%5D.html_Files/765c3b1c668de93a71c2041966a338ac-F019B.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Pope Francis#0001" data-user-id="153555060926840833" style="color: rgb(247,0,243)">Pope Francis</span>
+
+
+        <span class="chatlog__timestamp">29-Nov-20 04:57 PM</span>
+
+            <div class="chatlog__message " data-message-id="782651400047951882" id="message-782651400047951882">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">Joined the server.</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Queensland%20-%20Information%20-%20welcome%20%5B767103069703897138%5D.html_Files/8c176f5949a0fd015dc65631b8b21d0e-65000.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Olirules10#3047" data-user-id="442724872326479899" style="color: rgb(247,0,243)">Olirules10</span>
+
+
+        <span class="chatlog__timestamp">29-Nov-20 05:00 PM</span>
+
+            <div class="chatlog__message " data-message-id="782652314036207626" id="message-782652314036207626">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">Joined the server.</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Queensland%20-%20Information%20-%20welcome%20%5B767103069703897138%5D.html_Files/9998ce9288516b8c005d8d9fe4afe871-CB6A8.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Lukethebillsfan#1831" data-user-id="782720217448448041" style="color: rgb(0,255,255)">Lukethebillsfan</span>
+
+
+        <span class="chatlog__timestamp">29-Nov-20 10:00 PM</span>
+
+            <div class="chatlog__message " data-message-id="782727818542448660" id="message-782727818542448660">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">Joined the server.</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Queensland%20-%20Information%20-%20welcome%20%5B767103069703897138%5D.html_Files/6706502283e7ae8c82d15f81383916c2-351DA.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Atsuya#7987" data-user-id="382153049910804482" style="color: rgb(0,255,255)">Atsuya</span>
+
+
+        <span class="chatlog__timestamp">30-Nov-20 09:57 AM</span>
+
+            <div class="chatlog__message " data-message-id="782908080215425034" id="message-782908080215425034">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">Joined the server.</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Queensland%20-%20Information%20-%20welcome%20%5B767103069703897138%5D.html_Files/c3d0ad72d2311f9455b28295114464c9-6A7EC.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Elmo#4875" data-user-id="401965737322872851" style="color: rgb(255,202,0)">Elmo</span>
+
+
+        <span class="chatlog__timestamp">01-Dec-20 11:46 AM</span>
+
+            <div class="chatlog__message " data-message-id="783297937039294464" id="message-783297937039294464">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">Joined the server.</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Queensland%20-%20Information%20-%20welcome%20%5B767103069703897138%5D.html_Files/233085dbb374e51844d41854beed4db8-7648F.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Bip#6332" data-user-id="735604606138318909" style="">Bip</span>
+
+
+        <span class="chatlog__timestamp">03-Dec-20 02:49 AM</span>
+
+            <div class="chatlog__message " data-message-id="783887576037326908" id="message-783887576037326908">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">Joined the server.</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Queensland%20-%20Information%20-%20welcome%20%5B767103069703897138%5D.html_Files/53aca7be6856922c092d0626faa2ad6e-17FEA.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="GA Trains#9894" data-user-id="540578857367896067" style="color: rgb(0,255,255)">GA Trains</span>
+
+
+        <span class="chatlog__timestamp">03-Dec-20 06:34 PM</span>
+
+            <div class="chatlog__message " data-message-id="784125531352203345" id="message-784125531352203345">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">Joined the server.</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Queensland%20-%20Information%20-%20welcome%20%5B767103069703897138%5D.html_Files/fc4e3b9e1c42e3d6041bc1c25aba6fc4-4C13A.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="WizardCraft568#6629" data-user-id="297763026956845057" style="color: rgb(247,0,243)">WizardCraft568</span>
+
+
+        <span class="chatlog__timestamp">04-Dec-20 12:27 AM</span>
+
+            <div class="chatlog__message " data-message-id="784214256312123412" id="message-784214256312123412">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">Joined the server.</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Queensland%20-%20Information%20-%20welcome%20%5B767103069703897138%5D.html_Files/08cd01dc841afcb34e97e4c0a3a87b85-70337.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Allegate#2876" data-user-id="545498476704825344" style="color: rgb(247,0,243)">Allegate</span>
+
+
+        <span class="chatlog__timestamp">06-Dec-20 06:48 AM</span>
+
+            <div class="chatlog__message " data-message-id="785034898225758208" id="message-785034898225758208">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">Joined the server.</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Queensland%20-%20Information%20-%20welcome%20%5B767103069703897138%5D.html_Files/a_ef157e0c83ea50c313703461a3e8f49b-4727D.gif" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="willywonkapants#0069" data-user-id="535209261446463498" style="">willywonkapants</span>
+
+
+        <span class="chatlog__timestamp">07-Dec-20 04:32 PM</span>
+
+            <div class="chatlog__message " data-message-id="785544364432031854" id="message-785544364432031854">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">Joined the server.</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Queensland%20-%20Information%20-%20welcome%20%5B767103069703897138%5D.html_Files/923dabe09b27ccc277b3d6a5c99c501a-A497E.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="LukaPlayz#5212" data-user-id="400795110394036224" style="color: rgb(247,0,243)">LukaPlayz</span>
+
+
+        <span class="chatlog__timestamp">07-Dec-20 04:44 PM</span>
+
+            <div class="chatlog__message " data-message-id="785547411518390292" id="message-785547411518390292">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">Joined the server.</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Queensland%20-%20Information%20-%20welcome%20%5B767103069703897138%5D.html_Files/f4c5750d99dbc036c9fd1e355b5caf33-CDC1C.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Niami#7504" data-user-id="333639017944055809" style="">Niami</span>
+
+
+        <span class="chatlog__timestamp">13-Dec-20 03:15 PM</span>
+
+            <div class="chatlog__message " data-message-id="787699244575621131" id="message-787699244575621131">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">Joined the server.</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Queensland%20-%20Information%20-%20welcome%20%5B767103069703897138%5D.html_Files/0b304796899dd174b9d535694d7e3894-C0F92.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Imstillstuckinquarantine#8559" data-user-id="691331998907760740" style="color: rgb(247,0,243)">Imstillstuckinquarantine</span>
+
+
+        <span class="chatlog__timestamp">14-Dec-20 05:54 AM</span>
+
+            <div class="chatlog__message " data-message-id="787920545827520572" id="message-787920545827520572">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">Joined the server.</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Queensland%20-%20Information%20-%20welcome%20%5B767103069703897138%5D.html_Files/66d02faff8636ec5bfb8ed261bd4de6f-37F6B.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Blob&#39;s old account#2022" data-user-id="788582350980251659" style="color: rgb(0,255,255)">Blob&#39;s old account</span>
+
+
+        <span class="chatlog__timestamp">16-Dec-20 11:03 PM</span>
+
+            <div class="chatlog__message " data-message-id="788904103408959508" id="message-788904103408959508">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">Joined the server.</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Queensland%20-%20Information%20-%20welcome%20%5B767103069703897138%5D.html_Files/f4c5750d99dbc036c9fd1e355b5caf33-CDC1C.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Niami#7504" data-user-id="333639017944055809" style="">Niami</span>
+
+
+        <span class="chatlog__timestamp">19-Dec-20 01:35 AM</span>
+
+            <div class="chatlog__message " data-message-id="789667306459496458" id="message-789667306459496458">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">Joined the server.</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Queensland%20-%20Information%20-%20welcome%20%5B767103069703897138%5D.html_Files/cf3f1d5e21161495f42b69373e5bc60c-3BD3F.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="The_Meta_Panda#2368" data-user-id="562472518095732767" style="color: rgb(0,255,255)">The_Meta_Panda</span>
+
+
+        <span class="chatlog__timestamp">22-Dec-20 07:46 AM</span>
+
+            <div class="chatlog__message " data-message-id="790847608024334346" id="message-790847608024334346">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">Joined the server.</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Queensland%20-%20Information%20-%20welcome%20%5B767103069703897138%5D.html_Files/f4c5750d99dbc036c9fd1e355b5caf33-CDC1C.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Niami#7504" data-user-id="333639017944055809" style="">Niami</span>
+
+
+        <span class="chatlog__timestamp">26-Dec-20 04:42 PM</span>
+
+            <div class="chatlog__message " data-message-id="792432055358849044" id="message-792432055358849044">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">Joined the server.</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Queensland%20-%20Information%20-%20welcome%20%5B767103069703897138%5D.html_Files/4a38610173e0bf65dbe56da46686e49e-636D3.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="thanos#9160" data-user-id="692763113216278598" style="color: rgb(0,255,255)">thanos</span>
+
+
+        <span class="chatlog__timestamp">03-Jan-21 09:14 PM</span>
+
+            <div class="chatlog__message " data-message-id="795399770621476864" id="message-795399770621476864">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">Joined the server.</span>
+
+                        </div>
+                    </div>
+
+
+
+                    <div class="chatlog__reactions">
+                            <div class="chatlog__reaction">
+                                <img class="emoji emoji--small" alt="&#128557;" title="&#128557;" src="Queensland%20-%20Information%20-%20welcome%20%5B767103069703897138%5D.html_Files/1f62d-FE9EC.png">
+                                <span class="chatlog__reaction-count">1</span>
+                            </div>
+                            <div class="chatlog__reaction">
+                                <img class="emoji emoji--small" alt="&#128064;" title="&#128064;" src="Queensland%20-%20Information%20-%20welcome%20%5B767103069703897138%5D.html_Files/1f440-51DEA.png">
+                                <span class="chatlog__reaction-count">1</span>
+                            </div>
+                    </div>
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Queensland%20-%20Information%20-%20welcome%20%5B767103069703897138%5D.html_Files/699687c36ee2d825e87f94ab81afb1dd-01F9C.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="SVArchiver#0371" data-user-id="798914519299653683" style="color: rgb(52,152,219)">SVArchiver</span>
+
+            <span class="chatlog__bot-tag">BOT</span>
+
+        <span class="chatlog__timestamp">14-Jan-21 08:20 PM</span>
+
+            <div class="chatlog__message " data-message-id="799372478605688832" id="message-799372478605688832">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">Joined the server.</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+</div>
+
+<div class="postamble">
+    <div class="postamble__entry">Exported 97 message(s)</div>
+</div>
+
+</body>
+
+</html>
